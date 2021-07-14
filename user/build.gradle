@@ -1,0 +1,24 @@
+ext {
+    mysqlVersion = '8.0.25'
+}
+
+jar {
+    enabled(false)
+}
+bootJar {
+    enabled(true)
+}
+
+dependencies {
+    implementation(
+            "org.springdoc:springdoc-openapi-ui:${openapiVersion}",
+            "org.springdoc:springdoc-openapi-security:${openapiVersion}",
+//            "org.springframework.cloud:spring-cloud-starter-oauth2",
+//            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+
+    )
+    runtimeOnly(
+            "mysql:mysql-connector-java:${mysqlVersion}"
+    )
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
