@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 角色聚合根
+ * 角色实体
  *
  * @author 夏露桂
  * @since 2021/7/14 19:38
