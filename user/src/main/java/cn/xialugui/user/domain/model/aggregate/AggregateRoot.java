@@ -1,4 +1,4 @@
-package cn.xialugui.user.domain.aggregate;
+package cn.xialugui.user.domain.model.aggregate;
 
 import lombok.Getter;
 import lombok.Setter;

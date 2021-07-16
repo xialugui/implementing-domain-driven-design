@@ -1,4 +1,4 @@
-package cn.xialugui.user.domain.entity;
+package cn.xialugui.user.domain.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
