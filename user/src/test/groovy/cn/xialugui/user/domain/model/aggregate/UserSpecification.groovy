@@ -4,6 +4,7 @@ import cn.xialugui.user.domain.model.command.CreateCommand
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title
+import spock.lang.Unroll
 
 /**
  *
@@ -14,6 +15,7 @@ import spock.lang.Title
 class UserSpecification extends Specification {
 
 
+    @Unroll('密码：#password，结果：#result')
     def '创建用户时，密码必须合规'() {
         when: '创建用户'
         User user = new User(new CreateCommand(
