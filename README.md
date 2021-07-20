@@ -1,8 +1,8 @@
 # 基于Spring Boot、Spring Cloud的领域驱动设计实践
 
-## 界限上下文
+## 限界上下文
 
-1. 用户与访问
+1. 权限与访问
 
 ## 工具
 
@@ -15,7 +15,11 @@
 
 
 
+# 参考资料
+1. [实现领域驱动设计][ddd-implementation]
 
 [Spock]: https://spockframework.org/
 
 [yuque-spock]: https://www.yuque.com/lugew/spock
+
+[ddd-implementation]: https://kdocs.cn/l/sbM4tTbSgK6m
