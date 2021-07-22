@@ -1,2 +1,2 @@
 rootProject.name = 'domain-driven-design'
-include('user')
+include('identity-access')
