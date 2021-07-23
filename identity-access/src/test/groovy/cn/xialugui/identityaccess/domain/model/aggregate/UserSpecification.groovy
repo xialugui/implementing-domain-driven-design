@@ -1,6 +1,7 @@
 package cn.xialugui.identityaccess.domain.model.aggregate
 
-import cn.xialugui.identityaccess.domain.model.command.CreateCommand
+import cn.xialugui.identityaccess.domain.model.user.CreateCommand
+import cn.xialugui.identityaccess.domain.model.user.aggregate.User
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title

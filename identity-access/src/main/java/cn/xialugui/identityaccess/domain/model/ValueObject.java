@@ -1,4 +1,6 @@
-package cn.xialugui.identityaccess.domain.model.valueobject;
+package cn.xialugui.identityaccess.domain.model;
+
+import java.io.Serializable;
 
 /**
  * 值对象，概念类似整数。
@@ -6,7 +8,7 @@ package cn.xialugui.identityaccess.domain.model.valueobject;
  * @author 夏露桂
  * @since 2021/4/9 18:55
  */
-public abstract class ValueObject<T> {
+public abstract class ValueObject<T> implements Serializable {
     @Override
     public boolean equals(Object object) {
         if (object == null) {
@@ -19,12 +21,13 @@ public abstract class ValueObject<T> {
         return equalsTo(valueObject);
     }
 
-    @Override
+
+    protected abstract boolean equalsTo(T other);
+
+    /*@Override
     public int hashCode() {
         return getHashCode();
     }
 
-    protected abstract boolean equalsTo(T other);
-
-    protected abstract int getHashCode();
+    protected abstract int getHashCode();*/
 }

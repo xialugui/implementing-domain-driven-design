@@ -1,5 +1,7 @@
-package cn.xialugui.identityaccess.domain.model.valueobject;
+package cn.xialugui.identityaccess.domain.model.user.valueobject;
 
+import cn.xialugui.identityaccess.domain.model.ValueObject;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +12,9 @@ import lombok.Setter;
  * @since 2021/7/15 17:50
  */
 @Getter
-@Setter
-public final class Password extends SinglePropertyValueObject<Password> {
+@Setter(AccessLevel.PRIVATE)
+public final class Password extends ValueObject<Password> {
+    private String password;
     /**
      * 数字和字母组成，并且要同时含有数字和字母，且长度要在8-16位之间。
      */
@@ -21,6 +24,11 @@ public final class Password extends SinglePropertyValueObject<Password> {
         if (!password.matches(regularExpression)) {
             throw new IllegalArgumentException("密码非法");
         }
-        setValue(password);
+        setPassword(password);
+    }
+
+    @Override
+    protected boolean equalsTo(Password other) {
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.domain.model.command;
+package cn.xialugui.identityaccess.domain.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
