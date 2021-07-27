@@ -1,15 +1,15 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate;
 
-import cn.xialugui.identityaccess.domain.model.role.aggragate.Role;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.CreateCommand;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import java.util.Set;
 
 /**
@@ -44,15 +44,16 @@ public final class User extends AbstractAggregateRoot<User> {
      * <p>
      * {@code @ManyToMany(targetEntity = Role.class}
      * <br>
-     * {@code private Set<RoleId> roleIds;}
+     * {@code private Set<Role> Role;}
      * </p>
-     * 在多对多关系下，引用标识符无法生成中间表，所以在此处选择对象引用。
-     * 另外Hibernate默认采用的是懒加载技术，虽然会有一定的性能损耗，但是
-     * 其效果和标识符引用相差不大。再者此种方式对用户界面的显示也有一定的帮助。
-     * 综合来讲暂时选用对象引用技术。
+     * 对象引用带来的问题是每次加载的内存消耗，如果集合数量庞大，那么
+     * 代价是非常巨大的。虽然Hibernate拥有懒加载机制，但我们仍不建议使用。
+     * <p>
+     * 当然，对象引用的好处是方便UI层显示，但有时坚持原则的好处更大。
+     *
      */
-    @ManyToMany(targetEntity = Role.class)
-    private Set<Role> roles;
+    @ElementCollection
+    private Set<RoleId> roleIds;
 
     public User(CreateCommand command) {
         this.password = new Password(command.getPassword());

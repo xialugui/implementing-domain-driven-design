@@ -1,2 +1,3 @@
 rootProject.name = 'domain-driven-design'
 include('identity-access')
+include('file-collaboration')

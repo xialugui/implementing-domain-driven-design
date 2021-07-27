@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.domain.model;
+package cn.xialugui.filecollaboration.domain.model;
 
 import java.io.Serializable;
 
@@ -9,14 +9,6 @@ import java.io.Serializable;
  * @since 2021/4/9 18:55
  */
 public abstract class ValueObject<T> implements Serializable {
-
-    /**
-     * 通常来说，在比较相等性
-     * 时，我们将省略掉对非null的检查。
-     *
-     * @param object 要比较的对象
-     * @return 相等返回true
-     */
     @Override
     public boolean equals(Object object) {
         if (object == null) {
@@ -32,10 +24,6 @@ public abstract class ValueObject<T> implements Serializable {
 
     protected abstract boolean equalsTo(T other);
 
-    /*
-      根据Java标准，hashCode()方法和equals()方法拥有相同的契约，即如果两个
-      对象是相等的，那么它们的hashCode()方法也应该返回相同的结果。
-     */
     /*@Override
     public int hashCode() {
         return getHashCode();

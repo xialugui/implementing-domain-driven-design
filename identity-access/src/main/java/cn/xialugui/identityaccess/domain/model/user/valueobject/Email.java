@@ -15,8 +15,10 @@ import lombok.Setter;
 @Setter(AccessLevel.PRIVATE)
 public final class Email extends ValueObject<Email> {
     private String email;
+    private EmailType emailType;
 
-    public Email(String email) {
+    public Email(String email, EmailType emailType) {
+        setEmailType(emailType);
         setEmail(email);
     }
 
