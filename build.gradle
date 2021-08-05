@@ -62,6 +62,7 @@ subprojects {
         )
         testImplementation(
                 "org.spockframework:spock-core:${spockVersion}",
+                "org.spockframework:spock-spring:${spockVersion}"
         )
     }
     dependencyManagement {

@@ -1,6 +1,7 @@
 ext {
     set('mysqlVersion', '8.0.25')
     set('commonsLang3Version', '3.12.0')
+    set('openapiVersion', '1.5.6')
 }
 
 jar {
@@ -12,14 +13,13 @@ bootJar {
 
 dependencies {
     implementation(
-//            "org.springdoc:springdoc-openapi-ui:${openapiVersion}",
-//            "org.springdoc:springdoc-openapi-security:${openapiVersion}",
+            "org.springdoc:springdoc-openapi-ui:${openapiVersion}",
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-web',
             "org.apache.commons:commons-lang3:${commonsLang3Version}",
 
-//            "org.springframework.cloud:spring-cloud-starter-oauth2",
-//            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+/*            "org.springframework.cloud:spring-cloud-starter-oauth2",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",*/
 
     )
     runtimeOnly(

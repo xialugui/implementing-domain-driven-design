@@ -3,7 +3,10 @@ package cn.xialugui.identityaccess.domain.model.user.valueobject;
 import cn.xialugui.identityaccess.domain.model.ValueObject;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Embeddable;
 
 /**
  * 密码
@@ -13,6 +16,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter(AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 public final class Password extends ValueObject<Password> {
     private String password;
     /**

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.Embeddable;
+
 /**
  * 用户名（在这里使用中文便于阐述概念）
  * 显然用户名可以分为姓和名两个属性，它们是一组相关的属性，用户名不可或缺的组成部分。
@@ -17,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Getter
 @Setter(AccessLevel.PRIVATE)
+@Embeddable
 public final class Username extends ValueObject<Username> {
     /**
      * 如李白，姓李名白，字太白，号青莲居士。
@@ -102,7 +105,7 @@ public final class Username extends ValueObject<Username> {
      * <p>
      * <p>
      * <p>
-     * 可替换性参考{@link NickName}
+     * 可替换性参考{@link Nickname}
      *
      * @param 号 号
      * @return 用户名
@@ -144,7 +147,9 @@ public final class Username extends ValueObject<Username> {
      * 支持字段级别的访问（对象属性）。因此在使用{@code Hibernate}时，我们可以根据自己的需要
      * 来命名方法的名字， 而不会对持久化造成影响。然而，对于其他的一些工具. 要使用富有表达性的接口可能就会有问题了。比
      * 如在使用{@code Java EL或OGNL}时. 你很有可能得不到期望的结果。当然，我们还可以使
-     * 用其他的方式，比如数据传输对象{@code Data Transfer Object，DTO}.该对象提供了{@code getter}方法，
+     * 用其他的方式，比如数据传输对象{@code Data Transfer Object，DTO}.该对象提供了{@code getter}方法
+     * <p>
+     * <p>
      * 它将值对象的属性通过{@code getter}方法暴露给用户界面。{@code DTO}是一个常用的模式。
      * 但是从技术上来说并没有多大必要， 因此。{@code DTO}也不见得是最好的选择。此时，
      * 我们可以考虑使用展现模型{@code Presentation Model}。由于展现模型实现了适配器模式，

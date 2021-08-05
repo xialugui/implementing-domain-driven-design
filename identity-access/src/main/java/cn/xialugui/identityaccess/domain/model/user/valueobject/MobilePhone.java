@@ -4,7 +4,10 @@ import cn.xialugui.identityaccess.domain.model.ValueObject;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Embeddable;
 
 /**
  * 手机号
@@ -14,6 +17,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter(AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 public final class MobilePhone extends ValueObject<MobilePhone> {
     private String mobilePhone;
 

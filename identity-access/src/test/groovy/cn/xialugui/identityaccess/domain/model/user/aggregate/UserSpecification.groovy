@@ -1,6 +1,6 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate
 
-import cn.xialugui.identityaccess.domain.model.user.CreateCommand
+import cn.xialugui.identityaccess.application.user.CreateCommand
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title
@@ -29,4 +29,6 @@ class UserSpecification extends Specification {
         12          || IllegalArgumentException
         12123123123 || IllegalArgumentException
     }
+
+
 }

@@ -1,9 +1,13 @@
 package cn.xialugui.identityaccess.domain.model.user.valueobject;
 
 import cn.xialugui.identityaccess.domain.model.ValueObject;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * 用户ID值对象。

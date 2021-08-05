@@ -20,7 +20,7 @@
  *      </li>
  *      <li>
  *          当其发生改变时，可以用另一个值对象予以替换，
- *          详情参考{@link cn.xialugui.identityaccess.domain.model.user.valueobject.NickName}
+ *          详情参考{@link cn.xialugui.identityaccess.domain.model.user.valueobject.Nickname}
  *      </li>
  *      <li>
  *          可以比较，
