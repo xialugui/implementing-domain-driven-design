@@ -18,8 +18,8 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-web',
             "org.apache.commons:commons-lang3:${commonsLang3Version}",
 
-/*            "org.springframework.cloud:spring-cloud-starter-oauth2",
-            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",*/
+            "org.springframework.cloud:spring-cloud-starter-oauth2",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
 
     )
     runtimeOnly(

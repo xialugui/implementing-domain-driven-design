@@ -2,6 +2,8 @@ package cn.xialugui.identityaccess.domain.model.user.repository;
 
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Nickname;
+import cn.xialugui.identityaccess.domain.model.user.valueobject.UserId;
+import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -66,7 +68,12 @@ public class UserCollection implements UserRepositoryForCollection {
 
     public static void main(String[] args) {
         UserCollection collection = new UserCollection();
-        collection.add(new User());
+        collection.add(new User(
+                new UserId("11"),
+                new Username("李", "白", "太白", "青莲居士"),
+                new Nickname("二类"),
+                null, null,
+                null));
         User user = collection.get(0);
         user.changeNickname(new Nickname("李宝"));
         //在这里我们并没有必要也不存在对当前用户保存的方法，保存是隐式的。

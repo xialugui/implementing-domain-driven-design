@@ -1,10 +1,11 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate;
 
-import cn.xialugui.identityaccess.application.user.CreateCommand;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.ElementCollection;
@@ -26,6 +27,7 @@ import java.util.Set;
 @Getter
 @Entity
 @NoArgsConstructor
+@Setter(AccessLevel.PROTECTED)
 public final class User extends AbstractAggregateRoot<User> {
     @EmbeddedId
     private UserId id;
@@ -58,8 +60,13 @@ public final class User extends AbstractAggregateRoot<User> {
     @ElementCollection
     private Set<RoleId> roleIds;
 
-    public User(CreateCommand command) {
-        this.password = new Password(command.getPassword());
+    public User(UserId id, Username username, Nickname nickname, Email email, MobilePhone mobilePhone, Password password) {
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+        this.email = email;
+        this.mobilePhone = mobilePhone;
+        this.password = password;
     }
 
     public void changeNickname(Nickname nickname) {

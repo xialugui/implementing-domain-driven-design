@@ -72,7 +72,7 @@ public interface UserRepository extends CrudRepository<User, UserId> {
     int size();
 
     /**
-     * JPA推荐返回值使用领域类型接受或者是合法的映射。
+     * JPA推荐返回值使用领域类型接收或者是合法的映射。
      * 这里我们使用简单的值对象做例子，它和映射是等效的。
      *
      * @param userId 用户id

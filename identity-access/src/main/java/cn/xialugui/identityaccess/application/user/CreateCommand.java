@@ -23,7 +23,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateCommand {
-    private String username;
+    private String 姓;
+    private String 名;
+    private String 字;
+    private String 号;
     private String nickname;
     private String password;
     private String mobilePhone;

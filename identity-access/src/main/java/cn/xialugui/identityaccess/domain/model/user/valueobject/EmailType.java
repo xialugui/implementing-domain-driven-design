@@ -19,8 +19,25 @@ package cn.xialugui.identityaccess.domain.model.user.valueobject;
  * @since 2021/7/27 15:51
  */
 public enum EmailType {
+    UNKNOWN,
     NET_EASE,
     TENCENT,
     ALIBABA,
     BAIDU;
+
+    public static EmailType of(String email) {
+        if (null == email) {
+            return UNKNOWN;
+        } else if (email.endsWith("@163.com")) {
+            return NET_EASE;
+        } else if (email.endsWith("@qq.com")) {
+            return TENCENT;
+        } else if (email.endsWith("@aliyun.com")) {
+            return ALIBABA;
+        } else if (email.endsWith("@baidu.com")) {
+            return BAIDU;
+        } else {
+            return UNKNOWN;
+        }
+    }
 }

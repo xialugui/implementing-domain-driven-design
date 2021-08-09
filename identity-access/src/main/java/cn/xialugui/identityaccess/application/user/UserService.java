@@ -1,5 +1,6 @@
 package cn.xialugui.identityaccess.application.user;
 
+import cn.xialugui.identityaccess.domain.model.user.RegisterService;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
+    private final RegisterService registerService;
 
     /**
      * 注册
@@ -74,6 +76,13 @@ public class UserService {
      */
     @Transactional
     public void register(CreateCommand createCommand) {
+        registerService.register(
+                new Username(createCommand.get姓(), createCommand.get名(), createCommand.get字(), createCommand.get号()),
+                new Nickname(createCommand.getNickname()),
+                createCommand.getPassword(),
+                new MobilePhone(createCommand.getMobilePhone()),
+                new Email(createCommand.getEmail())
+        );
 
     }
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.util.UUID;
 
 /**
  * 用户ID值对象。
@@ -49,6 +50,9 @@ public final class UserId extends ValueObject<UserId> {
         setId(id);
     }
 
+    public static UserId uuid() {
+        return new UserId(UUID.randomUUID().toString());
+    }
     /**
      * {@code private}访问修饰符保证除了构造函数外，任何方法都不能对该对象属性状态进行修改。
      */

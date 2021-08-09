@@ -28,6 +28,11 @@ public final class Email extends ValueObject<Email> {
         setEmail(email);
     }
 
+    public Email(String email) {
+        setEmailType(EmailType.of(email));
+        setEmail(email);
+    }
+
 
     @Override
     protected boolean equalsTo(Email other) {

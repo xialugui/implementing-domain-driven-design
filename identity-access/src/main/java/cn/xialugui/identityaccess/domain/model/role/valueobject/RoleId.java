@@ -29,3 +29,4 @@ public final class RoleId extends ValueObject<RoleId> {
         return StringUtils.equals(getId(), other.getId());
     }
 }
+
