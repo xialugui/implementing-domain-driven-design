@@ -67,6 +67,10 @@ public final class Username extends ValueObject<Username> {
         set号(username.get号());
     }
 
+    public Username(String username) {
+        set号(username);
+    }
+
     /**
      * 一个对象的{@code setter}和{@code getter}方法并不见得只局限于设置对象
      * 的属性值，还可以进行断言操作，这对于通常的软件开发和{@code DDD}模型来说

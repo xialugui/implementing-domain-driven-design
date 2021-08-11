@@ -1,0 +1,18 @@
+server:
+  port: 24001
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+spring:
+  application:
+    name: eureka-server
+  security:
+    basic:
+      enabled: true
+    user:
+      name: user
+      password: y4yhljt

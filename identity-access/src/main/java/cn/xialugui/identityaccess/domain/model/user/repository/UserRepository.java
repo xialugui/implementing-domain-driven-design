@@ -80,4 +80,6 @@ public interface UserRepository extends CrudRepository<User, UserId> {
      */
     @Query("select user.username from User as user where user.id=:#{#userId.id}")
     Username findUsernameByUserId(UserId userId);
+
+    User findByUsername(Username username);
 }

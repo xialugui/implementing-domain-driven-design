@@ -1,7 +1,7 @@
 # 基于Spring Boot、Spring Cloud的领域驱动设计实践
 
 此项目是《实现领域驱动设计》（IMPLEMENTING DOMAIN-DRIVEN DESIGN)
-书籍的实践，将其落地于基于最新的SpringBoot、SpringCloud框架实战项目。
+书籍的实践，将其落地于基于最新的SpringBoot、SpringCloud框架和Spock测试框架。
 
 ## 进度（概念完成度）
 
@@ -10,7 +10,7 @@
 3. 架构✖
 4. 实体✖
 5. 值对象✔
-6. 领域服务✖
+6. 领域服务✔
 7. 领域事件✖
 8. 模块✔
 9. 聚合✔

@@ -12,9 +12,9 @@ spring:
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-#  sql:
-#    init:
-#      data-locations: classpath:sql/init.sql
+  sql:
+    init:
+      data-locations: classpath:sql/*.sql
 logging:
   level:
     org:

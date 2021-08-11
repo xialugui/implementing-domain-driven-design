@@ -1,13 +1,11 @@
 package cn.xialugui.identityaccess.domain.model.user.valueobject;
 
 import cn.xialugui.identityaccess.domain.model.ValueObject;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -45,6 +43,9 @@ public final class UserId extends ValueObject<UserId> {
 
     }
 
+    @CreatedDate
+    private LocalDateTime createdDate;
+
 
     public UserId(String id) {
         setId(id);
@@ -53,6 +54,7 @@ public final class UserId extends ValueObject<UserId> {
     public static UserId uuid() {
         return new UserId(UUID.randomUUID().toString());
     }
+
     /**
      * {@code private}访问修饰符保证除了构造函数外，任何方法都不能对该对象属性状态进行修改。
      */
