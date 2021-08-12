@@ -20,11 +20,54 @@
 13. 应用程序✔
 14. 聚合与事件溯源✖
 
+## 使用方式
+1. 启动`IdentityAccessApplication`应用
+2. 端口：`24000`
+3. H2数据：http://localhost:24000/h2-console
+![img_3.png](image/img_3.png)
+   直接连接：
+   ![img_4.png](image/img_4.png)
+   查询内置数据：
+   ![img_5.png](image/img_5.png)
+4. 接口文档：http://localhost:24000/swagger-ui.html
+![img_1.png](image/img_1.png)
+   目前仅有注册和获取信息两个接口，以注册为例：
+   ![img_6.png](image/img_6.png)![img_7.png](image/img_7.png)
+   
+5. 根据接口熟悉内部流程：
+![img_8.png](image/img_8.png)
+   
+6. 查看每个模块包的`package-info.java`
+![img_9.png](image/img_9.png)
+   每个包的信息文件会仔细介绍DDD相应概念。
+7. 未完待续。
+
+### package-info
+每个包都对应DDD的概念，如
+
+![img_10.png](image/img_10.png)
+
+`valueobject`对应的是值对象，其`package-info`便是值对象的概念详解：
+![img_11.png](image/img_11.png)
+![img_12.png](image/img_12.png)
+
+对概念的实例应用会被蓝字标注：
+![img_13.png](image/img_13.png)
+可跳转直达：
+![img_15.png](image/img_15.png)
+点击
+⏬
+![img_14.png](image/img_14.png)
+。
+
+此举意在将理论落实到实际，讨论清楚为什么会采用代码中的方法，对实际编码的
+好处，及其其它可行的方法，而不是为DDD 而DDD。
+   
 ## 书籍信息
 
 ### 封面
 
-![img.png](img.png)
+![img.png](image/img.png)
 
 ### 在线浏览
 
@@ -91,7 +134,8 @@ Spock是基于Groovy语言的Java测试框架，是Junit的超集。简化了断
 详情可参考：[Spock官网][spock]
 
 也可参考我的翻译：[点击直达][yuque-spock]
-
+##### 测试文件位置
+![img_2.png](image/img_2.png)
 # 参考资料
 
 1. [实现领域驱动设计][ddd-implementation]
