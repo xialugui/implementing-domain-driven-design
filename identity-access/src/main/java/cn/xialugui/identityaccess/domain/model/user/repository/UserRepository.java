@@ -3,8 +3,12 @@ package cn.xialugui.identityaccess.domain.model.user.repository;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.UserId;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
+import cn.xialugui.identityaccess.resources.user.UserDetailsProjection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * 面向持久化设计的资源库
@@ -61,14 +65,14 @@ import org.springframework.data.repository.CrudRepository;
  * @author 夏露桂
  * @since 2021/8/5 14:58
  */
-public interface UserRepository extends CrudRepository<User, UserId> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
      * 查询用户聚合的数量
      *
      * @return 总数
      */
-    @Query("select count(distinct id) from User")
+    @Query("select count(distinct userId) from User")
     int size();
 
     /**
@@ -78,8 +82,19 @@ public interface UserRepository extends CrudRepository<User, UserId> {
      * @param userId 用户id
      * @return 用户名
      */
-    @Query("select user.username from User as user where user.id=:#{#userId.id}")
+    @Query("select user.username from User as user where user.userId=:#{#userId.userId}")
     Username findUsernameByUserId(UserId userId);
 
     User findByUsername(Username username);
+
+    Optional<UserDetailsProjection> findByUserId(UserId userId);
+
+    /**
+     * 将唯一标识的生成放在资源库中是一种自然的选择。
+     *
+     * @return 用户id
+     */
+    default UserId nextIdentity() {
+        return new UserId(UUID.randomUUID().toString());
+    }
 }

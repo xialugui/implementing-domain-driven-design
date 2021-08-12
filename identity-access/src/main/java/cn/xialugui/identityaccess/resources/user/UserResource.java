@@ -2,7 +2,6 @@ package cn.xialugui.identityaccess.resources.user;
 
 import cn.xialugui.identityaccess.application.user.CreateCommand;
 import cn.xialugui.identityaccess.application.user.UserService;
-import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,10 +24,10 @@ public class UserResource {
         userService.register(createCommand);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{userId}")
     @Operation(summary = "获取信息")
-    public User info(@PathVariable String id) {
-        return new User();
+    public UserDetailsProjection detailsOf(@PathVariable String userId) {
+        return userService.detailsOf(userId);
     }
 
 }

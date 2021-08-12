@@ -1,11 +1,10 @@
 package cn.xialugui.identityaccess.domain.model.user.valueobject;
 
+import cn.xialugui.identityaccess.domain.model.Identifier;
 import cn.xialugui.identityaccess.domain.model.ValueObject;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Embeddable;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -16,7 +15,7 @@ import java.util.UUID;
  *          度量或描述<br>
  *          用户ID描述了用户的id概念。
  *      </li>
- *      <li>不可变性见{@link #UserId(String id)},{@link #UserId()}</li>
+ *      <li>不可变性见{@link #UserId(String userId)},{@link #UserId()}</li>
  *  </ul>
  * </p>
  *
@@ -25,7 +24,7 @@ import java.util.UUID;
  */
 @Getter
 @Embeddable
-public final class UserId extends ValueObject<UserId> {
+public final class UserId extends ValueObject<UserId> implements Identifier {
 
     /**
      * 我们不建议在值对象中维持对实体对象的引用，在引用对象状态改变的情况下
@@ -34,7 +33,7 @@ public final class UserId extends ValueObject<UserId> {
      * {@code private Role role;}
      * </p>
      */
-    private String id;
+    private String userId;
 
     /**
      * 保护的构造函数，确保只有一个公开的初始化构造函数{@link #UserId(String id)}。
@@ -43,12 +42,13 @@ public final class UserId extends ValueObject<UserId> {
 
     }
 
-    @CreatedDate
-    private LocalDateTime createdDate;
-
-
-    public UserId(String id) {
-        setId(id);
+    /**
+     * 我们可以使用ID中的创建时间向外界暴露，此外我们也可以
+     * 使用其它值对象来表示。
+     */
+    //private LocalDateTime createdDate;
+    public UserId(String userId) {
+        setUserId(userId);
     }
 
     public static UserId uuid() {
@@ -58,12 +58,12 @@ public final class UserId extends ValueObject<UserId> {
     /**
      * {@code private}访问修饰符保证除了构造函数外，任何方法都不能对该对象属性状态进行修改。
      */
-    private void setId(String id) {
-        this.id = id;
+    private void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override
     protected boolean equalsTo(UserId other) {
-        return false;
+        return getUserId().equals(other.getUserId());
     }
 }

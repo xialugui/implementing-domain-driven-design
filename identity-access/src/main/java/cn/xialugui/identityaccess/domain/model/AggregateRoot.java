@@ -15,7 +15,6 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 @Getter
 @Setter
 public abstract class AggregateRoot<Root extends AbstractAggregateRoot<Root>> extends AbstractAggregateRoot<Root> {
-    protected Long id;
 
     @Override
     public boolean equals(Object obj) {
@@ -28,9 +27,9 @@ public abstract class AggregateRoot<Root extends AbstractAggregateRoot<Root>> ex
             return true;
         if (!this.getClass().equals(other.getClass()))
             return false;
-        if (null == getId() || null == other.getId())
-            return false;
         //id相等则视为同一对象
-        return getId().equals(other.getId());
+        return equalsTo(other);
     }
+
+    public abstract boolean equalsTo(AggregateRoot<Root> aggregateRoot);
 }

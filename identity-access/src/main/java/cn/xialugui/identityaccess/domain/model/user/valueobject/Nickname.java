@@ -43,4 +43,9 @@ public final class Nickname extends ValueObject<Nickname> {
     protected boolean equalsTo(Nickname other) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return getNickname();
+    }
 }

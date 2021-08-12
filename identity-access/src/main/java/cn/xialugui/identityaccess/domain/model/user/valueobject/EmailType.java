@@ -23,6 +23,7 @@ public enum EmailType {
     NET_EASE,
     TENCENT,
     ALIBABA,
+    CMCC,
     BAIDU;
 
     public static EmailType of(String email) {
@@ -34,6 +35,8 @@ public enum EmailType {
             return TENCENT;
         } else if (email.endsWith("@aliyun.com")) {
             return ALIBABA;
+        } else if (email.endsWith("@139.com")) {
+            return CMCC;
         } else if (email.endsWith("@baidu.com")) {
             return BAIDU;
         } else {

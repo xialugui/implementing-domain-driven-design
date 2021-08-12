@@ -1,15 +1,17 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate;
 
+import cn.xialugui.identityaccess.domain.ValidationNotificationHandler;
+import cn.xialugui.identityaccess.domain.model.Identifier;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
+import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.AbstractAggregateRoot;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.ElementCollection;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.util.Set;
 
@@ -28,9 +30,15 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
-public final class User extends AbstractAggregateRoot<User> {
-    @EmbeddedId
-    private UserId id;
+public final class User extends cn.xialugui.identityaccess.domain.model.Entity {
+    /**
+     * 有人会疑惑，为什么唯一标识不适用简单的字符串。
+     * <p>
+     * 唯一标识会在很多地方使用，不同的上下文，不同的实体。此时使用强类型使它们
+     * 更容易被识别。
+     * </p>
+     */
+    private UserId userId;
     private Username username;
     private Nickname nickname;
     private Email email;
@@ -60,17 +68,86 @@ public final class User extends AbstractAggregateRoot<User> {
     @ElementCollection
     private Set<RoleId> roleIds;
 
-    public User(UserId id, Username username, Nickname nickname, Email email, MobilePhone mobilePhone, Password password) {
-        this.id = id;
+    /**
+     * 我们有时必须保证，参数的非空性，这时我们可以使用类似唯一标识维持稳定性的方式进行自封装。参考{@link #setUserId(UserId)},
+     * {@link #setUsername(Username)}。
+     * <br>
+     * 对于一些复杂的情况，我们可以使用工厂。工厂参考{@link }
+     *
+     * @param userId      用户id
+     * @param username    用户名
+     * @param nickname    昵称
+     * @param email       邮箱
+     * @param mobilePhone 手机号
+     * @param password    密码
+     */
+    public User(UserId userId, Username username, Nickname nickname, Email email, MobilePhone mobilePhone, Password password) {
+        setUserId(userId);
+        setUsername(username);
+        setNickname(nickname);
+        setEmail(email);
+        setMobilePhone(mobilePhone);
+        setPassword(password);
+    }
+
+    protected void setUsername(Username username) {
+        if (username == null) {
+            throw new IllegalArgumentException("用户名不能为空");
+        }
         this.username = username;
+    }
+
+    /**
+     * 我们可以将标识的setter方法向客户隐藏起来。我们也可以在setter方法种添加逻辑以确保标
+     * 识在已经存在的情况下不会再被更新， 比如可以使用一些断言语句。这种方式是良好自封装性的体现。
+     * 自封装性要求无论以哪种方式访问数据，即使从对象内部访问数据，都必须通过getter和setter方法。
+     *
+     * @param userId 用户id
+     */
+    protected void setUserId(UserId userId) {
+        if (null != getUserId()) {
+            throw new IllegalArgumentException("用户id不能更改");
+        }
+        if (null == userId) {
+            throw new IllegalArgumentException("用户id不能为空");
+        }
+        this.userId = userId;
+    }
+
+    /**
+     * 自封装为对象的实例变量和类变量提供了一层抽象。使我们可以方便地在对象中访问其所引用对象的属性。
+     * 更重要的是，自封装性使验证变得非常简单。这种设计还可以在{@link Password#Password(String, PasswordEncoder)}中看到。
+     */
+    public void setNickname(Nickname nickname) {
+        if (null == nickname) {
+            throw new IllegalArgumentException("昵称不能为空不能为空");
+        }
         this.nickname = nickname;
-        this.email = email;
-        this.mobilePhone = mobilePhone;
-        this.password = password;
     }
 
     public void changeNickname(Nickname nickname) {
         this.nickname = nickname;
+    }
+
+    /**
+     * 虽然有时实体中的所有单个属性都是合法的， 但是这并不意味着整个实体就
+     * 是合法的。要验证整个实体，我们需要访问整个对象的状态——所有对象属性。
+     * 由于验证逻辑需要访问实体的所有状态，有人可能会直接将验证逻辑嵌入到
+     * 实体对象中。这里我们需要注意了，更多的时候验证逻辑比领域对象本身变化还
+     * 快，而将验证逻辑嵌入在领域对象中也使领域对象承担了太多的职责。
+     * 此时我们可以创建一个单独的组件来完成模型验证。任何继承自{@link cn.xialugui.identityaccess.domain.model.Entity}的类
+     * 都可以安全地调用{@link cn.xialugui.identityaccess.domain.model.Entity#validate(ValidationNotificationHandler)}方法。
+     *
+     * @param validationNotificationHandler 验证通知
+     */
+    @Override
+    public void validate(ValidationNotificationHandler validationNotificationHandler) {
+        new UserValidator(this, validationNotificationHandler).validate();
+    }
+
+    @Override
+    public Identifier identifier() {
+        return getUserId();
     }
 }
 

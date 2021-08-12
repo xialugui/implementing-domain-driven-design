@@ -25,7 +25,7 @@ class UserRepositorySpecification extends Specification {
     def "添加"() {
         when: '添加一个用户'
         repository.save(new User(
-                id: new UserId("123"),
+                userId: new UserId("123"),
                 email: new Email("1", EmailType.NET_EASE)
         ))
         then: '确实增加了'

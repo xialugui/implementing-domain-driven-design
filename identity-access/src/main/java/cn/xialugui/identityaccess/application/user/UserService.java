@@ -3,6 +3,7 @@ package cn.xialugui.identityaccess.application.user;
 import cn.xialugui.identityaccess.domain.model.user.RegisterService;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
+import cn.xialugui.identityaccess.resources.user.UserDetailsProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -96,5 +97,10 @@ public class UserService {
     @Transactional
     public void doTransaction() {
 
+    }
+
+    public UserDetailsProjection detailsOf(String userId) {
+        return repository.findByUserId(new UserId(userId))
+                .orElseThrow(() -> new IllegalArgumentException("不存在"));
     }
 }
