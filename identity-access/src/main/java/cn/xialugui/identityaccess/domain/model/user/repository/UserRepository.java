@@ -85,7 +85,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select user.username from User as user where user.userId=:#{#userId.userId}")
     Username findUsernameByUserId(UserId userId);
 
-    User findByUsername(Username username);
+    User findByUsername_字(String 字);
 
     Optional<UserDetailsProjection> findByUserId(UserId userId);
 

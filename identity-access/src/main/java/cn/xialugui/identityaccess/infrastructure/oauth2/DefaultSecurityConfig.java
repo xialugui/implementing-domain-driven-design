@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class DefaultSecurityConfig {
     private static final String[] EXCLUDE_URLS = {
-            "/users/**",
+            "/users",
             "/**/*.js",
             "/**/*.css",
             "/**/*.gif",
@@ -38,7 +38,8 @@ public class DefaultSecurityConfig {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+        ;
         return http.build();
     }
 

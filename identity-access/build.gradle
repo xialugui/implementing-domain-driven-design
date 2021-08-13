@@ -5,7 +5,7 @@ ext {
     set('authorizationServer', '0.1.2')
     set('h2Version', '1.4.200')
     set('passayVersion', '1.6.1')
-
+    set('winsinVersion', '1.2.9')
 }
 
 jar {
@@ -25,12 +25,13 @@ dependencies {
             "org.springframework.security.experimental:spring-security-oauth2-authorization-server:${authorizationServer}",
 //            "org.springframework.cloud:spring-cloud-starter-oauth2",
 //            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
-            "org.passay:passay:${passayVersion}"
-
+            "org.passay:passay:${passayVersion}",
+            "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
     )
     runtimeOnly(
 //            "mysql:mysql-connector-java:${mysqlVersion}"
-            "com.h2database:h2:${h2Version}"
+            "com.h2database:h2:${h2Version}",
+            'org.springframework.boot:spring-boot-starter-actuator',
     )
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
