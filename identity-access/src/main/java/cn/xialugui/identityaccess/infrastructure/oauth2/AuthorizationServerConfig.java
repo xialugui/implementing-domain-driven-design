@@ -31,6 +31,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * 目前spring-security-oauth2-authorization-server项目尚在实验阶段，
+ * 存在一些bug，仅能使用最基本的功能。
+ */
 @Configuration(proxyBeanMethods = false)
 @AllArgsConstructor
 public class AuthorizationServerConfig {
@@ -49,17 +53,20 @@ public class AuthorizationServerConfig {
                 .clientId("ddd")
                 .clientSecret(passwordEncoder.encode("ddd"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                //目前CLIENT_SECRET_BASIC存在bug，官方将在0.2.0版本修复
+//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .redirectUri("https://www.baidu.com")
                 .clientSecretExpiresAt(Instant.MAX)
+                .clientSettings(clientSettings -> clientSettings.requireUserConsent(true))
                 .scope(OidcScopes.OPENID)
                 .scope("ddd.read")
                 .scope("ddd.write")
                 .build();
 
-        // Save registered client in db as if in-memory
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
         registeredClientRepository.save(registeredClient);
 

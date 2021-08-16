@@ -6,15 +6,16 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MYSQL;
+    url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-#  sql:
-#    init:
-#      data-locations: classpath:sql/init.sql
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: classpath:sql/*.sql
 logging:
   level:
     org:

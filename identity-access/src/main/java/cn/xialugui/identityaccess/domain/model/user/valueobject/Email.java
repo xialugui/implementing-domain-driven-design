@@ -38,4 +38,9 @@ public final class Email extends ValueObject<Email> {
     protected boolean equalsTo(Email other) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return email;
+    }
 }

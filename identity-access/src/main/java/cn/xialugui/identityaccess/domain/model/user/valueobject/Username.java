@@ -182,4 +182,9 @@ public final class Username extends ValueObject<Username> {
                 StringUtils.equals(get号(), other.get号())
                 ;
     }
+
+    @Override
+    public String toString() {
+        return 字;
+    }
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+
 /**
  * 角色名
  *
@@ -15,11 +17,16 @@ import lombok.Setter;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Valid
 public final class RoleName extends ValueObject<RoleName> {
     private String name;
 
     public RoleName(String name) {
         setName(name);
+    }
+
+    private void setName(String name) {
+        this.name = name;
     }
 
     @Override

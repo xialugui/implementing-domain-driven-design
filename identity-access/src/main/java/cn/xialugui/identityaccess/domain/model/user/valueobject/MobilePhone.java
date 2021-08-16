@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Email;
 
 /**
  * 手机号
@@ -20,6 +21,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public final class MobilePhone extends ValueObject<MobilePhone> {
+    @Email
     private String mobilePhone;
 
     public MobilePhone(String mobilePhone) {

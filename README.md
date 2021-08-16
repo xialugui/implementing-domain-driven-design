@@ -33,14 +33,30 @@
 ![img_1.png](image/img_1.png)
    目前仅有注册和获取信息两个接口，以注册为例：
    ![img_6.png](image/img_6.png)![img_7.png](image/img_7.png)
-   
+   因采用实验版本的授权服务器，目前swagger文档仅支持注册，其它接口
+   建议使用postman进行测试。
 5. 根据接口熟悉内部流程：
 ![img_8.png](image/img_8.png)
    
 6. 查看每个模块包的`package-info.java`
 ![img_9.png](image/img_9.png)
    每个包的信息文件会仔细介绍DDD相应概念。
-7. 未完待续。
+7. `postman`测试环境。
+
+[软件下载][postman]
+
+[测试用例][postman-test]
+
+![img.png](image/img_21.png)
+
+![img.png](image/img_16.png)使用客户端模式测试即可，接口测试说明：
+   1. 获取token
+      ![img_1.png](image/img_17.png)
+   2. 设置token
+      ![img_2.png](image/img_18.png)
+      ![img_3.png](image/img_19.png)
+   3. 获取信息
+      ![img_4.png](image/img_20.png)
 
 ### package-info
 每个包都对应DDD的概念，如
@@ -145,3 +161,7 @@ Spock是基于Groovy语言的Java测试框架，是Junit的超集。简化了断
 [yuque-spock]: https://www.yuque.com/lugew/spock
 
 [ddd-implementation]: https://kdocs.cn/l/sbM4tTbSgK6m
+
+[postman]: https://www.postman.com/
+
+[postman-test]: https://www.postman.com/grey-crescent-914478/workspace/implimenting-domain-driven-desi~b2c62ddc-0a3c-4cf7-b850-15476a40b9ad/collection/13897285-338c4c7c-c3d5-4c2e-9503-4ebeaa74fe03

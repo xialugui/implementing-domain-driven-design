@@ -6,4 +6,8 @@ package cn.xialugui.identityaccess.resources.user;
  */
 public interface UserDetailsProjection {
     String getNickname();
+
+    String getUsername();
+
+    String getEmail();
 }
