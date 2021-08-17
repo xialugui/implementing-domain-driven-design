@@ -29,7 +29,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserApplicationService {
     private final UserRepository repository;
     private final RegisterService registerService;
 

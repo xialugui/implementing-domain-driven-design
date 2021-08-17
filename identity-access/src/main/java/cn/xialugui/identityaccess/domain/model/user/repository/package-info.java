@@ -27,7 +27,7 @@
  *          {@link cn.xialugui.identityaccess.domain.model.user.repository.UserRepository#findUsernameByUserId(cn.xialugui.identityaccess.domain.model.user.valueobject.UserId)}
  *      </li>
  *      <li>
- *          管理事务，通常来说，我们将事务放在应用层。参考{@link cn.xialugui.identityaccess.application.user.UserService#doTransaction()}
+ *          管理事务，通常来说，我们将事务放在应用层。参考{@link cn.xialugui.identityaccess.application.user.UserApplicationService#doTransaction()}
  *      </li>
  *      <li>
  *          类型层级，待定。

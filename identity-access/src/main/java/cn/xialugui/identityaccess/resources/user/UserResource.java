@@ -1,7 +1,7 @@
 package cn.xialugui.identityaccess.resources.user;
 
 import cn.xialugui.identityaccess.application.user.CreateCommand;
-import cn.xialugui.identityaccess.application.user.UserService;
+import cn.xialugui.identityaccess.application.user.UserApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class UserResource {
-    private final UserService userService;
+    private final UserApplicationService userApplicationService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "注册")
     public void register(@RequestBody CreateCommand createCommand) {
-        userService.register(createCommand);
+        userApplicationService.register(createCommand);
     }
 
     @GetMapping("{userId}")
     @Operation(summary = "获取信息")
     public UserDetailsProjection detailsOf(@PathVariable String userId) {
-        return userService.detailsOf(userId);
+        return userApplicationService.detailsOf(userId);
     }
 
 }

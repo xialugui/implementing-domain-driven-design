@@ -23,13 +23,9 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-security',
             "org.apache.commons:commons-lang3:${commonsLang3Version}",
             "org.springframework.security.experimental:spring-security-oauth2-authorization-server:${authorizationServer}",
-//            "org.springframework.cloud:spring-cloud-starter-oauth2",
-//            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
             "org.passay:passay:${passayVersion}",
-            "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
     )
     runtimeOnly(
-//            "mysql:mysql-connector-java:${mysqlVersion}"
             "com.h2database:h2:${h2Version}",
             'org.springframework.boot:spring-boot-starter-actuator',
     )

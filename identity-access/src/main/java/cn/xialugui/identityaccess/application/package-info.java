@@ -13,7 +13,7 @@
  * 下进行开发。
  * <ul>
  *     <li>
- *         应用服务，参考{@link cn.xialugui.identityaccess.application.user.UserService}
+ *         应用服务，参考{@link cn.xialugui.identityaccess.application.user.UserApplicationService}
  *     </li>
  *     <li>
  *         组合多个限界上下文，暂无

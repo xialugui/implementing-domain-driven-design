@@ -1,9 +1,11 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate;
 
 import cn.xialugui.identityaccess.domain.ValidationNotificationHandler;
+import cn.xialugui.identityaccess.domain.model.AbstractAggregateRoot;
 import cn.xialugui.identityaccess.domain.model.Identifier;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
+import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,7 +32,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
-public final class User extends cn.xialugui.identityaccess.domain.model.Entity {
+public final class User extends AbstractAggregateRoot<User> {
     /**
      * 有人会疑惑，为什么唯一标识不适用简单的字符串。
      * <p>
@@ -88,6 +90,10 @@ public final class User extends cn.xialugui.identityaccess.domain.model.Entity {
         setEmail(email);
         setMobilePhone(mobilePhone);
         setPassword(password);
+        /*
+          发布领域事件
+         */
+        andEvent(new UserCreatedEvent(getUserId(), username));
     }
 
     protected void setUsername(Username username) {

@@ -66,4 +66,9 @@ public final class UserId extends ValueObject<UserId> implements Identifier {
     protected boolean equalsTo(UserId other) {
         return getUserId().equals(other.getUserId());
     }
+
+    @Override
+    public String toString() {
+        return this.userId;
+    }
 }

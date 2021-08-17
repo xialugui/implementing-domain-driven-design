@@ -11,35 +11,35 @@
 4. 实体✔
 5. 值对象✔
 6. 领域服务✔
-7. 领域事件✖
+7. 领域事件✔
 8. 模块✔
 9. 聚合✔
-10. 工厂✖
+10. 工厂✔
 11. 资源库✔
 12. 集成限界上下文✖
 13. 应用程序✔
-14. 聚合与事件溯源✖
+14. 聚合与事件溯源✖（该部分会在Axon（DDD）框架分支详解 ）
 
 ## 使用方式
 1. 启动`IdentityAccessApplication`应用
 2. 端口：`24000`
 3. H2数据：http://localhost:24000/h2-console
-![img_3.png](image/img_3.png)
+   ![img_3.png](image/img_3.png)
    直接连接：
    ![img_4.png](image/img_4.png)
    查询内置数据：
    ![img_5.png](image/img_5.png)
 4. 接口文档：http://localhost:24000/swagger-ui.html
-![img_1.png](image/img_1.png)
+   ![img_1.png](image/img_1.png)
    目前仅有注册和获取信息两个接口，以注册为例：
    ![img_6.png](image/img_6.png)![img_7.png](image/img_7.png)
    因采用实验版本的授权服务器，目前swagger文档仅支持注册，其它接口
    建议使用postman进行测试。
 5. 根据接口熟悉内部流程：
-![img_8.png](image/img_8.png)
-   
+   ![img_8.png](image/img_8.png)
+
 6. 查看每个模块包的`package-info.java`
-![img_9.png](image/img_9.png)
+   ![img_9.png](image/img_9.png)
    每个包的信息文件会仔细介绍DDD相应概念。
 7. `postman`测试环境。
 
@@ -50,13 +50,13 @@
 ![img.png](image/img_21.png)
 
 ![img.png](image/img_16.png)使用客户端模式测试即可，接口测试说明：
-   1. 获取token
-      ![img_1.png](image/img_17.png)
-   2. 设置token
-      ![img_2.png](image/img_18.png)
-      ![img_3.png](image/img_19.png)
-   3. 获取信息
-      ![img_4.png](image/img_20.png)
+1. 获取token
+   ![img_1.png](image/img_17.png)
+2. 设置token
+   ![img_2.png](image/img_18.png)
+   ![img_3.png](image/img_19.png)
+3. 获取信息
+   ![img_4.png](image/img_20.png)
 
 ### package-info
 每个包都对应DDD的概念，如
@@ -78,7 +78,7 @@
 
 此举意在将理论落实到实际，讨论清楚为什么会采用代码中的方法，对实际编码的
 好处，及其其它可行的方法，而不是为DDD 而DDD。
-   
+
 ## 书籍信息
 
 ### 封面
