@@ -14,10 +14,7 @@ class UsernameSpecification extends Specification {
 
     def setup() {
         username = new Username(
-                "李",
-                "白",
-                "太白",
-                "青莲居士"
+                "dufu"
         )
     }
 

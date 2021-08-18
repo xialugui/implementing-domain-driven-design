@@ -8,11 +8,16 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 /**
  * 用户名（在这里使用中文便于阐述概念）
+ * <p>
  * 显然用户名可以分为姓和名两个属性，它们是一组相关的属性，用户名不可或缺的组成部分。
  * 并不是任何属性都可以组合成值对象，
+ * <p>
+ * 中文字段仅作为说明，无实际用途。
+ * </p>
  *
  * @author 夏露桂
  * @since 2021/7/15 17:50
@@ -21,12 +26,17 @@ import javax.persistence.Embeddable;
 @Setter(AccessLevel.PRIVATE)
 @Embeddable
 public final class Username extends ValueObject<Username> {
+    private String username;
     /**
      * 如李白，姓李名白，字太白，号青莲居士。
      */
+    @Transient
     private String 姓;
+    @Transient
     private String 名;
+    @Transient
     private String 字;
+    @Transient
     private String 号;
 
     /**
@@ -39,6 +49,7 @@ public final class Username extends ValueObject<Username> {
         super();
     }
 
+    @Deprecated
     public Username(String 姓, String 名, String 字, String 号) {
         set姓(姓);
         set名(名);
@@ -60,6 +71,7 @@ public final class Username extends ValueObject<Username> {
      *
      * @param username 用户名值对象
      */
+    @Deprecated
     public Username(Username username) {
         set姓(username.get姓());
         set名(username.get名());
@@ -68,7 +80,23 @@ public final class Username extends ValueObject<Username> {
     }
 
     public Username(String username) {
-        set号(username);
+        setUsername(username);
+    }
+
+    /**
+     * 用户名
+     * <p>
+     * 不能以数字开头的4-10位字母、数字、下划线
+     * </p>
+     *
+     * @param username 用户名
+     */
+    private void setUsername(String username) {
+        if (username.matches("^[^0-9].{3,9}$")) {
+            this.username = username;
+        } else {
+            throw new IllegalArgumentException("用户名不符合规范，不能以数字开头且6-10位字母、数字、下划线。");
+        }
     }
 
     /**
@@ -81,9 +109,9 @@ public final class Username extends ValueObject<Username> {
      * @param 姓 姓
      */
     private void set姓(String 姓) {
-        if (StringUtils.isEmpty(姓)) {
-            throw new IllegalArgumentException("姓不能为空");
-        }
+//        if (StringUtils.isEmpty(姓)) {
+//            throw new IllegalArgumentException("姓不能为空");
+//        }
         this.姓 = 姓;
     }
 

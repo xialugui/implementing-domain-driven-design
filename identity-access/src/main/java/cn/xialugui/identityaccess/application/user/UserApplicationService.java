@@ -4,10 +4,12 @@ import cn.xialugui.identityaccess.domain.model.user.RegisterService;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import cn.xialugui.identityaccess.resources.user.UserDetailsProjection;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.LinkedHashMap;
 
 /**
  * 应用服务
@@ -77,6 +79,7 @@ public class UserApplicationService {
      */
     @Transactional
     public void register(CreateCommand createCommand) {
+
         registerService.register(
                 new Username(createCommand.get姓(), createCommand.get名(), createCommand.get字(), createCommand.get号()),
                 new Nickname(createCommand.getNickname()),

@@ -6,6 +6,7 @@ ext {
     set('h2Version', '1.4.200')
     set('passayVersion', '1.6.1')
     set('winsinVersion', '1.2.9')
+    set('commonsValidatorVersion', '1.7')
 }
 
 jar {
@@ -24,6 +25,8 @@ dependencies {
             "org.apache.commons:commons-lang3:${commonsLang3Version}",
             "org.springframework.security.experimental:spring-security-oauth2-authorization-server:${authorizationServer}",
             "org.passay:passay:${passayVersion}",
+            "commons-validator:commons-validator:${commonsValidatorVersion}",
+
     )
     runtimeOnly(
             "com.h2database:h2:${h2Version}",
