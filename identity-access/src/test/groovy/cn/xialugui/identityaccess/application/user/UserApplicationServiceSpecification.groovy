@@ -13,21 +13,5 @@ import spock.lang.Title
 @Title("用户应用服务单元测试")
 @Subject(UserApplicationService)
 class UserApplicationServiceSpecification extends Specification {
-    RegisterService registerService = Mock()
-    UserRepository repository = Mock()
-    UserApplicationService applicationService
 
-    def setup() {
-        applicationService = new UserApplicationService(
-                repository: repository,
-                registerService: registerService
-        )
-    }
-
-/*    def '注册时用户名，邮箱，电话不能存在重复，重复是指除已注销用户外，都不能重复'() {
-        when:'注册用户'
-        applicationService.register(new CreateCommand(
-
-        ))
-    }*/
 }

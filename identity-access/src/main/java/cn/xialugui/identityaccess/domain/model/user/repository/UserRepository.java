@@ -1,6 +1,8 @@
 package cn.xialugui.identityaccess.domain.model.user.repository;
 
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
+import cn.xialugui.identityaccess.domain.model.user.valueobject.Email;
+import cn.xialugui.identityaccess.domain.model.user.valueobject.MobilePhone;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.UserId;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
 import cn.xialugui.identityaccess.resources.user.UserDetailsProjection;
@@ -85,7 +87,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select user.username from User as user where user.userId=:#{#userId.userId}")
     Username findUsernameByUserId(UserId userId);
 
-    User findByUsername_字(String 字);
+    Optional<User> findByUsername(Username username);
+
+    Optional<User> findByEmail(Email email);
+
+    Optional<User> findByMobilePhone(MobilePhone mobilePhone);
 
     Optional<UserDetailsProjection> findByUserId(UserId userId);
 

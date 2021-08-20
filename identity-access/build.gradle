@@ -18,18 +18,27 @@ bootJar {
 
 dependencies {
     implementation(
+            //openapi ui文档
             "org.springdoc:springdoc-openapi-ui:${openapiVersion}",
+            //jpa java持久化接口
             'org.springframework.boot:spring-boot-starter-data-jpa',
+            //web
             'org.springframework.boot:spring-boot-starter-web',
+            //安全机制
             'org.springframework.boot:spring-boot-starter-security',
+            //lang包工具
             "org.apache.commons:commons-lang3:${commonsLang3Version}",
+            //认证服务器
             "org.springframework.security.experimental:spring-security-oauth2-authorization-server:${authorizationServer}",
+            //密码验证工具
             "org.passay:passay:${passayVersion}",
+            //通用校验器
             "commons-validator:commons-validator:${commonsValidatorVersion}",
-
     )
     runtimeOnly(
+            //h2内存数据库，测试用
             "com.h2database:h2:${h2Version}",
+            //springboot 监视器
             'org.springframework.boot:spring-boot-starter-actuator',
     )
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

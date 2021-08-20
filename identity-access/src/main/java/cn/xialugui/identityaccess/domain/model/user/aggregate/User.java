@@ -155,5 +155,7 @@ public final class User extends AbstractAggregateRoot<User> {
     public Identifier identifier() {
         return getUserId();
     }
+
+
 }
 

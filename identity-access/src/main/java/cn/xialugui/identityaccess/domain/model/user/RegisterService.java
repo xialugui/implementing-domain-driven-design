@@ -48,6 +48,7 @@ import org.springframework.stereotype.Component;
  * <p>
  *     在必要情况下，我们可以对领域服务进行测试。参考
  * </p>
+ *
  * @author 夏露桂
  * @since 2021/8/9 17:50
  */
@@ -64,6 +65,18 @@ public class RegisterService {
             MobilePhone mobilePhone,
             Email email
     ) {
+        userRepository.findByUsername(username)
+                .ifPresent(user -> {
+                    throw new IllegalArgumentException("用户" + user.getUsername() + "已被注册");
+                });
+        userRepository.findByEmail(email)
+                .ifPresent(user -> {
+                    throw new IllegalArgumentException("邮箱" + user.getEmail() + "已被注册");
+                });
+        userRepository.findByMobilePhone(mobilePhone)
+                .ifPresent(user -> {
+                    throw new IllegalArgumentException("手机号" + user.getMobilePhone() + "已被注册");
+                });
 
         User user = new User(
                 UserId.uuid(),
@@ -74,4 +87,5 @@ public class RegisterService {
         );
         userRepository.save(user);
     }
+
 }

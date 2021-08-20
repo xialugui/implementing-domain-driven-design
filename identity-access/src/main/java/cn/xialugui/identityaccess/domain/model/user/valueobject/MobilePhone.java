@@ -6,9 +6,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.validator.GenericValidator;
 
 import javax.persistence.Embeddable;
-import javax.validation.constraints.Email;
 
 /**
  * 手机号
@@ -21,13 +21,15 @@ import javax.validation.constraints.Email;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public final class MobilePhone extends ValueObject<MobilePhone> {
-    @Email
     private String mobilePhone;
 
     public MobilePhone(String mobilePhone) {
         setMobilePhone(mobilePhone);
     }
 
+   /* private void setMobilePhone(String mobilePhone) {
+
+    }*/
     /**
      * 获取用户电话号码。
      * <p>

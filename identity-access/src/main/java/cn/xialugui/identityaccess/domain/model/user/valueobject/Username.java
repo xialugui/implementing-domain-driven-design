@@ -86,16 +86,16 @@ public final class Username extends ValueObject<Username> {
     /**
      * 用户名
      * <p>
-     * 不能以数字开头的4-10位字母、数字、下划线
+     * 2-16位数字、字母和中文混合
      * </p>
      *
      * @param username 用户名
      */
     private void setUsername(String username) {
-        if (username.matches("^[^0-9].{3,9}$")) {
+        if (username.matches("^[\\u4e00-\\u9fa5_a-zA-Z0-9]{2,16}$")) {
             this.username = username;
         } else {
-            throw new IllegalArgumentException("用户名不符合规范，不能以数字开头且6-10位字母、数字、下划线。");
+            throw new IllegalArgumentException("用户名不符合规范，需2-16位数字、字母和中文混合。");
         }
     }
 
@@ -213,6 +213,6 @@ public final class Username extends ValueObject<Username> {
 
     @Override
     public String toString() {
-        return 字;
+        return this.username;
     }
 }

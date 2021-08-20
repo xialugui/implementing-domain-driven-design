@@ -4,6 +4,7 @@ import cn.xialugui.identityaccess.domain.model.ValueObject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.validator.GenericValidator;
 
 import javax.persistence.Embeddable;
 
@@ -31,6 +32,13 @@ public final class Email extends ValueObject<Email> {
     public Email(String email) {
         setEmailType(EmailType.of(email));
         setEmail(email);
+    }
+
+    private void setEmail(String email) {
+        if (!GenericValidator.isEmail(email)) {
+            throw new IllegalArgumentException("邮箱格式不正确");
+        }
+        this.email = email;
     }
 
 

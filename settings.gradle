@@ -1,4 +1,4 @@
-rootProject.name = 'domain-driven-design'
+rootProject.name = 'implementing-domain-driven-design'
 include('identity-access')
 include('file-collaboration')
 include('eureka-server')

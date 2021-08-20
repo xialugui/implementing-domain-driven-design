@@ -1,6 +1,7 @@
 package cn.xialugui.identityaccess.domain.model.user.valueobject
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * 这里，我们所关心的并不仅仅是单元测试的各个方面，而是演示客户端是如何
@@ -17,6 +18,25 @@ class UsernameSpecification extends Specification {
                 "dufu"
         )
     }
+
+    @Unroll("非法用户名：#exampleUsername")
+    def "用户名需是2-16位数字、字母和中文混合"() {
+        when: "初始化用户名"
+        username = new Username(exampleUsername)
+        then: "不符合规则时抛出异常"
+        thrown(IllegalArgumentException)
+        where:
+        exampleUsername << [
+                "1",
+                "12345678901234561",
+                "杜",
+                "国破山河在凑足十七个个字才行啊是不",
+                "有符号 。 所以不行",
+                "有空格 不行",
+        ]
+
+    }
+
 
     def "值对象的不可变性"() {
         when: "复制"

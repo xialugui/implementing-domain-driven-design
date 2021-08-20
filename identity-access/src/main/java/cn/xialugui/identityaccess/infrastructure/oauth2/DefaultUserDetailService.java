@@ -2,6 +2,7 @@ package cn.xialugui.identityaccess.infrastructure.oauth2;
 
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
+import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author 夏露桂
@@ -23,13 +26,16 @@ public class DefaultUserDetailService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        cn.xialugui.identityaccess.domain.model.user.aggregate.User result =
-                userRepository.findByUsername_字(username);
-        return User.builder()
-                .username(result.getUsername().get号())
-                .password(result.getPassword().getPassword())
-                .roles(result.getRoleIds().stream().map(RoleId::getId).toArray(String[]::new))
-                .build();
-
+        Optional<cn.xialugui.identityaccess.domain.model.user.aggregate.User> result =
+                userRepository.findByUsername(new Username(username));
+        AtomicReference<UserDetails> userDetailsAtomicReference = new AtomicReference<>();
+        result.ifPresentOrElse(user -> userDetailsAtomicReference.set(User.builder()
+                .username(user.getUsername().toString())
+                .password(user.getPassword().getPassword())
+                .roles(user.getRoleIds().stream().map(RoleId::getId).toArray(String[]::new))
+                .build()), () -> {
+            throw new IllegalArgumentException("用户未注册");
+        });
+        return userDetailsAtomicReference.get();
     }
 }

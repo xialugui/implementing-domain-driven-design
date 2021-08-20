@@ -38,6 +38,12 @@ public final class Nickname extends ValueObject<Nickname> {
         setNickname(nickname);
     }
 
+    private void setNickname(String nickname) {
+        if (null == nickname) {
+            throw new IllegalArgumentException("昵称不能为空");
+        }
+        this.nickname = nickname;
+    }
 
     @Override
     protected boolean equalsTo(Nickname other) {
