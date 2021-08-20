@@ -80,7 +80,8 @@ public class RegisterService {
 
         User user = new User(
                 UserId.uuid(),
-                username, nickName,
+                username,
+                nickName,
                 email,
                 mobilePhone,
                 Password.encodeOf(password, passwordEncoder)

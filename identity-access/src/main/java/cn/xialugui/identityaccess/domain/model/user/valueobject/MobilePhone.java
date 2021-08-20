@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.validator.GenericValidator;
 
 import javax.persistence.Embeddable;
 
@@ -30,6 +29,7 @@ public final class MobilePhone extends ValueObject<MobilePhone> {
    /* private void setMobilePhone(String mobilePhone) {
 
     }*/
+
     /**
      * 获取用户电话号码。
      * <p>
