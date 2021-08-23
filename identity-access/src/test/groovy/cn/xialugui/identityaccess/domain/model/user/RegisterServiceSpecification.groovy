@@ -3,7 +3,6 @@ package cn.xialugui.identityaccess.domain.model.user
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*
-import net.serenitybdd.junit5.SerenityTest
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
 import spock.lang.Subject
@@ -15,7 +14,6 @@ import spock.lang.Title
  */
 @Title("注册领域服务单元测试")
 @Subject(RegisterService)
-@SerenityTest
 class RegisterServiceSpecification extends Specification {
     RegisterService registerService
     UserRepository userRepository = Mock()
