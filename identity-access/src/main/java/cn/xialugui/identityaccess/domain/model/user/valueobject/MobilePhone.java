@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 手机号
@@ -21,14 +23,22 @@ import javax.persistence.Embeddable;
 @Embeddable
 public final class MobilePhone extends ValueObject<MobilePhone> {
     private String mobilePhone;
+    private MobilePhoneType mobilePhoneType;
+
+    private static final String REGEX = "^1(3\\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\\d|9[0-35-9])\\d{8}$";
+    private static final Pattern PATTERN = Pattern.compile(REGEX);
 
     public MobilePhone(String mobilePhone) {
         setMobilePhone(mobilePhone);
+        setMobilePhoneType(MobilePhoneType.of(mobilePhone));
     }
 
-   /* private void setMobilePhone(String mobilePhone) {
-
-    }*/
+    private void setMobilePhone(String mobilePhone) {
+        Matcher matcher = PATTERN.matcher(mobilePhone);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("不符合手机号规范");
+        }
+    }
 
     /**
      * 获取用户电话号码。

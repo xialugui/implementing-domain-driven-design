@@ -16,6 +16,7 @@ bootJar {
     enabled(true)
 }
 
+
 dependencies {
     implementation(
             //openapi ui文档

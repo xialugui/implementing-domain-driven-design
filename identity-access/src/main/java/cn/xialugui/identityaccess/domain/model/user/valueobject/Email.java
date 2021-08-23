@@ -25,13 +25,13 @@ public final class Email extends ValueObject<Email> {
     }
 
     public Email(String email, EmailType emailType) {
-        setEmailType(emailType);
         setEmail(email);
+        setEmailType(emailType);
     }
 
     public Email(String email) {
-        setEmailType(EmailType.of(email));
         setEmail(email);
+        setEmailType(EmailType.of(email));
     }
 
     private void setEmail(String email) {

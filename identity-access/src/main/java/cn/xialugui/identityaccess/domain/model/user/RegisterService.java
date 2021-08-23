@@ -46,7 +46,7 @@ import org.springframework.stereotype.Component;
  * </p>
  *
  * <p>
- *     在必要情况下，我们可以对领域服务进行测试。参考
+ *     在必要情况下，我们可以对领域服务进行测试。参考{@code groovy/cn/xialugui/identityaccess/domain/model/user/RegisterServiceSpecification.groovy}
  * </p>
  *
  * @author 夏露桂

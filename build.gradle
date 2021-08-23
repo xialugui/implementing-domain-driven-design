@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.5.2' apply false
     id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '2.5.9-RC.2' apply false
 }
 ext {
     set('spockVersion', '2.0-groovy-3.0')
@@ -9,6 +10,7 @@ ext {
     set('openapiVersion', '1.5.6')
     set('mapstructVersion', '1.3.0.Final')
     set('groovyVersion', '3.0.8')
+    set('serenityVersion', '2.5.10')
 }
 allprojects {
     apply plugin: 'java'
@@ -34,7 +36,8 @@ subprojects {
     apply plugin: 'groovy'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-
+    apply plugin: 'net.serenity-bdd.serenity-gradle-plugin'
+    apply plugin: 'net.serenity-bdd.aggregator'
     dependencies {
         compileOnly(
                 //lombok
@@ -46,7 +49,12 @@ subprojects {
         testImplementation(
                 //spock测试框架
                 "org.spockframework:spock-core:${spockVersion}",
-                "org.spockframework:spock-spring:${spockVersion}"
+                "org.spockframework:spock-spring:${spockVersion}",
+//                "com.athaydes:spock-reports:${spockVersion}",
+                "net.serenity-bdd:serenity-core:${serenityVersion}",
+                "net.serenity-bdd:serenity-junit:${serenityVersion}",
+                "io.github.fabianlinz:serenity-junit5:1.6.0",
+
         )
     }
     dependencyManagement {

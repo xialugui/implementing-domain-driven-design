@@ -32,7 +32,9 @@ class UsernameSpecification extends Specification {
                 "杜",
                 "国破山河在凑足十七个个字才行啊是不",
                 "有符号 。 所以不行",
+                "英文.符号所以不行",
                 "有空格 不行",
+                "",
         ]
 
     }

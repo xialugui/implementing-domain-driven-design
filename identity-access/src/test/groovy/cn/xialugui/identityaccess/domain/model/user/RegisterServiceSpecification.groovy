@@ -3,15 +3,19 @@ package cn.xialugui.identityaccess.domain.model.user
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*
+import net.serenitybdd.junit5.SerenityTest
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
 import spock.lang.Subject
+import spock.lang.Title
 
 /**
  *
  * @author 夏露桂* @since 2021/8/9 20:03
  */
+@Title("注册领域服务单元测试")
 @Subject(RegisterService)
+@SerenityTest
 class RegisterServiceSpecification extends Specification {
     RegisterService registerService
     UserRepository userRepository = Mock()
@@ -20,7 +24,7 @@ class RegisterServiceSpecification extends Specification {
     Nickname nickname = new Nickname("杜甫")
     //国破山河在，城春草木生。
     String password = "Gp3hz,Cccms."
-    MobilePhone mobilePhone = new MobilePhone("11")
+    MobilePhone mobilePhone = new MobilePhone("13812346578")
     Email email = new Email("dufu@139.com")
     User user
 

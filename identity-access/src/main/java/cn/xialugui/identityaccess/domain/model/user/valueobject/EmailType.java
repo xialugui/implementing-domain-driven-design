@@ -1,5 +1,8 @@
 package cn.xialugui.identityaccess.domain.model.user.valueobject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 邮件类型值对象
  * <p>
@@ -24,23 +27,22 @@ public enum EmailType {
     TENCENT,
     ALIBABA,
     CMCC,
-    BAIDU;
+    GOOGLE,
+    BAIDU,
+    ;
+    private static final Map<String, EmailType> MAP = new HashMap<>(
+    ) {{
+        put("@163.com", NET_EASE);
+        put("@qq.com", TENCENT);
+        put("@aliyun.com", ALIBABA);
+        put("@139.com", CMCC);
+        put("@baidu.com", BAIDU);
+        put("@gmail.com", GOOGLE);
+    }};
+    private static final char AT = '@';
+
 
     public static EmailType of(String email) {
-        if (null == email) {
-            return UNKNOWN;
-        } else if (email.endsWith("@163.com")) {
-            return NET_EASE;
-        } else if (email.endsWith("@qq.com")) {
-            return TENCENT;
-        } else if (email.endsWith("@aliyun.com")) {
-            return ALIBABA;
-        } else if (email.endsWith("@139.com")) {
-            return CMCC;
-        } else if (email.endsWith("@baidu.com")) {
-            return BAIDU;
-        } else {
-            return UNKNOWN;
-        }
+        return MAP.getOrDefault(email.substring(email.lastIndexOf(AT)), UNKNOWN);
     }
 }
