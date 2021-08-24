@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * 领域服务
  * <p>
@@ -59,27 +61,35 @@ public class RegisterService {
     private final UserRepository userRepository;
 
     public void register(
+            UserId userId,
             Username username,
             Nickname nickName,
             String password,
             MobilePhone mobilePhone,
             Email email
     ) {
+
+        userRepository.findByUserId(userId).ifPresent(
+                userDetailsProjection -> {
+                    throw new IllegalArgumentException("用户id" + userDetailsProjection.getUserId() + "已被注册");
+                }
+        );
+
         userRepository.findByUsername(username)
                 .ifPresent(user -> {
                     throw new IllegalArgumentException("用户" + user.getUsername() + "已被注册");
                 });
-        userRepository.findByEmail(email)
+        Optional.ofNullable(email).flatMap(e -> userRepository.findByEmail(email))
                 .ifPresent(user -> {
                     throw new IllegalArgumentException("邮箱" + user.getEmail() + "已被注册");
                 });
+
         userRepository.findByMobilePhone(mobilePhone)
                 .ifPresent(user -> {
                     throw new IllegalArgumentException("手机号" + user.getMobilePhone() + "已被注册");
                 });
-
         User user = new User(
-                UserId.uuid(),
+                userId,
                 username,
                 nickName,
                 email,
@@ -89,4 +99,14 @@ public class RegisterService {
         userRepository.save(user);
     }
 
+    public void registerByMobilePhone(MobilePhone mobilePhone) {
+        register(
+                UserId.random(),
+                Username.random(),
+                new Nickname(mobilePhone.getMobilePhone()),
+                Password.DEFAULT,
+                mobilePhone,
+                null
+        );
+    }
 }

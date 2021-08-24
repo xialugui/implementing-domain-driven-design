@@ -78,6 +78,7 @@ public class UserApplicationService {
     @Transactional
     public void register(CreateCommand createCommand) {
         registerService.register(
+                new UserId(createCommand.getUserId()),
                 new Username(createCommand.getUsername()),
                 new Nickname(createCommand.getNickname()),
                 createCommand.getPassword(),

@@ -38,6 +38,7 @@ public final class MobilePhone extends ValueObject<MobilePhone> {
         if (!matcher.matches()) {
             throw new IllegalArgumentException("不符合手机号规范");
         }
+        this.mobilePhone = mobilePhone;
     }
 
     /**

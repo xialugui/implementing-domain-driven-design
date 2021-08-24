@@ -22,6 +22,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public final class Password extends ValueObject<Password> {
     private String password;
+    /**
+     * 默认密码：国破山河在，城春草木生。
+     */
+    public final static String DEFAULT = "Gp3hz,Cccms.";
 
     private final static PasswordValidator validator = new PasswordValidator(
             //长度8~16
@@ -69,6 +73,10 @@ public final class Password extends ValueObject<Password> {
             throw new IllegalArgumentException(errorMessage.toString());
         }
         setPassword(passwordEncoder.encode(password));
+    }
+
+    public static Password defaultValue(PasswordEncoder passwordEncoder) {
+        return encodeOf(DEFAULT, passwordEncoder);
     }
 
     public static Password encodeOf(String password, PasswordEncoder passwordEncoder) {

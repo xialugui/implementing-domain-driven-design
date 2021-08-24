@@ -3,6 +3,7 @@ package cn.xialugui.identityaccess.domain.model.user.valueobject
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title
+import spock.lang.Unroll
 
 
 /**
@@ -13,6 +14,7 @@ import spock.lang.Title
 @Subject([MobilePhone, MobilePhoneType])
 class MobilePhoneSpecification extends Specification {
 
+    @Unroll("手机号：#input")
     def "手机号需符合规范"() {
         when: "初始化手机号"
         new MobilePhone(input)
@@ -27,6 +29,7 @@ class MobilePhoneSpecification extends Specification {
 
     }
 
+    @Unroll("手机号：#input，类型：#type")
     def "识别手机号类型"() {
 
         when: "初始化手机号"

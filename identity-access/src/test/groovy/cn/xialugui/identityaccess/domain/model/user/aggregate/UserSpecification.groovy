@@ -43,5 +43,4 @@ class UserSpecification extends Specification {
 
 
 
-
 }

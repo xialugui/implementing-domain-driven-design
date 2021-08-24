@@ -27,6 +27,14 @@ import javax.persistence.Transient;
 @Embeddable
 public final class Username extends ValueObject<Username> {
     private String username;
+
+    private static final char[] chars = new char[]{
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    };
     /**
      * 如李白，姓李名白，字太白，号青莲居士。
      */
@@ -97,6 +105,15 @@ public final class Username extends ValueObject<Username> {
         } else {
             throw new IllegalArgumentException("用户名不符合规范，需2-16位数字、字母和中文混合。");
         }
+    }
+
+    public static Username random() {
+        StringBuilder result = new StringBuilder();
+        int max = chars.length;
+        for (int i = 0; i < 16; i++) {
+            result.append(chars[(int) (Math.random() * max)]);
+        }
+        return new Username(result.toString());
     }
 
     /**

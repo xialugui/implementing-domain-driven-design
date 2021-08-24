@@ -5,6 +5,8 @@ package cn.xialugui.identityaccess.resources.user;
  * @since 2021/8/12 16:41
  */
 public interface UserDetailsProjection {
+    String getUserId();
+
     String getNickname();
 
     String getUsername();
