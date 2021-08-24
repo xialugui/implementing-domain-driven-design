@@ -20,6 +20,6 @@ stages:                                 # 构建阶段配置
           displayName: 'Test'
           inputs:                       # 构建输入参数设定
             jdkVersion: 11               # 指定 JDK 环境版本为 8
-            gradleVersion: 7.1.1          # 指定 Gradle 环境版本为 5.4
+            gradleVersion: 7.1          # 指定 Gradle 环境版本为 5.4
             goals: gradle test                    # 示例脚本：输出 Gradle 版本信息并完成一个 HelloWorld 的构建
               
