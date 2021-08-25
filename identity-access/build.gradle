@@ -2,7 +2,7 @@ ext {
     set('mysqlVersion', '8.0.25')
     set('commonsLang3Version', '3.12.0')
     set('openapiVersion', '1.5.10')
-    set('authorizationServer', '0.1.2')
+    set('authorizationServer', '0.2.0')
     set('h2Version', '1.4.200')
     set('passayVersion', '1.6.1')
     set('winsinVersion', '1.2.9')
@@ -30,7 +30,7 @@ dependencies {
             //lang包工具
             "org.apache.commons:commons-lang3:${commonsLang3Version}",
             //认证服务器
-            "org.springframework.security.experimental:spring-security-oauth2-authorization-server:${authorizationServer}",
+            "org.springframework.security:spring-security-oauth2-authorization-server:${authorizationServer}",
             //密码验证工具
             "org.passay:passay:${passayVersion}",
             //通用校验器

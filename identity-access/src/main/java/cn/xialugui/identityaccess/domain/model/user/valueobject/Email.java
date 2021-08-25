@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.apache.commons.validator.GenericValidator;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * 邮箱
@@ -19,6 +21,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public final class Email extends ValueObject<Email> {
     private String email;
+
+    @Enumerated(EnumType.STRING)
     private EmailType emailType;
 
     protected Email() {

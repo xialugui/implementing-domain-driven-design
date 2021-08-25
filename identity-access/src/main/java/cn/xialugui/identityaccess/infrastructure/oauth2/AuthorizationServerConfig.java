@@ -26,6 +26,8 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.time.Instant;
@@ -51,23 +53,30 @@ public class AuthorizationServerConfig {
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("ddd")
-                .clientSecret(passwordEncoder.encode("ddd"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
-                //目前CLIENT_SECRET_BASIC存在bug，官方将在0.2.0版本修复
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .clientSecret("ddd")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .redirectUri("https://www.baidu.com")
                 .clientSecretExpiresAt(Instant.MAX)
-                .clientSettings(clientSettings -> clientSettings.requireUserConsent(true))
+                .clientSettings(
+                        ClientSettings
+                                .builder()
+                                .requireAuthorizationConsent(true)
+                                .build()
+                )
                 .scope(OidcScopes.OPENID)
                 .scope("ddd.read")
                 .scope("ddd.write")
                 .build();
 
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
+        JdbcRegisteredClientRepository.RegisteredClientParametersMapper
+                registeredClientParametersMapper = new JdbcRegisteredClientRepository.RegisteredClientParametersMapper();
+        registeredClientParametersMapper.setPasswordEncoder(passwordEncoder);
+        registeredClientRepository.setRegisteredClientParametersMapper(registeredClientParametersMapper);
         registeredClientRepository.save(registeredClient);
 
         return registeredClientRepository;
@@ -95,10 +104,9 @@ public class AuthorizationServerConfig {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
 
-   /* @Bean
+    @Bean
     public ProviderSettings providerSettings() {
-        return new ProviderSettings()
-                .issuer("http://localhost:24000");
-    }*/
+        return ProviderSettings.builder().issuer("http://auth-server:24000").build();
+    }
 
 }
