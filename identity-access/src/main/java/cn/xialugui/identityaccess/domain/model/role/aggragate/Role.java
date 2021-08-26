@@ -1,13 +1,11 @@
 package cn.xialugui.identityaccess.domain.model.role.aggragate;
 
-import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
-import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.data.domain.AbstractAggregateRoot;
+import cn.xialugui.identityaccess.domain.model.AbstractAggregateRoot;
+import cn.xialugui.identityaccess.domain.model.Identifier;
+import lombok.*;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 /**
  * 角色聚合
@@ -18,8 +16,23 @@ import javax.persistence.Entity;
 @Getter
 @Entity
 @NoArgsConstructor
+@Setter(AccessLevel.PRIVATE)
+@AllArgsConstructor
 public final class Role extends AbstractAggregateRoot<Role> {
-    @EmbeddedId
-    private RoleId id;
-    private RoleName name;
+  /*  @Embedded
+    @Valid
+    @NotNull
+    private RoleId roleId;
+    @Embedded
+    @Valid
+    @NotNull
+    private RoleName name;*/
+
+    @NotNull
+    private String nickname;
+
+    @Override
+    public Identifier identifier() {
+        return null;
+    }
 }

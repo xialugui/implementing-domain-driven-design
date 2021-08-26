@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.Valid;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * 角色名
@@ -17,8 +19,13 @@ import javax.validation.Valid;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Valid
+@Embeddable
 public final class RoleName extends ValueObject<RoleName> {
+    /**
+     * 角色名2-16位数字、字符和中文
+     */
+    @Pattern(regexp = "^[\\u4e00-\\u9fa5_a-zA-Z0-9]{2,16}$")
+    @NotNull
     private String name;
 
     public RoleName(String name) {
@@ -30,7 +37,12 @@ public final class RoleName extends ValueObject<RoleName> {
     }
 
     @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
     protected boolean equalsTo(RoleName other) {
-        return false;
+        return getName().equals(other.getName());
     }
 }

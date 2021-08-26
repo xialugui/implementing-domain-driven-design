@@ -35,6 +35,9 @@ dependencies {
             "org.passay:passay:${passayVersion}",
             //通用校验器
             "commons-validator:commons-validator:${commonsValidatorVersion}",
+
+            'javax.el:javax.el-api:3.0.0',
+            'org.glassfish:javax.el:3.0.0'
     )
     runtimeOnly(
             //h2内存数据库，测试用
@@ -42,5 +45,9 @@ dependencies {
             //springboot 监视器
             'org.springframework.boot:spring-boot-starter-actuator',
     )
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test',
+            'org.hibernate.validator:hibernate-validator:6.2.0.Final'
+    )
+
 }

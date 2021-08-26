@@ -41,6 +41,7 @@ subprojects {
                 "org.projectlombok:lombok:${lombokVersion}"
         )
         annotationProcessor(
+                'org.hibernate.validator:hibernate-validator-annotation-processor:6.2.0.Final',
                 "org.projectlombok:lombok:${lombokVersion}",
         )
         testImplementation(

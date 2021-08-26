@@ -14,6 +14,7 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import java.util.Set;
 
@@ -40,11 +41,17 @@ public final class User extends AbstractAggregateRoot<User> {
      * 更容易被识别。
      * </p>
      */
+    @Embedded
     private UserId userId;
+    @Embedded
     private Username username;
+    @Embedded
     private Nickname nickname;
+    @Embedded
     private Email email;
+    @Embedded
     private MobilePhone mobilePhone;
+    @Embedded
     private Password password;
 
 
@@ -96,7 +103,7 @@ public final class User extends AbstractAggregateRoot<User> {
         andEvent(new UserCreatedEvent(getUserId(), username));
     }
 
-    protected void setUsername(Username username) {
+    private void setUsername(Username username) {
         if (username == null) {
             throw new IllegalArgumentException("用户名不能为空");
         }
@@ -110,7 +117,7 @@ public final class User extends AbstractAggregateRoot<User> {
      *
      * @param userId 用户id
      */
-    protected void setUserId(UserId userId) {
+    private void setUserId(UserId userId) {
         if (null != getUserId()) {
             throw new IllegalArgumentException("用户id不能更改");
         }
