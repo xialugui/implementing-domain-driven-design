@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.2' apply false
+    id 'org.springframework.boot' version '2.5.4' apply false
     id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
 }
 ext {
@@ -26,6 +26,14 @@ allprojects {
         maven {
             name '阿里云'
             url 'https://maven.aliyun.com/repository/public/'
+        }
+        //陆龟的个人仓库
+        maven {
+            credentials {
+                username '61288ed81069a2b099d0f815'
+                password 'mW(r)FOlCvM_'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2091508-release-wPuZ2a/'
         }
         mavenCentral()
     }

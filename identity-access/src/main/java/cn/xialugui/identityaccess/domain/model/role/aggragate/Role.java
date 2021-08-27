@@ -2,9 +2,13 @@ package cn.xialugui.identityaccess.domain.model.role.aggragate;
 
 import cn.xialugui.identityaccess.domain.model.AbstractAggregateRoot;
 import cn.xialugui.identityaccess.domain.model.Identifier;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
 import lombok.*;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,17 +23,14 @@ import javax.validation.constraints.NotNull;
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
 public final class Role extends AbstractAggregateRoot<Role> {
-  /*  @Embedded
+    @Embedded
     @Valid
     @NotNull
     private RoleId roleId;
     @Embedded
     @Valid
     @NotNull
-    private RoleName name;*/
-
-    @NotNull
-    private String nickname;
+    private RoleName name;
 
     @Override
     public Identifier identifier() {

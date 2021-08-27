@@ -5,7 +5,7 @@ ext {
     set('authorizationServer', '0.2.0')
     set('h2Version', '1.4.200')
     set('passayVersion', '1.6.1')
-    set('winsinVersion', '1.2.9')
+    set('winsinVersion', '1.2.13')
     set('commonsValidatorVersion', '1.7')
 }
 
@@ -35,9 +35,11 @@ dependencies {
             "org.passay:passay:${passayVersion}",
             //通用校验器
             "commons-validator:commons-validator:${commonsValidatorVersion}",
+            //hibernate 校验
+            'org.springframework.boot:spring-boot-starter-validation',
+            //标准化web响应
+            "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
 
-            'javax.el:javax.el-api:3.0.0',
-            'org.glassfish:javax.el:3.0.0'
     )
     runtimeOnly(
             //h2内存数据库，测试用
@@ -47,7 +49,6 @@ dependencies {
     )
     testImplementation(
             'org.springframework.boot:spring-boot-starter-test',
-            'org.hibernate.validator:hibernate-validator:6.2.0.Final'
     )
 
 }

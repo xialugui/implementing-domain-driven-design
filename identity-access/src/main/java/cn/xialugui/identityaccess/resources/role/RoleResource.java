@@ -2,11 +2,13 @@ package cn.xialugui.identityaccess.resources.role;
 
 import cn.xialugui.identityaccess.application.role.CreateCommand;
 import cn.xialugui.identityaccess.application.role.RoleApplicationService;
+import com.lugew.winsin.web.Standard;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.RollbackException;
 
 /**
  * @author 夏露桂
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("roles")
 @RestController
 @RequiredArgsConstructor
-@Validated
+@Standard
 public class RoleResource {
     private final RoleApplicationService applicationService;
 

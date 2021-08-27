@@ -2,6 +2,8 @@ package cn.xialugui.identityaccess.application.role;
 
 import cn.xialugui.identityaccess.domain.model.role.aggragate.Role;
 import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,9 @@ public class RoleApplicationService {
     @Transactional
     public void create(CreateCommand command) {
         repository.save(new Role(
-                null
+                RoleId.random(),
+                new RoleName(null)
         ));
+
     }
 }
