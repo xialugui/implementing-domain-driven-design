@@ -23,7 +23,7 @@ public class RoleApplicationService {
     public void create(CreateCommand command) {
         repository.save(new Role(
                 RoleId.random(),
-                new RoleName(null)
+                new RoleName(command.getName())
         ));
 
     }
