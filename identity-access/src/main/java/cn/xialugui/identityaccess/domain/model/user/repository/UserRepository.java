@@ -95,6 +95,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<UserDetailsProjection> findByUserId(UserId userId);
 
+    @Query("from User where userId=:#{#userId}")
+    Optional<User> of(UserId userId);
+
     /**
      * 将唯一标识的生成放在资源库中是一种自然的选择。
      *

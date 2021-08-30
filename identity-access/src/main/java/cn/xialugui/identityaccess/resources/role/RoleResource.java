@@ -1,5 +1,6 @@
 package cn.xialugui.identityaccess.resources.role;
 
+import cn.xialugui.identityaccess.application.role.ChangeNameCommand;
 import cn.xialugui.identityaccess.application.role.CreateCommand;
 import cn.xialugui.identityaccess.application.role.RoleApplicationService;
 import com.lugew.winsin.web.Standard;
@@ -7,8 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.RollbackException;
 
 /**
  * @author 夏露桂
@@ -28,4 +27,9 @@ public class RoleResource {
         applicationService.create(createCommand);
     }
 
+    @PutMapping("{roleId}")
+    @Operation(summary = "修改角色名")
+    public void changeName(@PathVariable("roleId") String roleId, @RequestBody ChangeNameCommand command) {
+        applicationService.changeName(roleId, command);
+    }
 }

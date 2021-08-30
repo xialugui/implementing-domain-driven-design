@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +25,7 @@ import java.util.regex.Pattern;
 @Embeddable
 public final class MobilePhone extends ValueObject<MobilePhone> {
     private String mobilePhone;
+    @Enumerated(EnumType.STRING)
     private MobilePhoneType mobilePhoneType;
 
     private static final String REGEX = "^1(3\\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\\d|9[0-35-9])\\d{8}$";

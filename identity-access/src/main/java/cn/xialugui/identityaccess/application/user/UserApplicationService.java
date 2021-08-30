@@ -1,6 +1,8 @@
 package cn.xialugui.identityaccess.application.user;
 
+import cn.xialugui.identityaccess.application.AbstractApplicationService;
 import cn.xialugui.identityaccess.domain.model.user.RegisterService;
+import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import cn.xialugui.identityaccess.resources.user.UserDetailsProjection;
@@ -29,7 +31,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-public class UserApplicationService {
+public class UserApplicationService extends AbstractApplicationService<User> {
     private final UserRepository repository;
     private final RegisterService registerService;
 
@@ -101,7 +103,16 @@ public class UserApplicationService {
     }
 
     public UserDetailsProjection detailsOf(String userId) {
-        return repository.findByUserId(new UserId(userId))
-                .orElseThrow(() -> new IllegalArgumentException("不存在"));
+        return acceptIfExist(repository.findByUserId(new UserId(userId)));
+    }
+
+    public void changeNickname(String userId, ChangeNicknameCommand command) {
+        acceptIfExist(
+                repository.of(new UserId(userId)),
+                user -> {
+                    user.changeNickname(new Nickname(command.getNickname()));
+                    repository.save(user);
+                }
+        );
     }
 }

@@ -133,13 +133,13 @@ public final class User extends AbstractAggregateRoot<User> {
      */
     public void setNickname(Nickname nickname) {
         if (null == nickname) {
-            throw new IllegalArgumentException("昵称不能为空不能为空");
+            throw new IllegalArgumentException("昵称不能为空");
         }
         this.nickname = nickname;
     }
 
     public void changeNickname(Nickname nickname) {
-        this.nickname = nickname;
+        setNickname(nickname);
     }
 
     /**

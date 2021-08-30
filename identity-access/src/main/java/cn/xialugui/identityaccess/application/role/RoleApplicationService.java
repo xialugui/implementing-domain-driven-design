@@ -27,4 +27,15 @@ public class RoleApplicationService {
         ));
 
     }
+
+    @Transactional
+    public void changeName(String roleId, ChangeNameCommand command) {
+        repository.findByRoleId(new RoleId(roleId))
+                .ifPresentOrElse(role -> {
+                    role.changeName(new RoleName(command.getName()));
+                    repository.save(role);
+                }, () -> {
+                    throw new IllegalArgumentException("角色不存在");
+                });
+    }
 }

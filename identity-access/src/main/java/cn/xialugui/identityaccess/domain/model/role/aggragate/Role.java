@@ -36,4 +36,8 @@ public final class Role extends AbstractAggregateRoot<Role> {
     public Identifier identifier() {
         return null;
     }
+
+    public void changeName(RoleName roleName) {
+        setName(roleName);
+    }
 }
