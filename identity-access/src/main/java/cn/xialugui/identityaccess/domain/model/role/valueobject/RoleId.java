@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -30,7 +30,6 @@ public final class RoleId extends ValueObject<RoleId> implements Identifier {
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     };
     @Pattern(regexp = "^[0-9a-zA-Z]{2,16}$")
-    @Column(unique = true)
     @NotNull
     private String roleId;
 

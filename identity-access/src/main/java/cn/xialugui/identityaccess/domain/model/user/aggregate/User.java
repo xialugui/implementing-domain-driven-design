@@ -77,6 +77,9 @@ public final class User extends AbstractAggregateRoot<User> {
     @ElementCollection
     private Set<RoleId> roleIds;
 
+    @ElementCollection
+    private Set<String> ids;
+
     /**
      * 我们有时必须保证，参数的非空性，这时我们可以使用类似唯一标识维持稳定性的方式进行自封装。参考{@link #setUserId(UserId)},
      * {@link #setUsername(Username)}。

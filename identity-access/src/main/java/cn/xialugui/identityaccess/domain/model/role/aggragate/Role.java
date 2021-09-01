@@ -5,6 +5,7 @@ import cn.xialugui.identityaccess.domain.model.Identifier;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public final class Role extends AbstractAggregateRoot<Role> {
     @Embedded
     @Valid
     @NotNull
+    @NaturalId
     private RoleId roleId;
     @Embedded
     @Valid
