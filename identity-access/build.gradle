@@ -9,14 +9,6 @@ ext {
     set('commonsValidatorVersion', '1.7')
 }
 
-jar {
-    enabled(false)
-}
-bootJar {
-    enabled(true)
-}
-
-
 dependencies {
     implementation(
             //openapi ui文档
