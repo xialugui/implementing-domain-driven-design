@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -39,6 +41,11 @@ public final class User extends AbstractAggregateRoot<User> {
      * <p>
      * 唯一标识会在很多地方使用，不同的上下文，不同的实体。此时使用强类型使它们
      * 更容易被识别。
+     * </p>
+     * <p>
+     * 在此处，我们没有使用数据库的唯一约束来实现唯一性。考虑到易用性，我们在{@link cn.xialugui.identityaccess.domain.model.role.aggragate.Role#roleId}
+     * 中使用{@code Hibernate}的{@link  org.hibernate.annotations.NaturalId}来实现
+     * 逻辑id的唯一约束。
      * </p>
      */
     @Embedded
@@ -75,10 +82,8 @@ public final class User extends AbstractAggregateRoot<User> {
      * 需要在标识引用和直接引用之间折中考虑了。
      */
     @ElementCollection
+    @NotNull
     private Set<RoleId> roleIds;
-
-    @ElementCollection
-    private Set<String> ids;
 
     /**
      * 我们有时必须保证，参数的非空性，这时我们可以使用类似唯一标识维持稳定性的方式进行自封装。参考{@link #setUserId(UserId)},
@@ -100,6 +105,7 @@ public final class User extends AbstractAggregateRoot<User> {
         setEmail(email);
         setMobilePhone(mobilePhone);
         setPassword(password);
+        setRoleIds(new HashSet<>());
         /*
           发布领域事件
          */
@@ -166,6 +172,8 @@ public final class User extends AbstractAggregateRoot<User> {
         return getUserId();
     }
 
-
+    public void addRole(RoleId roleId) {
+        getRoleIds().add(roleId);
+    }
 }
 

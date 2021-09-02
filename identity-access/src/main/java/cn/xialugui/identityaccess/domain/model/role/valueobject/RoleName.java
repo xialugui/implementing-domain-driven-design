@@ -26,23 +26,23 @@ public final class RoleName extends ValueObject<RoleName> {
      */
     @Pattern(regexp = "^[\\u4e00-\\u9fa5_a-zA-Z0-9]{2,16}$")
     @NotNull
-    private String name;
+    private String value;
 
-    public RoleName(String name) {
-        setName(name);
+    public RoleName(String value) {
+        setValue(value);
     }
 
-    private void setName(String name) {
-        this.name = name;
+    private void setValue(String value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return getName();
+        return getValue();
     }
 
     @Override
     protected boolean equalsTo(RoleName other) {
-        return getName().equals(other.getName());
+        return getValue().equals(other.getValue());
     }
 }

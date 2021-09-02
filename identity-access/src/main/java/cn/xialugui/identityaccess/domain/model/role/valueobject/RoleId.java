@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
@@ -31,10 +30,10 @@ public final class RoleId extends ValueObject<RoleId> implements Identifier {
     };
     @Pattern(regexp = "^[0-9a-zA-Z]{2,16}$")
     @NotNull
-    private String roleId;
+    private String value;
 
-    public RoleId(String roleId) {
-        setRoleId(roleId);
+    public RoleId(String value) {
+        setValue(value);
     }
 
     public static RoleId random() {
@@ -48,12 +47,12 @@ public final class RoleId extends ValueObject<RoleId> implements Identifier {
 
     @Override
     public String toString() {
-        return this.roleId;
+        return this.value;
     }
 
     @Override
     protected boolean equalsTo(RoleId other) {
-        return StringUtils.equals(getRoleId(), other.getRoleId());
+        return StringUtils.equals(getValue(), other.getValue());
     }
 }
 

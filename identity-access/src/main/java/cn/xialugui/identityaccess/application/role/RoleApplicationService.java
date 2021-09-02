@@ -1,5 +1,6 @@
 package cn.xialugui.identityaccess.application.role;
 
+import cn.xialugui.identityaccess.application.AbstractApplicationService;
 import cn.xialugui.identityaccess.domain.model.role.aggragate.Role;
 import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
@@ -7,6 +8,7 @@ import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 /**
@@ -15,7 +17,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @AllArgsConstructor
-public class RoleApplicationService {
+public class RoleApplicationService extends AbstractApplicationService<Role> {
 
     private final RoleRepository repository;
 
@@ -37,5 +39,8 @@ public class RoleApplicationService {
                 }, () -> {
                     throw new IllegalArgumentException("角色不存在");
                 });
+    }
+    public Role of(String roleId) {
+        return acceptIfExist(repository.findByRoleId(new RoleId(roleId)));
     }
 }

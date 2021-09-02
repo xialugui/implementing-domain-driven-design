@@ -11,13 +11,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 聚合根
- *
  * @author 夏露桂
- * @since 2021/7/14 17:53
+ * @since 2021/9/2 15:56
  */
-public abstract class AbstractAggregateRoot<A extends AbstractAggregateRoot<A>> extends Entity {
-
+public abstract class HibernateAggregateRoot<A extends HibernateAggregateRoot<A>> extends HibernateEntity {
     private transient final @Transient
     List<Object> domainEvents = new ArrayList<>();
 

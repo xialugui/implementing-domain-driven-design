@@ -9,5 +9,10 @@ import java.time.LocalDateTime;
  * @since 2021/8/17 10:57
  */
 public interface DomainEvent {
+    /**
+     * 标识领域事件发生的时间
+     *
+     * @return 时间
+     */
     LocalDateTime occurredOn();
 }

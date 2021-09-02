@@ -3,6 +3,7 @@ package cn.xialugui.identityaccess.domain.model;
 import cn.xialugui.identityaccess.domain.ValidationNotificationHandler;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Persistable;
 
 /**
  * 实体

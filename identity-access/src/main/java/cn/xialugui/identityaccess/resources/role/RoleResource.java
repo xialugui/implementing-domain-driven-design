@@ -3,6 +3,7 @@ package cn.xialugui.identityaccess.resources.role;
 import cn.xialugui.identityaccess.application.role.ChangeNameCommand;
 import cn.xialugui.identityaccess.application.role.CreateCommand;
 import cn.xialugui.identityaccess.application.role.RoleApplicationService;
+import cn.xialugui.identityaccess.domain.model.role.aggragate.Role;
 import com.lugew.winsin.web.Standard;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,11 @@ public class RoleResource {
     @Operation(summary = "修改角色名")
     public void changeName(@PathVariable("roleId") String roleId, @RequestBody ChangeNameCommand command) {
         applicationService.changeName(roleId, command);
+    }
+
+    @GetMapping("{roleId}")
+    @Operation(summary = "获取角色")
+    public Role of(@PathVariable("roleId") String roleId) {
+        return applicationService.of(roleId);
     }
 }

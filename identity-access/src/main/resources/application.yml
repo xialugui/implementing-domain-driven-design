@@ -13,6 +13,12 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
+    open-in-view: false
+    hibernate:
+      naming:
+        #隐式命名规则，以组件路径命名。
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+
   sql:
     init:
       data-locations: classpath:sql/*.sql
