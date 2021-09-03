@@ -1,5 +1,6 @@
 package cn.xialugui.identityaccess.domain.model;
 
+import cn.xialugui.identityaccess.infrastructure.persistence.HibernateEntity;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;

@@ -40,7 +40,4 @@ class UserSpecification extends Specification {
         then: '抛出异常，不允许修改'
         thrown(IllegalArgumentException)
     }
-
-
-
 }

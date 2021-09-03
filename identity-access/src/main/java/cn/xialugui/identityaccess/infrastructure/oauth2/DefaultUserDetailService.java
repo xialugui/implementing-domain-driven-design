@@ -32,6 +32,7 @@ public class DefaultUserDetailService implements UserDetailsService {
         result.ifPresentOrElse(user -> userDetailsAtomicReference.set(User.builder()
                 .username(user.getUsername().toString())
                 .password(user.getPassword().getPassword())
+                .authorities("book")
                 .roles(user.getRoleIds().stream().map(RoleId::getValue).toArray(String[]::new))
                 .build()), () -> {
             throw new IllegalArgumentException("用户未注册");

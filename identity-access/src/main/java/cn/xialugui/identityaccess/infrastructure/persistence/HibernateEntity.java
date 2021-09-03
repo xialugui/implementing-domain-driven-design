@@ -1,7 +1,6 @@
-package cn.xialugui.identityaccess.domain.model;
+package cn.xialugui.identityaccess.infrastructure.persistence;
 
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
-import org.springframework.data.jpa.domain.AbstractAuditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
