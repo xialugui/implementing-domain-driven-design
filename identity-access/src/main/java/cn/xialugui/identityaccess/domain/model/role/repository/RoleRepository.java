@@ -1,6 +1,6 @@
 package cn.xialugui.identityaccess.domain.model.role.repository;
 
-import cn.xialugui.identityaccess.domain.model.role.aggragate.Role;
+import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import org.springframework.data.repository.CrudRepository;
 

@@ -43,7 +43,7 @@ public final class User extends AbstractAggregateRoot<User> {
      * 更容易被识别。
      * </p>
      * <p>
-     * 在此处，我们没有使用数据库的唯一约束来实现唯一性。考虑到易用性，我们在{@link cn.xialugui.identityaccess.domain.model.role.aggragate.Role#roleId}
+     * 在此处，我们没有使用数据库的唯一约束来实现唯一性。考虑到易用性，我们在{@link cn.xialugui.identityaccess.domain.model.role.aggregate.Role#roleId}
      * 中使用{@code Hibernate}的{@link  org.hibernate.annotations.NaturalId}来实现
      * 逻辑id的唯一约束。
      * </p>

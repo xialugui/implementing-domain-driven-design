@@ -1,14 +1,13 @@
 package cn.xialugui.identityaccess.application.role;
 
 import cn.xialugui.identityaccess.application.AbstractApplicationService;
-import cn.xialugui.identityaccess.domain.model.role.aggragate.Role;
+import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 /**

@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.domain.model.role.aggragate
+package cn.xialugui.identityaccess.domain.model.role.aggregate
 
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName
@@ -37,7 +37,7 @@ class RoleSpecification extends Specification {
         given: '初始化'
         Role role = new Role(id, null)
         when: '校验'
-        Set<ConstraintViolation> constraintViolations = validator.validateProperty(role, 'roleId')
+        Set<ConstraintViolation> constraintViolations = validator.validateProperty(role, 'roleId.value')
         then: '提示'
         with(constraintViolations) {
             size() == 1
@@ -45,7 +45,6 @@ class RoleSpecification extends Specification {
         }
         where:
         id                              || errorMessage
-        null                            || NOT_NULL
         new RoleId(null)                || NOT_NULL
         new RoleId('')                  || PATTERN
         new RoleId('1')                 || PATTERN
@@ -58,7 +57,7 @@ class RoleSpecification extends Specification {
         given: '初始化'
         Role role = new Role(null, name)
         when: "验证"
-        Set<ConstraintViolation> constraintViolations = validator.validateProperty(role, 'name')
+        Set<ConstraintViolation> constraintViolations = validator.validateProperty(role, 'name.value')
         then: "不合格提示"
         with(constraintViolations) {
             size() == 1
@@ -66,11 +65,26 @@ class RoleSpecification extends Specification {
         }
         where:
         name                              || errorMessage
-        null                              || NOT_NULL
         new RoleName(null)                || NOT_NULL
         new RoleName('')                  || PATTERN
         new RoleName(' ')                 || PATTERN
         new RoleName('1')                 || PATTERN
         new RoleName('12312312313123133') || PATTERN
+    }
+
+    def '角色初始化时权限为空但不为null'() {
+        when: '初始化角色'
+        Role role = new Role(
+                RoleId.random(),
+                new RoleName("libai")
+        )
+        then: '权限为空但不为null'
+        with(role) {
+            permissionIds != null
+            permissionIds.size() == 0
+            roleId != null
+            name.value == 'libai'
+        }
+
     }
 }

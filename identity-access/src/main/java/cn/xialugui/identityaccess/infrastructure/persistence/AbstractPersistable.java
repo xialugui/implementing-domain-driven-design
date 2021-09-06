@@ -14,14 +14,8 @@ public abstract class AbstractPersistable<PK extends Serializable> {
 
     @Id
     @GeneratedValue
-    private @Nullable
-    PK id;
+    private PK id;
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.domain.Persistable#getId()
-     */
-    @Nullable
     protected PK getId() {
         return id;
     }
