@@ -40,4 +40,9 @@ public class PermissionId {
         }
         return new PermissionId(result.toString());
     }
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
 }
