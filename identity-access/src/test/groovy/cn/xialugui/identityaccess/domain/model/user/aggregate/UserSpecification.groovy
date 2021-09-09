@@ -40,4 +40,8 @@ class UserSpecification extends Specification {
         then: '抛出异常，不允许修改'
         thrown(IllegalArgumentException)
     }
+
+    def '用户增加角色，角色不能重复'() {
+
+    }
 }

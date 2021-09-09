@@ -24,9 +24,12 @@ public class PermissionId {
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            '/'
     };
-
-    private @NotNull @Pattern(regexp = "^[0-9a-zA-Z]{2,16}$") String value;
+    /**
+     * 权限的值是类似{@code users/create}（身份与访问下用户注册功能）
+     */
+    private @NotNull @Pattern(regexp = "^[0-9a-zA-Z/]{2,16}$") String value;
 
     public PermissionId(String value) {
         setValue(value);

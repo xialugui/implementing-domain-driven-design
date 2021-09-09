@@ -46,7 +46,7 @@ public class UserApplicationService extends AbstractApplicationService<User> {
      * <p>
      * 类型，有可能还有{@code DTO}。但是，更好的方法是使用
      * <p>
-     * {@code 命令对象}，见@{@link #register(CreateCommand)}
+     * {@code 命令对象}，见@{@link #register(CreateUserCommand)}
      * </p>
      * 这其中的选择取决于你的喜好。
      * <p>
@@ -73,19 +73,19 @@ public class UserApplicationService extends AbstractApplicationService<User> {
     /**
      * 命令对象将一个请求封装到一个对象中，从而使得我们对客户端进行参数化，
      * 包括不同的请求、队列或者日志请求等。我们可以将命令对象看成是序列化
-     * 的方法调用。参考{@link CreateCommand}
+     * 的方法调用。参考{@link CreateUserCommand}
      *
-     * @param createCommand 创建命令
+     * @param createUserCommand 创建命令
      */
     @Transactional
-    public void register(CreateCommand createCommand) {
+    public void register(CreateUserCommand createUserCommand) {
         registerService.register(
-                new UserId(createCommand.getUserId()),
-                new Username(createCommand.getUsername()),
-                new Nickname(createCommand.getNickname()),
-                createCommand.getPassword(),
-                new MobilePhone(createCommand.getMobilePhone()),
-                new Email(createCommand.getEmail())
+                new UserId(createUserCommand.getUserId()),
+                new Username(createUserCommand.getUsername()),
+                new Nickname(createUserCommand.getNickname()),
+                createUserCommand.getPassword(),
+                new MobilePhone(createUserCommand.getMobilePhone()),
+                new Email(createUserCommand.getEmail())
         );
 
     }

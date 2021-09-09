@@ -1,7 +1,7 @@
 package cn.xialugui.identityaccess.resources.user;
 
 import cn.xialugui.identityaccess.application.user.ChangeNicknameCommand;
-import cn.xialugui.identityaccess.application.user.CreateCommand;
+import cn.xialugui.identityaccess.application.user.CreateUserCommand;
 import cn.xialugui.identityaccess.application.user.UserApplicationService;
 import com.lugew.winsin.web.Standard;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,8 +26,8 @@ public class UserResource {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "注册")
-    public void register(@RequestBody CreateCommand createCommand) {
-        userApplicationService.register(createCommand);
+    public void register(@RequestBody CreateUserCommand createUserCommand) {
+        userApplicationService.register(createUserCommand);
     }
 
 

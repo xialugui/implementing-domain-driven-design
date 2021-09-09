@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -82,6 +83,7 @@ public final class User extends AbstractAggregateRoot<User> {
      * 需要在标识引用和直接引用之间折中考虑了。
      */
     @ElementCollection
+    @CollectionTable()
     @NotNull
     private Set<RoleId> roleIds;
 

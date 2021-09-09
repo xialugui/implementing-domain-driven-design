@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateCommand {
+public class CreateRoleCommand {
     private String name;
 }

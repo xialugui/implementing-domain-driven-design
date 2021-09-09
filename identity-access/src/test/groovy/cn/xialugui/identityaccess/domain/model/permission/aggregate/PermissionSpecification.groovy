@@ -44,7 +44,7 @@ class PermissionSpecification extends ValidatableSpecification {
         new PermissionId('abcdef1234567891')  | 'p'                  || 'name'               || PATTERN      || 1
         new PermissionId('abcdef1234567891')  | 'abcdef123456789112' || 'name'               || PATTERN      || 1
 
-        new PermissionId('abcdef1234567891')  | 'permissionName'     || 'permissionId.value' || PATTERN      || 0
+        new PermissionId('abcdef1234567891')  | 'permissionName'     || _ as String          || PATTERN      || 0
 
     }
 }

@@ -21,7 +21,7 @@ public class RoleApplicationService extends AbstractApplicationService<Role> {
     private final RoleRepository repository;
 
     @Transactional
-    public void create(CreateCommand command) {
+    public void create(CreateRoleCommand command) {
         repository.save(new Role(
                 RoleId.random(),
                 new RoleName(command.getName())

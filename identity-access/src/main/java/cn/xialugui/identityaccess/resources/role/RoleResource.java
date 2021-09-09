@@ -1,11 +1,12 @@
 package cn.xialugui.identityaccess.resources.role;
 
 import cn.xialugui.identityaccess.application.role.ChangeNameCommand;
-import cn.xialugui.identityaccess.application.role.CreateCommand;
+import cn.xialugui.identityaccess.application.role.CreateRoleCommand;
 import cn.xialugui.identityaccess.application.role.RoleApplicationService;
 import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import com.lugew.winsin.web.Standard;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +19,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Standard
+@Tag(name = "角色资源")
 public class RoleResource {
     private final RoleApplicationService applicationService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "创建")
-    public void create(@RequestBody CreateCommand createCommand) {
-        applicationService.create(createCommand);
+    public void create(@RequestBody CreateRoleCommand createRoleCommand) {
+        applicationService.create(createRoleCommand);
     }
 
     @PutMapping("{roleId}")
