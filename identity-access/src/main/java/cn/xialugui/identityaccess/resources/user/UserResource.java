@@ -43,4 +43,11 @@ public class UserResource {
         userApplicationService.changeNickname(userId, command);
     }
 
+    @PutMapping("{userId}/role/{roleId}")
+    @Operation(summary = "增加角色")
+    public void addRole(@PathVariable @Parameter(name = "userId", description = "用户id") String userId,
+                        @PathVariable @Parameter(name = "roleId", description = "角色id") String roleId) {
+        userApplicationService.addRole(userId, roleId);
+    }
+
 }

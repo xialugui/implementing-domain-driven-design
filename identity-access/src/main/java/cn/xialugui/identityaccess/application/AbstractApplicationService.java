@@ -1,6 +1,7 @@
 package cn.xialugui.identityaccess.application;
 
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
@@ -19,6 +20,18 @@ public abstract class AbstractApplicationService<T> {
 
     public <O> O acceptIfExist(Optional<O> optional) {
         return optional.orElseThrow(() -> new IllegalArgumentException("对象不存在"));
+    }
+
+    public <T, U> void acceptIfExist(Optional<T> t, Optional<U> u, BiConsumer<T, U> action) {
+        t.ifPresentOrElse(t1 -> u.ifPresentOrElse(u1 -> {
+                    action.accept(t1, u1);
+                }, () -> {
+                    throw new IllegalArgumentException("对象不存在");
+                }),
+                () -> {
+                    throw new IllegalArgumentException("对象不存在");
+                });
+
     }
 
     public <O> O acceptIfExist(O object, UnaryOperator<O> operator) {

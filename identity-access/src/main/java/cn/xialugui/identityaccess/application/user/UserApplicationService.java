@@ -1,7 +1,10 @@
 package cn.xialugui.identityaccess.application.user;
 
 import cn.xialugui.identityaccess.application.AbstractApplicationService;
+import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.RegisterService;
+import cn.xialugui.identityaccess.domain.model.user.UserDomainService;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
@@ -33,7 +36,9 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class UserApplicationService extends AbstractApplicationService<User> {
     private final UserRepository repository;
+    private final RoleRepository roleRepository;
     private final RegisterService registerService;
+    private final UserDomainService domainService;
 
     /**
      * 注册
@@ -114,5 +119,14 @@ public class UserApplicationService extends AbstractApplicationService<User> {
                     repository.save(user);
                 }
         );
+    }
+
+    public void addRole(String userId, String roleId) {
+        domainService.addRole(null, null);
+        /*acceptIfExist(
+                repository.of(new UserId(userId)),
+                roleRepository.findByRoleId(new RoleId(roleId)),
+                domainService::addRole
+        );*/
     }
 }

@@ -1,5 +1,6 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate
 
+
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Password
 import cn.xialugui.identityaccess.domain.model.user.valueobject.UserId
 import spock.lang.Specification
@@ -14,7 +15,6 @@ import spock.lang.Unroll
 @Title("用户聚合根的单元测试")
 @Subject(User)
 class UserSpecification extends Specification {
-
 
     @Unroll('密码：#password，结果：#result')
     def '创建用户时，密码必须合规'() {
@@ -41,7 +41,4 @@ class UserSpecification extends Specification {
         thrown(IllegalArgumentException)
     }
 
-    def '用户增加角色，角色不能重复'() {
-
-    }
 }
