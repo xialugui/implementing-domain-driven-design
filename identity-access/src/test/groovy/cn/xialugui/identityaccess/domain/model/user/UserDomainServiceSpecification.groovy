@@ -41,6 +41,11 @@ class UserDomainServiceSpecification extends ValidatableSpecification {
         domainService = new UserDomainService(userRepository)
     }
 
+    /**
+     * 参数null验证依赖的是javax.validation，它是稳定可靠的，所以
+     * 在之后的方法中，我们便不再验证，这里只做示范用。
+     * @return
+     */
     def '用户增加角色时，参数不为null'() {
         given: '建立验证方法和参数'
         Method method = UserDomainService.getMethod('addRole', User, Role)
