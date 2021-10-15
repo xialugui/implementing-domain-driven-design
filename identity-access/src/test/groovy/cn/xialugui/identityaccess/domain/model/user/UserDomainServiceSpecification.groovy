@@ -43,7 +43,8 @@ class UserDomainServiceSpecification extends ValidatableSpecification {
 
     /**
      * 参数null验证依赖的是javax.validation，它是稳定可靠的，所以
-     * 在之后的方法中，我们便不再验证，这里只做示范用。
+     * 在之后的方法中，我们便不再验证，这里只做示范用。原则上我们只验证自定义
+     * 约束。
      * @return
      */
     def '用户增加角色时，参数不为null'() {

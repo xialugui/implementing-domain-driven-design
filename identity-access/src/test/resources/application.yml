@@ -16,6 +16,8 @@ spring:
   sql:
     init:
       data-locations: classpath:sql/*.sql
+  messages:
+    basename:
 logging:
   level:
     org:

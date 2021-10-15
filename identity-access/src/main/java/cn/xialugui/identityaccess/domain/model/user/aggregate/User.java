@@ -7,6 +7,7 @@ import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
+import cn.xialugui.identityaccess.infrastructure.constraint.validator.Tag;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
+@Tag("用户")
 public final class User extends AbstractAggregateRoot<User> {
     /**
      * 有人会疑惑，为什么唯一标识不适用简单的字符串。
