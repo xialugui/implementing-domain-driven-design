@@ -7,6 +7,7 @@ import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*
 import org.hibernate.validator.internal.engine.path.PathImpl
 import org.springframework.security.crypto.password.PasswordEncoder
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Subject
 import spock.lang.Title
@@ -47,6 +48,7 @@ class UserDomainServiceSpecification extends ValidatableSpecification {
      * 约束。
      * @return
      */
+    @Ignore
     def '用户增加角色时，参数不为null'() {
         given: '建立验证方法和参数'
         Method method = UserDomainService.getMethod('addRole', User, Role)

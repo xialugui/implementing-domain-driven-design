@@ -4,11 +4,10 @@ import java.lang.annotation.*;
 
 /**
  * @author 夏露桂
- * @since 2021/10/15 15:30
+ * @since 2021/10/16 13:47
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
-public @interface Tag {
-    String value() default "对象";
+@Documented
+public @interface ParametersExist {
 }

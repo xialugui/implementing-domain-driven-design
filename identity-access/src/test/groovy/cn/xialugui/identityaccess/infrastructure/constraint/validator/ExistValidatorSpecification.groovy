@@ -34,10 +34,10 @@ class ExistValidatorSpecification extends ValidatableSpecification {
 
     }
 
-    @Tag('测试')
     class TestObject {
 
-        def test(@Exist TestObject input) {
+        @Check
+        def test(TestObject input) {
 
         }
     }

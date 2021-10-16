@@ -1,11 +1,10 @@
 package cn.xialugui.identityaccess.infrastructure.constraint.validator;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.reflect.Type;
 
 /**
  * 存在验证器
@@ -14,18 +13,22 @@ import java.lang.reflect.Type;
  * @since 2021/10/15 11:48
  */
 @Slf4j
-public abstract class ExistValidator<T> implements ConstraintValidator<Exist, T> {
+public class ExistValidator implements ConstraintValidator<Exist, Object> {
     private final static String OBJECT = "object";
 
+    @SneakyThrows
     @Override
-    public boolean isValid(T value, ConstraintValidatorContext context) {
-        if (null == value) {
-            Type genericType = this.getClass().getTypeParameters()[0];
-            Tag tag = genericType.getClass().getAnnotation(Tag.class);
-            context.unwrap(HibernateConstraintValidatorContext.class)
-                    .addMessageParameter(OBJECT, tag.value());
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+
+/*        String result;
+        if (value != null) {
+//            result = value.logicName();
+
+        } else {
+            result = "对象";
         }
-        log.debug(context.getDefaultConstraintMessageTemplate());
+        HibernateConstraintValidatorContext validatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
+        validatorContext.addMessageParameter(OBJECT, result);*/
         return null != value;
     }
 }

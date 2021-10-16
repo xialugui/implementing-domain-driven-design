@@ -15,7 +15,6 @@ allprojects {
     group = 'cn.xialugui'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'
-
     test {
         useJUnitPlatform()
     }
@@ -47,6 +46,7 @@ subprojects {
                 //lombok
                 "org.projectlombok:lombok:${lombokVersion}"
         )
+
         annotationProcessor(
                 'org.hibernate.validator:hibernate-validator-annotation-processor:6.2.0.Final',
                 "org.projectlombok:lombok:${lombokVersion}",

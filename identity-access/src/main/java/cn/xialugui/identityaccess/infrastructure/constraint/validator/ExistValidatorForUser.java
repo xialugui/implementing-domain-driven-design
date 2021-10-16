@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2021/10/15 11:48
  */
 @Slf4j
-public class ExistValidatorForUser extends ExistValidator<User> {
+public class ExistValidatorForUser extends ExistValidator {
 
 
 }
