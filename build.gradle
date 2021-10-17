@@ -10,6 +10,7 @@ ext {
     set('mapstructVersion', '1.3.0.Final')
     set('serenityVersion', '2.5.10')
 }
+
 allprojects {
     apply plugin: 'java'
     group = 'cn.xialugui'
@@ -64,4 +65,5 @@ subprojects {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
+
 }

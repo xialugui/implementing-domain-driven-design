@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.infrastructure.constraint.validator;
+package cn.xialugui.sharedkernel.infrastructure.constraint.validator;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +12,14 @@ import javax.validation.ConstraintValidatorContext;
  * @author 夏露桂
  * @since 2021/10/15 11:48
  */
-@Slf4j
+
 public class ExistValidator implements ConstraintValidator<Exist, Object> {
     private final static String OBJECT = "object";
+
+    @Override
+    public void initialize(Exist constraintAnnotation) {
+
+    }
 
     @SneakyThrows
     @Override

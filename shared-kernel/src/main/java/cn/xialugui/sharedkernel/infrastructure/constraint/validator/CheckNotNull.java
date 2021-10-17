@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.infrastructure.constraint.validator;
+package cn.xialugui.sharedkernel.infrastructure.constraint.validator;
 
 import java.lang.annotation.*;
 
@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 @Documented
-public @interface Check {
+public @interface CheckNotNull {
 }

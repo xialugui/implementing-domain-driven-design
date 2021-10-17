@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.infrastructure.constraint.validator;
+package cn.xialugui.sharedkernel.infrastructure.constraint.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

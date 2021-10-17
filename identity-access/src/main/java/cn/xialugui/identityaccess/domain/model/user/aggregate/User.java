@@ -7,7 +7,7 @@ import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
-import cn.xialugui.identityaccess.infrastructure.constraint.validator.Tag;
+import cn.xialugui.sharedkernel.infrastructure.constraint.validator.Tag;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

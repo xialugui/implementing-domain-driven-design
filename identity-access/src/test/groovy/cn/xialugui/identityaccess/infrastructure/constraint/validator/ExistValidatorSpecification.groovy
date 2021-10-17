@@ -1,6 +1,7 @@
 package cn.xialugui.identityaccess.infrastructure.constraint.validator
 
 import cn.xialugui.identityaccess.ValidatableSpecification
+import cn.xialugui.sharedkernel.infrastructure.constraint.validator.CheckNotNull
 import spock.lang.Title
 
 import javax.validation.ConstraintViolation
@@ -36,7 +37,7 @@ class ExistValidatorSpecification extends ValidatableSpecification {
 
     class TestObject {
 
-        @Check
+        @CheckNotNull
         def test(TestObject input) {
 
         }

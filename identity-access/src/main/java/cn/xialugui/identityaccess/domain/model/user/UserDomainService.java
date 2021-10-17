@@ -3,7 +3,7 @@ package cn.xialugui.identityaccess.domain.model.user;
 import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
-import cn.xialugui.identityaccess.infrastructure.constraint.validator.Check;
+import cn.xialugui.sharedkernel.infrastructure.constraint.validator.CheckNotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +21,7 @@ public class UserDomainService {
     public final UserRepository repository;
 
 
-    @Check
+    @CheckNotNull
     public void addRole(User user, Role role) {
 
     }

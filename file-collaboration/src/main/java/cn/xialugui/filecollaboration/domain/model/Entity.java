@@ -39,5 +39,4 @@ public class Entity {
         //id相等则视为同一对象
         return getId().equals(other.getId());
     }
-
 }
