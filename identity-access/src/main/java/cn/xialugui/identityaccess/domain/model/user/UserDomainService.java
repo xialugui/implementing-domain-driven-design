@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+
 /**
  * 领域服务，我们将用户的领域服务都几种在此类中。这种方式有好处也有坏处。
  *
@@ -20,9 +21,13 @@ import org.springframework.validation.annotation.Validated;
 public class UserDomainService {
     public final UserRepository repository;
 
-
     @CheckNotNull
     public void addRole(User user, Role role) {
+
+    }
+
+    @CheckNotNull
+    public void addRole(User user) {
 
     }
 }

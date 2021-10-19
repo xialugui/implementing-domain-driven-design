@@ -1,8 +1,11 @@
 package cn.xialugui.identityaccess.infrastructure.constraint.validator
 
 import cn.xialugui.identityaccess.ValidatableSpecification
-import cn.xialugui.sharedkernel.infrastructure.constraint.validator.CheckNotNull
+import cn.xialugui.identityaccess.domain.model.role.aggregate.Role
+import cn.xialugui.identityaccess.domain.model.user.UserDomainService
+import cn.xialugui.identityaccess.domain.model.user.aggregate.User
 import spock.lang.Title
+import spock.lang.Unroll
 
 import javax.validation.ConstraintViolation
 import java.lang.reflect.Method
@@ -15,31 +18,21 @@ import java.lang.reflect.Method
 @Title("存在验证器说明")
 class ExistValidatorSpecification extends ValidatableSpecification {
 
-
+    @Unroll("输入：#inputObject，结果：#result")
     def '对象不存在时抛出异常'() {
         given: '建立验证方法和参数'
-        TestObject testObject = new TestObject()
-        Method method = TestObject.getMethod('test', TestObject)
+        UserDomainService testObject = new UserDomainService(null)
+        Method method = UserDomainService.getMethod('addRole', User.class, Role.class)
         Set<ConstraintViolation> constraintViolations =
-                validateParameters(testObject, method, new Object[]{inputObject})
+                validateParameters(testObject, method, new Object[]{inputObject, inputObject})
         expect: '提示'
-        ifViolated(constraintViolations, {
-            with(constraintViolations[0]) {
-                messageTemplate == '{cn.xialugui.identity-access.Exist.message}'
-                message == result
-            }
-        })
+        with(constraintViolations[0]) {
+            messageTemplate == '{cn.xialugui.identity-access.Exist.message}'
+            message == result
+        }
         where:
         inputObject || result
-        null        || '测试不存在'
+        null        || '用户不存在'
 
-    }
-
-    class TestObject {
-
-        @CheckNotNull
-        def test(TestObject input) {
-
-        }
     }
 }

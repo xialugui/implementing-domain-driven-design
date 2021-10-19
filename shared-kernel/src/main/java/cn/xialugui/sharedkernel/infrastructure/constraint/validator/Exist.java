@@ -24,6 +24,13 @@ public @interface Exist {
     Class<?>[] groups() default {};
 
     /**
+     * 目标类
+     *
+     * @return 目标类
+     */
+    Class<?> target() default Object.class;
+
+    /**
      * payload字段是Jakarta Bean Validation API使用的。
      *
      * @return 负载

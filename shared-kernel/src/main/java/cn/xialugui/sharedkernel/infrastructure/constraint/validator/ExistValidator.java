@@ -1,7 +1,7 @@
 package cn.xialugui.sharedkernel.infrastructure.constraint.validator;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,25 +15,20 @@ import javax.validation.ConstraintValidatorContext;
 
 public class ExistValidator implements ConstraintValidator<Exist, Object> {
     private final static String OBJECT = "object";
+    private Exist constraintAnnotation;
 
     @Override
     public void initialize(Exist constraintAnnotation) {
-
+        this.constraintAnnotation = constraintAnnotation;
     }
 
-    @SneakyThrows
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-
-/*        String result;
-        if (value != null) {
-//            result = value.logicName();
-
-        } else {
-            result = "对象";
+        Tag tag = constraintAnnotation.target().getAnnotation(Tag.class);
+        if (null != tag) {
+            HibernateConstraintValidatorContext validatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
+            validatorContext.addMessageParameter(OBJECT, tag.value());
         }
-        HibernateConstraintValidatorContext validatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
-        validatorContext.addMessageParameter(OBJECT, result);*/
         return null != value;
     }
 }
