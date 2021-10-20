@@ -30,9 +30,9 @@ class ExistValidatorSpecification extends ValidatableSpecification {
             message == result
         }
         where:
-        user      | role      || result
-        null      | _ as Role || '用户不存在'
-        _ as User | null      || '角色不存在'
+        user       | role       || result
+        null       | new Role() || '用户不存在'
+        new User() | null       || '角色不存在'
 
     }
 }

@@ -27,7 +27,7 @@ public class ExistValidator implements ConstraintValidator<Exist, Object> {
         if (null == value) {
             HibernateConstraintValidatorContext validatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
             validatorContext.disableDefaultConstraintViolation();
-            validatorContext.buildConstraintViolationWithTemplate("{" + constraintAnnotation.target().getName() + ".message}" + NOT_EXIST).addConstraintViolation();
+            validatorContext.buildConstraintViolationWithTemplate("{" + constraintAnnotation.target().getSimpleName() + "}" + NOT_EXIST).addConstraintViolation();
         }
 
         return null != value;

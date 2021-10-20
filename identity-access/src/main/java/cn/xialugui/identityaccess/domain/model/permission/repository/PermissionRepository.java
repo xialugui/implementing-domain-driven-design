@@ -12,5 +12,5 @@ import java.util.Optional;
  */
 public interface PermissionRepository extends CrudRepository<Permission, Long> {
 
-    Optional<Permission> findByPermissionId(PermissionId permissionId);
+    Optional<Permission> findById(PermissionId permissionId);
 }

@@ -31,7 +31,7 @@ public class RoleApplicationService extends AbstractApplicationService<Role> {
 
     @Transactional
     public void changeName(String roleId, ChangeNameCommand command) {
-        repository.findByRoleId(new RoleId(roleId))
+        repository.findById(new RoleId(roleId))
                 .ifPresentOrElse(role -> {
                     role.changeName(new RoleName(command.getName()));
                     repository.save(role);
@@ -39,7 +39,8 @@ public class RoleApplicationService extends AbstractApplicationService<Role> {
                     throw new IllegalArgumentException("角色不存在");
                 });
     }
+
     public Role of(String roleId) {
-        return acceptIfExist(repository.findByRoleId(new RoleId(roleId)));
+        return acceptIfExist(repository.findById(new RoleId(roleId)));
     }
 }

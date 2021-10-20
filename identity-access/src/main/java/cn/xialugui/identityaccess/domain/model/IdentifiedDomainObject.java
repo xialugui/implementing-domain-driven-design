@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 层超类型
  * <p>
- * {@link IdentifiedDomainObject#id}属性通过{@code protected}关键字隐藏了委派主键。
+ * {@link IdentifiedDomainObject#pk}属性通过{@code protected}关键字隐藏了委派主键。
  * 所有实体都扩展自该抽象基类。在实体所处的模块之外，客户端根本就不用关心id这个委派标识。
  * 我们甚至可以将{@code protected}换为{@code private}。
  * </p>
@@ -24,16 +24,16 @@ import java.io.Serializable;
  * @since 2021/8/12 15:17
  */
 @MappedSuperclass
-public abstract class IdentifiedDomainObject implements Serializable {
+public abstract class IdentifiedDomainObject<ID> implements Serializable, Identifiable<ID> {
     @Id
     @GeneratedValue
-    private long id = -1;
+    private long pk = -1;
 
-    protected long id() {
-        return this.id;
+    protected long getPk() {
+        return this.pk;
     }
 
-    protected void setId(long id) {
-        this.id = id;
+    protected void setPk(long id) {
+        this.pk = id;
     }
 }

@@ -24,27 +24,26 @@ class PermissionSpecification extends ValidatableSpecification {
         when: '验证不能为null'
         Set<ConstraintViolation> constraintViolations = validate(permission)
         then: '提示'
-        constraintViolations.size() == size
-        if (size > 0) {
+        ifViolated(constraintViolations) {
             with(constraintViolations[0]) {
                 messageTemplate == errorMessage
                 propertyPath == PathImpl.createPathFromString(path)
             }
         }
         where:
-        id                                    | name                 || path                 || errorMessage || size
-        null                                  | 'permissionName'     || 'permissionId'       || NOT_NULL     || 1
-        new PermissionId(null)                | 'permissionName'     || 'permissionId.value' || NOT_NULL     || 1
-        new PermissionId('')                  | 'permissionName'     || 'permissionId.value' || PATTERN      || 1
-        new PermissionId('1')                 | 'permissionName'     || 'permissionId.value' || PATTERN      || 1
-        new PermissionId('abcdef12345678911') | 'permissionName'     || 'permissionId.value' || PATTERN      || 1
+        id                                    | name                 || path        || errorMessage || size
+        null                                  | 'permissionName'     || 'id'        || NOT_NULL     || 1
+        new PermissionId(null)                | 'permissionName'     || 'id.value'  || NOT_NULL     || 1
+        new PermissionId('')                  | 'permissionName'     || 'id.value'  || PATTERN      || 1
+        new PermissionId('1')                 | 'permissionName'     || 'id.value'  || PATTERN      || 1
+        new PermissionId('abcdef12345678911') | 'permissionName'     || 'id.value'  || PATTERN      || 1
 
-        new PermissionId('abcdef1234567891')  | null                 || 'name'               || NOT_NULL     || 1
-        new PermissionId('abcdef1234567891')  | ''                   || 'name'               || PATTERN      || 1
-        new PermissionId('abcdef1234567891')  | 'p'                  || 'name'               || PATTERN      || 1
-        new PermissionId('abcdef1234567891')  | 'abcdef123456789112' || 'name'               || PATTERN      || 1
+        new PermissionId('abcdef1234567891')  | null                 || 'name'      || NOT_NULL     || 1
+        new PermissionId('abcdef1234567891')  | ''                   || 'name'      || PATTERN      || 1
+        new PermissionId('abcdef1234567891')  | 'p'                  || 'name'      || PATTERN      || 1
+        new PermissionId('abcdef1234567891')  | 'abcdef123456789112' || 'name'      || PATTERN      || 1
 
-        new PermissionId('abcdef1234567891')  | 'permissionName'     || _ as String          || PATTERN      || 0
+        new PermissionId('abcdef1234567891')  | 'permissionName'     || _ as String || PATTERN      || 0
 
     }
 }

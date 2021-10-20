@@ -2,7 +2,6 @@ package cn.xialugui.identityaccess.application.user;
 
 import cn.xialugui.identityaccess.application.AbstractApplicationService;
 import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
-import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.RegisterService;
 import cn.xialugui.identityaccess.domain.model.user.UserDomainService;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
@@ -108,7 +107,7 @@ public class UserApplicationService extends AbstractApplicationService<User> {
     }
 
     public UserDetailsProjection detailsOf(String userId) {
-        return acceptIfExist(repository.findByUserId(new UserId(userId)));
+        return acceptIfExist(repository.findUserDetailsById(new UserId(userId)));
     }
 
     public void changeNickname(String userId, ChangeNicknameCommand command) {

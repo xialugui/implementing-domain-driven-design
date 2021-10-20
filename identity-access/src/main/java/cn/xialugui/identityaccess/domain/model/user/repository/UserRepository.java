@@ -74,7 +74,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
      *
      * @return 总数
      */
-    @Query("select count(distinct userId) from User")
+    @Query("select count(distinct id) from User")
     int size();
 
     /**
@@ -84,7 +84,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param userId 用户id
      * @return 用户名
      */
-    @Query("select user.username from User as user where user.userId=:#{#userId.userId}")
+    @Query("select user.username from User as user where user.id=:#{#userId.userId}")
     Username findUsernameByUserId(UserId userId);
 
     Optional<User> findByUsername(Username username);
@@ -93,9 +93,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByMobilePhone(MobilePhone mobilePhone);
 
-    Optional<UserDetailsProjection> findByUserId(UserId userId);
+    @Query("from User as user where user.id=:#{#userId.userId}")
+    Optional<UserDetailsProjection> findUserDetailsById(UserId userId);
 
-    @Query("from User where userId=:#{#userId}")
+    @Query("from User where id=:#{#userId}")
     Optional<User> of(UserId userId);
 
     /**

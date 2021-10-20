@@ -3,11 +3,8 @@ package cn.xialugui.identityaccess.domain.model.permission.aggregate;
 import cn.xialugui.identityaccess.domain.model.HibernateAggregateRoot;
 import cn.xialugui.identityaccess.domain.model.permission.valueobject.PermissionId;
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -22,14 +19,22 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
-public final class Permission extends HibernateAggregateRoot<Permission> {
+public final class Permission extends HibernateAggregateRoot<Permission, PermissionId> {
+
+    /*    */
+
+    public Permission(PermissionId id, String name) {
+        setId(id);
+        setName(name);
+    }
 
     /**
      * 显然权限id是逻辑id，必须唯一。
      */
+    /*
     @Embedded
     @NaturalId
-    private @Valid @NotNull PermissionId permissionId;
+    private @Valid @NotNull PermissionId permissionId;*/
 
     private @Pattern(regexp = "^[0-9a-zA-Z]{2,16}$") @NotNull String name;
 }

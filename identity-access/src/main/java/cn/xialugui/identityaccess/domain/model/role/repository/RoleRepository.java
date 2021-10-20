@@ -12,5 +12,5 @@ import java.util.Optional;
  */
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
-    Optional<Role> findByRoleId(RoleId roleId);
+    Optional<Role> findById(RoleId roleId);
 }

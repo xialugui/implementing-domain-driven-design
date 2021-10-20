@@ -3,7 +3,12 @@ package cn.xialugui.identityaccess.domain.model;
 import cn.xialugui.identityaccess.domain.ValidationNotificationHandler;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.domain.Persistable;
+import org.hibernate.annotations.NaturalId;
+
+import javax.persistence.Embedded;
+import javax.persistence.MappedSuperclass;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * 实体
@@ -16,7 +21,20 @@ import org.springframework.data.domain.Persistable;
  */
 @Getter
 @Setter
-public abstract class Entity extends IdentifiedDomainObject {
+@MappedSuperclass
+public abstract class Entity<ID> extends IdentifiedDomainObject<ID> {
+    @Embedded
+    @NaturalId
+    private @Valid @NotNull ID id;
+
+    @Override
+    public ID id() {
+        return id;
+    }
+
+    protected void setId(ID id) {
+        this.id = id;
+    }
 
     /**
      * 判断两个实体是否相等。
@@ -35,10 +53,8 @@ public abstract class Entity extends IdentifiedDomainObject {
             return true;
         if (!this.getClass().equals(other.getClass()))
             return false;
-        return identifier().equals(other.identifier());
+        return this.id().equals(other.id());
     }
-
-    public abstract Identifier identifier();
 
     public void validate(ValidationNotificationHandler validationNotificationHandler) {
 

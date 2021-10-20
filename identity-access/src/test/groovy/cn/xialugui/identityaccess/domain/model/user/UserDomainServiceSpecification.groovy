@@ -44,13 +44,12 @@ class UserDomainServiceSpecification extends ValidatableSpecification {
      * 参数null验证依赖的是javax.validation，它是稳定可靠的，所以
      * 在之后的方法中，我们便不再验证，这里只做示范用。原则上我们只验证自定义
      * 约束。
-     * @return
      */
     def '用户增加角色时，参数不为null'() {
         given: '建立验证方法和参数'
         Method method = UserDomainService.getMethod('addRole', User, Role)
         Set<ConstraintViolation> constraintViolations =
-                validateParameters(domainService, method, new Object[]{userInput, role})
+                validateParameters(domainService, method, new Object[]{userInput, roleInput})
         expect: '提示'
         ifViolated(constraintViolations, {
             with(constraintViolations[0]) {
@@ -58,9 +57,10 @@ class UserDomainServiceSpecification extends ValidatableSpecification {
             }
         })
         where:
-        role         | userInput    || result
-        null as Role | user         || '角色不存在'
-        _ as Role    | null as User || '用户不存在'
+        roleInput    | userInput    || result
+        null as Role | new User()   || '角色不存在'
+        new Role()   | null as User || '用户不存在'
     }
+
 
 }

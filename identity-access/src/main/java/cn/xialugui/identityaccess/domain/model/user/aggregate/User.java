@@ -2,7 +2,6 @@ package cn.xialugui.identityaccess.domain.model.user.aggregate;
 
 import cn.xialugui.identityaccess.domain.ValidationNotificationHandler;
 import cn.xialugui.identityaccess.domain.model.AbstractAggregateRoot;
-import cn.xialugui.identityaccess.domain.model.Identifier;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
@@ -36,7 +35,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
-public final class User extends AbstractAggregateRoot<User> {
+public final class User extends AbstractAggregateRoot<User, UserId> {
     /**
      * 有人会疑惑，为什么唯一标识不适用简单的字符串。
      * <p>
@@ -49,8 +48,7 @@ public final class User extends AbstractAggregateRoot<User> {
      * 逻辑id的唯一约束。
      * </p>
      */
-    @Embedded
-    private UserId userId;
+
     @Embedded
     private Username username;
     @Embedded
@@ -83,7 +81,6 @@ public final class User extends AbstractAggregateRoot<User> {
      * 需要在标识引用和直接引用之间折中考虑了。
      */
     @ElementCollection
-    @CollectionTable()
     @NotNull
     private Set<RoleId> roleIds;
 
@@ -111,7 +108,7 @@ public final class User extends AbstractAggregateRoot<User> {
         /*
           发布领域事件
          */
-        andEvent(new UserCreatedEvent(getUserId(), username));
+        andEvent(new UserCreatedEvent(this.id(), username));
     }
 
     private void setUsername(Username username) {
@@ -129,13 +126,13 @@ public final class User extends AbstractAggregateRoot<User> {
      * @param userId 用户id
      */
     private void setUserId(UserId userId) {
-        if (null != getUserId()) {
+        if (null != getId()) {
             throw new IllegalArgumentException("用户id不能更改");
         }
         if (null == userId) {
             throw new IllegalArgumentException("用户id不能为空");
         }
-        this.userId = userId;
+        setId(userId);
     }
 
     /**
@@ -167,11 +164,6 @@ public final class User extends AbstractAggregateRoot<User> {
     @Override
     public void validate(ValidationNotificationHandler validationNotificationHandler) {
         new UserValidator(this, validationNotificationHandler).validate();
-    }
-
-    @Override
-    public Identifier identifier() {
-        return getUserId();
     }
 
     public void addRole(RoleId roleId) {
