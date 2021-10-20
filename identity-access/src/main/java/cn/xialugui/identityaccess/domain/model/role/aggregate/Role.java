@@ -13,7 +13,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.executable.ValidateOnExecution;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +27,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
-@ValidateOnExecution
 public final class Role extends HibernateAggregateRoot<Role> {
 
     /**

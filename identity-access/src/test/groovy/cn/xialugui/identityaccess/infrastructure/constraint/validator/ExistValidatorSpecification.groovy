@@ -22,17 +22,17 @@ class ExistValidatorSpecification extends ValidatableSpecification {
     def '对象不存在时抛出异常'() {
         given: '建立验证方法和参数'
         UserDomainService testObject = new UserDomainService(null)
-        Method method = UserDomainService.getMethod('addRole', User.class, Role.class)
+        Method method = UserDomainService.getMethod('addRole', User, Role)
         Set<ConstraintViolation> constraintViolations =
-                validateParameters(testObject, method, new Object[]{inputObject, inputObject})
+                validateParameters(testObject, method, new Object[]{user, role})
         expect: '提示'
         with(constraintViolations[0]) {
-            messageTemplate == '{cn.xialugui.identity-access.Exist.message}'
             message == result
         }
         where:
-        inputObject || result
-        null        || '用户不存在'
+        user      | role      || result
+        null      | _ as Role || '用户不存在'
+        _ as User | null      || '角色不存在'
 
     }
 }

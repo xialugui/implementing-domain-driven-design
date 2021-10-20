@@ -1,6 +1,5 @@
 package cn.xialugui.sharedkernel.infrastructure.constraint.validator;
 
-import lombok.SneakyThrows;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import javax.validation.ConstraintValidator;
@@ -16,6 +15,7 @@ import javax.validation.ConstraintValidatorContext;
 public class ExistValidator implements ConstraintValidator<Exist, Object> {
     private final static String OBJECT = "object";
     private Exist constraintAnnotation;
+    public static final String NOT_EXIST = "{cn.xialugui.identityaccess.NotExist.message}";
 
     @Override
     public void initialize(Exist constraintAnnotation) {
@@ -24,11 +24,12 @@ public class ExistValidator implements ConstraintValidator<Exist, Object> {
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        Tag tag = constraintAnnotation.target().getAnnotation(Tag.class);
-        if (null != tag) {
+        if (null == value) {
             HibernateConstraintValidatorContext validatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
-            validatorContext.addMessageParameter(OBJECT, tag.value());
+            validatorContext.disableDefaultConstraintViolation();
+            validatorContext.buildConstraintViolationWithTemplate("{" + constraintAnnotation.target().getName() + ".message}" + NOT_EXIST).addConstraintViolation();
         }
+
         return null != value;
     }
 }

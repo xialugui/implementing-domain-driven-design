@@ -25,9 +25,4 @@ public class UserDomainService {
     public void addRole(User user, Role role) {
 
     }
-
-    @CheckNotNull
-    public void addRole(User user) {
-
-    }
 }
