@@ -61,7 +61,7 @@ import java.util.UUID;
  * 用例优化查询{@code Use Case Optimal Query}
  * <br>
  * 的方法直接查询所需要的数据。此时，我们可以直接在持久化机
- * 制上执行查询，然后将查询结果放在一个值对象中予以返回。参考{@link UserRepository#findUsernameByUserId(UserId)}
+ * 制上执行查询，然后将查询结果放在一个值对象中予以返回。参考{@link UserRepository#findUsernameByNaturalId(UserId)}
  * </p>
  *
  * @author 夏露桂
@@ -74,18 +74,18 @@ public interface UserRepository extends CrudRepository<User, Long> {
      *
      * @return 总数
      */
-    @Query("select count(distinct id) from User")
+    @Query("select count(distinct naturalId) from User")
     int size();
 
     /**
      * JPA推荐返回值使用领域类型接收或者是合法的映射。
      * 这里我们使用简单的值对象做例子，它和映射是等效的。
      *
-     * @param userId 用户id
+     * @param naturalId 用户id
      * @return 用户名
      */
-    @Query("select user.username from User as user where user.id=:#{#userId.userId}")
-    Username findUsernameByUserId(UserId userId);
+//    @Query("select user.username from User as user where user.naturalId =:#{#userId}")
+    Username findUsernameByNaturalId(UserId naturalId);
 
     Optional<User> findByUsername(Username username);
 
@@ -93,11 +93,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByMobilePhone(MobilePhone mobilePhone);
 
-    @Query("from User as user where user.id=:#{#userId.userId}")
-    Optional<UserDetailsProjection> findUserDetailsById(UserId userId);
+    Optional<UserDetailsProjection> findByNaturalId(UserId naturalId);
 
-    @Query("from User where id=:#{#userId}")
-    Optional<User> of(UserId userId);
+    @Query("from User where naturalId =:#{#naturalId}")
+    Optional<User> of(UserId naturalId);
 
     /**
      * 将唯一标识的生成放在资源库中是一种自然的选择。

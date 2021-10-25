@@ -23,8 +23,8 @@ public final class Permission extends HibernateAggregateRoot<Permission, Permiss
 
     /*    */
 
-    public Permission(PermissionId id, String name) {
-        setId(id);
+    public Permission(PermissionId naturalId, String name) {
+        setNaturalId(naturalId);
         setName(name);
     }
 

@@ -39,7 +39,7 @@ public final class Role extends HibernateAggregateRoot<Role, RoleId> {
     private @NotNull Set<@Valid PermissionId> permissionIds;
 
     public Role(RoleId random, RoleName roleName) {
-        setId(random);
+        setNaturalId(random);
         setName(roleName);
         setPermissionIds(new HashSet<>());
     }

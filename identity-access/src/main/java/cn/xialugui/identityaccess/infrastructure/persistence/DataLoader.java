@@ -69,7 +69,7 @@ public class DataLoader {
         roleRepository.save(role);
         userRepository.of(userId)
                 .ifPresent(u -> {
-                    u.addRole(role.id());
+                    u.addRole(role.naturalId());
                     userRepository.save(u);
                 });
     }

@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,6 +34,7 @@ public class UserResource {
 
     @GetMapping("{userId}")
     @Operation(summary = "获取用户简要信息")
+    @PreAuthorize("hasAuthority('SCOPE_ddd.read')")
     public UserDetailsProjection detailsOf(@PathVariable @Parameter(name = "userId", description = "用户id") String userId) {
         return userApplicationService.detailsOf(userId);
     }

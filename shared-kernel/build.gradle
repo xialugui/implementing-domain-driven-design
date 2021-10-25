@@ -1,12 +1,8 @@
 dependencies {
-    implementation files("../lib/*.jar")
-//    implementation("${System.getProperty('java.home')}/../lib/tools.jar")
     implementation(
             "com.google.auto.service:auto-service:1.0",
             "org.hibernate.validator:hibernate-validator:6.2.0.Final",
-//            'com.sun:tools:8'
     )
-
     annotationProcessor(
             "com.google.auto.service:auto-service:1.0"
     )

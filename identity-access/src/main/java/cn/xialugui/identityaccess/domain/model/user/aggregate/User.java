@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -84,6 +83,10 @@ public final class User extends AbstractAggregateRoot<User, UserId> {
     @NotNull
     private Set<RoleId> roleIds;
 
+    public User(Username username) {
+        this.username = username;
+    }
+
     /**
      * 我们有时必须保证，参数的非空性，这时我们可以使用类似唯一标识维持稳定性的方式进行自封装。参考{@link #setUserId(UserId)},
      * {@link #setUsername(Username)}。
@@ -108,7 +111,7 @@ public final class User extends AbstractAggregateRoot<User, UserId> {
         /*
           发布领域事件
          */
-        andEvent(new UserCreatedEvent(this.id(), username));
+        andEvent(new UserCreatedEvent(this.naturalId(), username));
     }
 
     private void setUsername(Username username) {
@@ -126,13 +129,13 @@ public final class User extends AbstractAggregateRoot<User, UserId> {
      * @param userId 用户id
      */
     private void setUserId(UserId userId) {
-        if (null != getId()) {
+        if (null != getNaturalId()) {
             throw new IllegalArgumentException("用户id不能更改");
         }
         if (null == userId) {
             throw new IllegalArgumentException("用户id不能为空");
         }
-        setId(userId);
+        setNaturalId(userId);
     }
 
     /**

@@ -107,7 +107,7 @@ public class UserApplicationService extends AbstractApplicationService<User> {
     }
 
     public UserDetailsProjection detailsOf(String userId) {
-        return acceptIfExist(repository.findUserDetailsById(new UserId(userId)));
+        return acceptIfExist(repository.findByNaturalId(new UserId(userId)));
     }
 
     public void changeNickname(String userId, ChangeNicknameCommand command) {

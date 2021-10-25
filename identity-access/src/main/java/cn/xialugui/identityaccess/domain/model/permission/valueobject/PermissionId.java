@@ -1,5 +1,7 @@
 package cn.xialugui.identityaccess.domain.model.permission.valueobject;
 
+import cn.xialugui.identityaccess.domain.model.Identifier;
+import cn.xialugui.identityaccess.domain.model.ValueObject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,7 @@ import javax.validation.constraints.Pattern;
 @Setter(AccessLevel.PRIVATE)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PermissionId {
+public class PermissionId extends ValueObject<PermissionId> implements Identifier {
     private static final char[] chars = new char[]{
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -47,5 +49,10 @@ public class PermissionId {
     @Override
     public String toString() {
         return getValue();
+    }
+
+    @Override
+    protected boolean equalsTo(PermissionId other) {
+        return getValue().equals(other.getValue());
     }
 }

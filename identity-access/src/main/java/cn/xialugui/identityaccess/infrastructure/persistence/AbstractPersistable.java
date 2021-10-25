@@ -14,10 +14,10 @@ public abstract class AbstractPersistable<PK extends Serializable> {
 
     @Id
     @GeneratedValue
-    private PK pk;
+    private PK id;
 
-    protected PK getPk() {
-        return pk;
+    protected PK getId() {
+        return id;
     }
 
     /**
@@ -25,14 +25,14 @@ public abstract class AbstractPersistable<PK extends Serializable> {
      *
      * @param id the id to set
      */
-    protected void setPk(@Nullable PK id) {
-        this.pk = id;
+    protected void setId(@Nullable PK id) {
+        this.id = id;
     }
 
 
     @Override
     public String toString() {
-        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getPk());
+        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
     }
 
     @Override
@@ -52,7 +52,7 @@ public abstract class AbstractPersistable<PK extends Serializable> {
 
         AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
 
-        return null == this.getPk() ? false : this.getPk().equals(that.getPk());
+        return null == this.getId() ? false : this.getId().equals(that.getId());
     }
 
     @Override
@@ -60,7 +60,7 @@ public abstract class AbstractPersistable<PK extends Serializable> {
 
         int hashCode = 17;
 
-        hashCode += null == getPk() ? 0 : getPk().hashCode() * 31;
+        hashCode += null == getId() ? 0 : getId().hashCode() * 31;
 
         return hashCode;
     }

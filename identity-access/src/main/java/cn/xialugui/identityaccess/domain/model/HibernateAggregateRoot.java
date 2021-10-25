@@ -7,6 +7,7 @@ import org.springframework.data.domain.DomainEvents;
 import org.springframework.util.Assert;
 
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,7 +18,8 @@ import java.util.List;
  * @since 2021/9/2 15:56
  */
 @MappedSuperclass
-public abstract class HibernateAggregateRoot<A extends HibernateAggregateRoot<A, I>, I> extends HibernateEntity<I> {
+public abstract class HibernateAggregateRoot<A extends HibernateAggregateRoot<A, NID>, NID extends Serializable>
+        extends HibernateEntity<NID> {
     private transient final @Transient
     List<Object> domainEvents = new ArrayList<>();
 

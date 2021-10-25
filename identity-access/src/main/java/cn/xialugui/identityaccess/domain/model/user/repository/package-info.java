@@ -24,7 +24,7 @@
  *  <ul>
  *      <li>
  *          额外行为，参考{@link cn.xialugui.identityaccess.domain.model.user.repository.UserRepository#size()}和
- *          {@link cn.xialugui.identityaccess.domain.model.user.repository.UserRepository#findUsernameByUserId(cn.xialugui.identityaccess.domain.model.user.valueobject.UserId)}
+ *          {@link cn.xialugui.identityaccess.domain.model.user.repository.UserRepository#findUsernameByNaturalId(cn.xialugui.identityaccess.domain.model.user.valueobject.UserId)}
  *      </li>
  *      <li>
  *          管理事务，通常来说，我们将事务放在应用层。参考{@link cn.xialugui.identityaccess.application.user.UserApplicationService#doTransaction()}
@@ -35,7 +35,7 @@
  *      <li>
  *          资源库vs数据访问对象{@code DAO}。资源库和{@code DAO}是不同的。一个{@code DAO}主要从数据库表的角度来看待问题，并且
  *          提供{@code CRUD}操作。与{@code DAO}相关的模式通常只是对数据库表的一层封装。而另一方面，
- *          资源库和数据映射器{@code Data Mapper}（参考{@link cn.xialugui.identityaccess.domain.model.user.repository.UserRepository#findUsernameByUserId(cn.xialugui.identityaccess.domain.model.user.valueobject.UserId)}）则更加偏向于对象，因此通常被用于领域模型中。
+ *          资源库和数据映射器{@code Data Mapper}（参考{@link cn.xialugui.identityaccess.domain.model.user.repository.UserRepository#findUsernameByNaturalId(cn.xialugui.identityaccess.domain.model.user.valueobject.UserId)}）则更加偏向于对象，因此通常被用于领域模型中。
  *          通常来说，你可以将资源库当作DAO来看待。但是请注意一点，在设计资源库
  *          时，我们应该采用面向集合的方式，而不是面向数据访问的方式。这有助于你将自
  *          己的领域当作模型来看待，而不是CRUD操作。

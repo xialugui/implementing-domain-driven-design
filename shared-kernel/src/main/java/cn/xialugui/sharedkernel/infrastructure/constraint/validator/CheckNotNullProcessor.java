@@ -56,7 +56,6 @@ public class CheckNotNullProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         for (TypeElement typeElement : annotations) {
-            System.out.println(typeElement);
             for (Element element : roundEnv.getElementsAnnotatedWith(typeElement)) {
                 importPackage(element, Exist.class);
                 JCTree jcTree = trees.getTree(element);

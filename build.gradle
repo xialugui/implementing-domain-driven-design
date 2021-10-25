@@ -30,7 +30,7 @@ allprojects {
         maven {
             credentials {
                 username '61288ed81069a2b099d0f815'
-                password 'mW(r)FOlCvM_'
+                password 'mW(r) FOlCvM_'
             }
             url 'https://packages.aliyun.com/maven/repository/2091508-release-wPuZ2a/'
         }

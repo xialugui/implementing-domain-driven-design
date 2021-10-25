@@ -10,21 +10,24 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class HibernateEntity<I> extends AbstractAuditable<User, Long> implements Identifiable<I> {
+public abstract class HibernateEntity<NID extends Serializable>
+        extends AbstractAuditable<User, Long>
+        implements Identifiable<NID> {
 
     @Embedded
     @NaturalId
-    private @Valid @NotNull I id;
+    private @Valid @NotNull NID naturalId;
 
     @Override
-    public I id() {
-        return id;
+    public NID naturalId() {
+        return naturalId;
     }
 
-    protected void setId(I identifier) {
-        this.id = identifier;
+    protected void setNaturalId(NID naturalId) {
+        this.naturalId = naturalId;
     }
 }

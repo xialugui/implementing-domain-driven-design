@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 public interface UserDetailsProjection {
     @Schema(description = "用户id", example = "basfasdf")
-    String getUserId();
+    String getNaturalId();
 
     @Schema(description = "昵称", example = "李白")
     String getNickname();

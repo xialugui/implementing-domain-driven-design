@@ -31,7 +31,7 @@ public class RoleApplicationService extends AbstractApplicationService<Role> {
 
     @Transactional
     public void changeName(String roleId, ChangeNameCommand command) {
-        repository.findById(new RoleId(roleId))
+        repository.findByNaturalId(new RoleId(roleId))
                 .ifPresentOrElse(role -> {
                     role.changeName(new RoleName(command.getName()));
                     repository.save(role);
@@ -41,6 +41,6 @@ public class RoleApplicationService extends AbstractApplicationService<Role> {
     }
 
     public Role of(String roleId) {
-        return acceptIfExist(repository.findById(new RoleId(roleId)));
+        return acceptIfExist(repository.findByNaturalId(new RoleId(roleId)));
     }
 }

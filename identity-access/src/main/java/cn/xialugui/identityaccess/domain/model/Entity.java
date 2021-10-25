@@ -9,6 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.MappedSuperclass;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 实体
@@ -22,18 +23,18 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class Entity<ID> extends IdentifiedDomainObject<ID> {
+public abstract class Entity<NID extends Serializable> extends IdentifiedDomainObject<NID> {
     @Embedded
     @NaturalId
-    private @Valid @NotNull ID id;
+    private @Valid @NotNull NID naturalId;
 
     @Override
-    public ID id() {
-        return id;
+    public NID naturalId() {
+        return naturalId;
     }
 
-    protected void setId(ID id) {
-        this.id = id;
+    protected void setNaturalId(NID naturalId) {
+        this.naturalId = naturalId;
     }
 
     /**
@@ -53,7 +54,7 @@ public abstract class Entity<ID> extends IdentifiedDomainObject<ID> {
             return true;
         if (!this.getClass().equals(other.getClass()))
             return false;
-        return this.id().equals(other.id());
+        return this.naturalId().equals(other.naturalId());
     }
 
     public void validate(ValidationNotificationHandler validationNotificationHandler) {

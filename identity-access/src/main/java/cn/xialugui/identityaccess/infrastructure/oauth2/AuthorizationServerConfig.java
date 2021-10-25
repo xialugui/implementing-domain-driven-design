@@ -70,6 +70,7 @@ public class AuthorizationServerConfig {
                 .scope(OidcScopes.OPENID)
                 .scope("ddd.read")
                 .scope("ddd.write")
+                .scope("ddd.c")
                 .build();
 
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);

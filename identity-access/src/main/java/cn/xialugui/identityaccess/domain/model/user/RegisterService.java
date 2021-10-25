@@ -69,9 +69,9 @@ public class RegisterService {
             Email email
     ) {
 
-        userRepository.findUserDetailsById(userId).ifPresent(
+        userRepository.findByNaturalId(userId).ifPresent(
                 userDetailsProjection -> {
-                    throw new IllegalArgumentException("用户id" + userDetailsProjection.getUserId() + "已被注册");
+                    throw new IllegalArgumentException("用户id" + userDetailsProjection.getNaturalId() + "已被注册");
                 }
         );
 
