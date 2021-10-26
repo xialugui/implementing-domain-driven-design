@@ -2,10 +2,12 @@ package cn.xialugui.identityaccess.domain.model.user.aggregate;
 
 import cn.xialugui.identityaccess.domain.ValidationNotificationHandler;
 import cn.xialugui.identityaccess.domain.model.AbstractAggregateRoot;
+import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
+import cn.xialugui.sharedkernel.infrastructure.constraint.validator.CheckNotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,18 +37,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
 public final class User extends AbstractAggregateRoot<User, UserId> {
-    /**
-     * 有人会疑惑，为什么唯一标识不适用简单的字符串。
-     * <p>
-     * 唯一标识会在很多地方使用，不同的上下文，不同的实体。此时使用强类型使它们
-     * 更容易被识别。
-     * </p>
-     * <p>
-     * 在此处，我们没有使用数据库的唯一约束来实现唯一性。考虑到易用性，我们在{@link cn.xialugui.identityaccess.domain.model.role.aggregate.Role#roleId}
-     * 中使用{@code Hibernate}的{@link  org.hibernate.annotations.NaturalId}来实现
-     * 逻辑id的唯一约束。
-     * </p>
-     */
 
     @Embedded
     private Username username;
@@ -171,6 +161,11 @@ public final class User extends AbstractAggregateRoot<User, UserId> {
 
     public void addRole(RoleId roleId) {
         getRoleIds().add(roleId);
+    }
+
+    @CheckNotNull
+    public void addRole(Role role) {
+        getRoleIds().add(role.naturalId());
     }
 }
 

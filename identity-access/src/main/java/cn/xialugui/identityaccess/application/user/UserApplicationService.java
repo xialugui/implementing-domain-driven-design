@@ -1,7 +1,9 @@
 package cn.xialugui.identityaccess.application.user;
 
 import cn.xialugui.identityaccess.application.AbstractApplicationService;
+import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.RegisterService;
 import cn.xialugui.identityaccess.domain.model.user.UserDomainService;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
@@ -33,6 +35,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserApplicationService extends AbstractApplicationService<User> {
     private final UserRepository repository;
     private final RoleRepository roleRepository;
@@ -63,7 +66,6 @@ public class UserApplicationService extends AbstractApplicationService<User> {
      * @param mobilePhone 手机号
      * @param email       邮箱
      */
-    @Transactional
     public void register(
             Username username,
             Nickname nickName,
@@ -81,7 +83,6 @@ public class UserApplicationService extends AbstractApplicationService<User> {
      *
      * @param createUserCommand 创建命令
      */
-    @Transactional
     public void register(CreateUserCommand createUserCommand) {
         registerService.register(
                 new UserId(createUserCommand.getUserId()),
@@ -121,11 +122,10 @@ public class UserApplicationService extends AbstractApplicationService<User> {
     }
 
     public void addRole(String userId, String roleId) {
-        domainService.addRole(null, null);
-        /*acceptIfExist(
-                repository.of(new UserId(userId)),
-                roleRepository.findByRoleId(new RoleId(roleId)),
-                domainService::addRole
-        );*/
+        repository.of(new UserId(userId))
+                .ifPresent(user -> {
+                    user.addRole(roleRepository.findByNaturalId(new RoleId(roleId)).orElse(Role.EMPTY));
+                    repository.save(user);
+                });
     }
 }

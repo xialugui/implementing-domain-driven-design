@@ -2,6 +2,8 @@ package cn.xialugui.identityaccess.domain.model.user
 
 import cn.xialugui.identityaccess.ValidatableSpecification
 import cn.xialugui.identityaccess.domain.model.role.aggregate.Role
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId
+import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*
@@ -62,5 +64,13 @@ class UserDomainServiceSpecification extends ValidatableSpecification {
         new Role()   | null as User || '用户不存在'
     }
 
+/*    def '用户增加角色，重复角色直接覆盖，未重复则添加'() {
+        given:
+        RoleId roleId = RoleId.random()
+        Role role = new Role(roleId, new RoleName("test"))
+        when: '添加角色'
+
+
+    }*/
 
 }

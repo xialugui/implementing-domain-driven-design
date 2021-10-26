@@ -24,6 +24,18 @@ import java.io.Serializable;
 @Setter
 @MappedSuperclass
 public abstract class Entity<NID extends Serializable> extends IdentifiedDomainObject<NID> {
+    /**
+     * 有人会疑惑，为什么唯一标识不适用简单的字符串。
+     * <p>
+     * 唯一标识会在很多地方使用，不同的上下文，不同的实体。此时使用强类型使它们
+     * 更容易被识别。
+     * </p>
+     * <p>
+     * 在此处，我们没有使用数据库的唯一约束来实现唯一性。考虑到易用性，我们在{@link #naturalId}
+     * 中使用{@code Hibernate}的{@link  org.hibernate.annotations.NaturalId}来实现
+     * 逻辑id的唯一约束。
+     * </p>
+     */
     @Embedded
     @NaturalId
     private @Valid @NotNull NID naturalId;

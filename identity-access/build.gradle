@@ -39,10 +39,9 @@ dependencies {
 
     runtimeOnly(
             //h2内存数据库，测试用
-            "com.h2database:h2:${h2Version}",
+            "com.h2database:h2",
             //springboot 监视器
             'org.springframework.boot:spring-boot-starter-actuator',
-            "org.postgresql:postgresql",
 
     )
     testImplementation(
