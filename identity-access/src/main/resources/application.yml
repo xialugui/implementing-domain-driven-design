@@ -22,7 +22,8 @@ spring:
   sql:
     init:
       data-locations: classpath:sql/*.sql
-
+  aop:
+    proxy-target-class:
 logging:
   level:
     cn:

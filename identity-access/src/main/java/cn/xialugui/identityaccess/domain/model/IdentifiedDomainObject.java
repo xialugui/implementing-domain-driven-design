@@ -1,5 +1,7 @@
 package cn.xialugui.identityaccess.domain.model;
 
+import cn.xialugui.sharedkernel.domain.model.Identifiable;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;

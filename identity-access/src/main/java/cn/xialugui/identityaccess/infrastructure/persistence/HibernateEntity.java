@@ -1,6 +1,6 @@
 package cn.xialugui.identityaccess.infrastructure.persistence;
 
-import cn.xialugui.identityaccess.domain.model.Identifiable;
+import cn.xialugui.sharedkernel.domain.model.Identifiable;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

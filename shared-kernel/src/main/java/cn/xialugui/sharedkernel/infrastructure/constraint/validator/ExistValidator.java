@@ -1,5 +1,6 @@
 package cn.xialugui.sharedkernel.infrastructure.constraint.validator;
 
+import cn.xialugui.sharedkernel.domain.model.Identifiable;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import javax.validation.ConstraintValidator;
@@ -13,7 +14,6 @@ import javax.validation.ConstraintValidatorContext;
  */
 
 public class ExistValidator implements ConstraintValidator<Exist, Object> {
-    private final static String OBJECT = "object";
     private Exist constraintAnnotation;
     public static final String NOT_EXIST = "{cn.xialugui.identityaccess.NotExist.message}";
 
@@ -24,12 +24,13 @@ public class ExistValidator implements ConstraintValidator<Exist, Object> {
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        if (null == value) {
+        if (null == value ||
+                (value instanceof Identifiable && null == (((Identifiable<?>) value).naturalId()))) {
             HibernateConstraintValidatorContext validatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
             validatorContext.disableDefaultConstraintViolation();
             validatorContext.buildConstraintViolationWithTemplate("{" + constraintAnnotation.target().getSimpleName() + "}" + NOT_EXIST).addConstraintViolation();
+            return false;
         }
-
-        return null != value;
+        return true;
     }
 }

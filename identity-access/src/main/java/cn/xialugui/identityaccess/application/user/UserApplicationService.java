@@ -1,12 +1,11 @@
 package cn.xialugui.identityaccess.application.user;
 
 import cn.xialugui.identityaccess.application.AbstractApplicationService;
-import cn.xialugui.identityaccess.domain.model.role.aggregate.Role;
 import cn.xialugui.identityaccess.domain.model.role.repository.RoleRepository;
-import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.RegisterService;
 import cn.xialugui.identityaccess.domain.model.user.UserDomainService;
 import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
+import cn.xialugui.identityaccess.domain.model.user.entity.Temp;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
 import cn.xialugui.identityaccess.resources.user.UserDetailsProjection;
@@ -122,9 +121,15 @@ public class UserApplicationService extends AbstractApplicationService<User> {
     }
 
     public void addRole(String userId, String roleId) {
+        new Temp().test(null);
+
+/*        domainService.addRole(repository.of(new UserId(userId)).orElse(new User()),
+                roleRepository.findByNaturalId(new RoleId(roleId)).orElse(Role.EMPTY));*/
         repository.of(new UserId(userId))
                 .ifPresent(user -> {
-                    user.addRole(roleRepository.findByNaturalId(new RoleId(roleId)).orElse(Role.EMPTY));
+//                    user.addRole(roleRepository.findByNaturalId(new RoleId(roleId)).orElse(Role.EMPTY));
+//                    user.addRole(null, null);
+                    new Temp().test(null);
                     repository.save(user);
                 });
     }

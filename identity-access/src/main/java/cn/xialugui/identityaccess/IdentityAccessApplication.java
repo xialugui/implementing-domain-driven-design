@@ -3,6 +3,7 @@ package cn.xialugui.identityaccess;
 import com.lugew.winsin.web.configuration.EnableStandardRestfulResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;

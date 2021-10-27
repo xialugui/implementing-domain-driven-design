@@ -1,4 +1,4 @@
-package cn.xialugui.identityaccess.domain.model;
+package cn.xialugui.sharedkernel.domain.model;
 
 import java.io.Serializable;
 

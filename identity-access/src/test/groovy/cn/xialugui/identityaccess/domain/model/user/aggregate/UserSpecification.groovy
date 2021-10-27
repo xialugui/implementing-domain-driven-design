@@ -1,12 +1,15 @@
 package cn.xialugui.identityaccess.domain.model.user.aggregate
 
-
+import cn.xialugui.identityaccess.ValidatableSpecification
+import cn.xialugui.identityaccess.domain.model.role.aggregate.Role
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Password
 import cn.xialugui.identityaccess.domain.model.user.valueobject.UserId
-import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title
 import spock.lang.Unroll
+
+import javax.validation.ConstraintViolation
+import java.lang.reflect.Method
 
 /**
  *
@@ -14,7 +17,7 @@ import spock.lang.Unroll
  */
 @Title("用户聚合根的单元测试")
 @Subject(User)
-class UserSpecification extends Specification {
+class UserSpecification extends ValidatableSpecification {
 
     @Unroll('密码：#password，结果：#result')
     def '创建用户时，密码必须合规'() {
@@ -41,4 +44,22 @@ class UserSpecification extends Specification {
         thrown(IllegalArgumentException)
     }
 
+    def '添加用户时，用户不能为空'() {
+        given: '创建用户和角色'
+        User user = new User(
+                userId: new UserId("123")
+        )
+        Role role = new Role()
+
+        when: '执行方法'
+        Method method = User.getMethod('addRole', Role)
+        Set<ConstraintViolation> constraintViolations =
+                validateParameters(user, method, new Object[]{role})
+        then: '提示'
+        ifViolated(constraintViolations, {
+            with(constraintViolations[0]) {
+                message == '角色不存在'
+            }
+        })
+    }
 }

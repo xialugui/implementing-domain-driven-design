@@ -7,12 +7,12 @@ import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
-import cn.xialugui.sharedkernel.infrastructure.constraint.validator.CheckNotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -36,6 +36,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
+@Validated
 public final class User extends AbstractAggregateRoot<User, UserId> {
 
     @Embedded
@@ -163,9 +164,10 @@ public final class User extends AbstractAggregateRoot<User, UserId> {
         getRoleIds().add(roleId);
     }
 
-    @CheckNotNull
-    public void addRole(Role role) {
+    //    @CheckNotNull
+    public void addRole(@NotNull Role role, Role r) {
         getRoleIds().add(role.naturalId());
+
     }
 }
 

@@ -11,6 +11,11 @@ ext {
 
 dependencies {
     implementation(
+            "org.aspectj:aspectjweaver",
+            "org.springframework.boot:spring-boot-starter-aop",
+            "org.springframework:spring-agent:2.5.6.SEC03",
+            'org.springframework:org.springframework.instrument:3.2.0.RELEASE',
+
             //openapi ui文档
             "org.springdoc:springdoc-openapi-ui:${openapiVersion}",
             //jpa java持久化接口
