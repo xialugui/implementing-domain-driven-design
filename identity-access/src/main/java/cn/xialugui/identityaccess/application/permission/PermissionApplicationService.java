@@ -15,10 +15,10 @@ import javax.transaction.Transactional;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PermissionApplicationService extends AbstractApplicationService<Permission> {
     private final PermissionRepository repository;
 
-    @Transactional
     public void create(CreatePermissionCommand command) {
         repository.save(new Permission(
                 new PermissionId(command.getId()),

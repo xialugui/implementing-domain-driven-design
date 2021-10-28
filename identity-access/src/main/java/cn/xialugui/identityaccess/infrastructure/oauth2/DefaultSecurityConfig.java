@@ -32,20 +32,17 @@ public class DefaultSecurityConfig {
                 .and()
                 .cors().disable()
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(EXCLUDE_URLS)
-                .permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .and()
+                .authorizeRequests(authorizeRequestsCustomizer ->
+                        authorizeRequestsCustomizer
+                                .antMatchers(EXCLUDE_URLS).permitAll()
+                                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .formLogin()
         ;
+
         return http.build();
     }
 

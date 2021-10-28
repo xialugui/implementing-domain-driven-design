@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,7 +43,7 @@ public class UserResource {
         userApplicationService.changeNickname(userId, command);
     }
 
-    @PutMapping("{userId}/role/{roleId}")
+    @PutMapping("{userId}/roles/{roleId}")
     @Operation(summary = "增加角色")
     public void addRole(@PathVariable @Parameter(name = "userId", description = "用户id") String userId,
                         @PathVariable @Parameter(name = "roleId", description = "角色id") String roleId) {

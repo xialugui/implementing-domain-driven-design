@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -36,8 +35,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
-@Validated
-public final class User extends AbstractAggregateRoot<User, UserId> {
+public class User extends AbstractAggregateRoot<User, UserId> {
 
     @Embedded
     private Username username;
@@ -164,8 +162,7 @@ public final class User extends AbstractAggregateRoot<User, UserId> {
         getRoleIds().add(roleId);
     }
 
-    //    @CheckNotNull
-    public void addRole(@NotNull Role role, Role r) {
+    public void addRole(Role role) {
         getRoleIds().add(role.naturalId());
 
     }

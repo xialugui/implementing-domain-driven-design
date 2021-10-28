@@ -17,8 +17,9 @@ spring:
       naming:
         #隐式命名规则，以组件路径命名。
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
-  #      ddl-auto: update
-  #      ddl-auto: create-drop
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
   sql:
     init:
       data-locations: classpath:sql/*.sql
