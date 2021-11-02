@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -29,6 +30,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -45,7 +47,23 @@ public class AuthorizationServerConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+        OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer =
+                new OAuth2AuthorizationServerConfigurer<>();
+        authorizationServerConfigurer
+                .authorizationEndpoint(authorizationEndpoint ->
+                        authorizationEndpoint.consentPage("https://www.baidu.com"));
+
+        RequestMatcher endpointsMatcher = authorizationServerConfigurer
+                .getEndpointsMatcher();
+
+        http
+                .requestMatcher(endpointsMatcher)
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests.anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
+                .apply(authorizationServerConfigurer);
+//        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         return http.formLogin(Customizer.withDefaults()).build();
     }
 

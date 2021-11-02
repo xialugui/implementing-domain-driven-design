@@ -7,6 +7,7 @@ import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.UserValidator;
 import cn.xialugui.identityaccess.domain.model.user.event.UserCreatedEvent;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.*;
+import com.lugew.winsin.core.exception.Exception;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -163,6 +164,9 @@ public class User extends AbstractAggregateRoot<User, UserId> {
     }
 
     public void addRole(Role role) {
+        if (null == role || null == role.naturalId()) {
+            throw new Exception("role");
+        }
         getRoleIds().add(role.naturalId());
 
     }
