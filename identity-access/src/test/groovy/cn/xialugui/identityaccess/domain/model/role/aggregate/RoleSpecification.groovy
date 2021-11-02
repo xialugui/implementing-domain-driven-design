@@ -37,7 +37,7 @@ class RoleSpecification extends Specification {
         given: '初始化'
         Role role = new Role(id, null)
         when: '校验'
-        Set<ConstraintViolation> constraintViolations = validator.validateProperty(role, 'id.value')
+        Set<ConstraintViolation> constraintViolations = validator.validateProperty(role, 'naturalId.value')
         then: '提示'
         with(constraintViolations) {
             size() == 1
@@ -82,7 +82,7 @@ class RoleSpecification extends Specification {
         with(role) {
             permissionIds != null
             permissionIds.size() == 0
-            id() != null
+            naturalId() != null
             name.value == 'libai'
         }
 

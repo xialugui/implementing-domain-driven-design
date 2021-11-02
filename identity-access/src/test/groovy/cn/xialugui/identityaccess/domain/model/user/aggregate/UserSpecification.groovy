@@ -33,16 +33,20 @@ class UserSpecification extends ValidatableSpecification {
         '12'          || IllegalArgumentException
         '12123123123' || IllegalArgumentException
     }
-
-    def '用户id不能修改'() {
+    /**
+     * 逻辑主键赋值方法的访问方式为protected，外部无法调用，所以此测试
+     * 无意义
+     * @return
+     */
+/*    def '用户id不能修改'() {
         when: '创建用户'
         User user = new User(
                 userId: new UserId("123")
         )
-        user.setUserId(new UserId("213"))
+        user.naturalId(new UserId("213"))
         then: '抛出异常，不允许修改'
         thrown(IllegalArgumentException)
-    }
+    }*/
 
     def '添加用户时，用户不能为空'() {
         given: '创建用户和角色'

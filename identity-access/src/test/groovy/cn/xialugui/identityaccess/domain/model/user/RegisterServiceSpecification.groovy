@@ -42,7 +42,7 @@ class RegisterServiceSpecification extends Specification {
 
     def '注册时用户id不能重复'() {
         when: '注册用户'
-        userRepository.findByUserId(userId) >> Optional.of({ return "dufu" } as UserDetailsProjection)
+        userRepository.findByNaturalId(userId) >> Optional.of({ return "dufu" } as UserDetailsProjection)
         register()
         then: '提示'
         def e = thrown(IllegalArgumentException)
@@ -111,14 +111,14 @@ class RegisterServiceSpecification extends Specification {
     }
 
     def repeatOf(Email e, MobilePhone m, Username un, UserId ui) {
-        userRepository.findByUserId(userId) >> (ui != null ? Optional.of(user) : Optional.empty())
+        userRepository.findByNaturalId(userId) >> (ui != null ? Optional.of(user) : Optional.empty())
         userRepository.findByUsername(username) >> (un != null ? Optional.of(user) : Optional.empty())
         userRepository.findByEmail(email) >> (e != null ? Optional.of(user) : Optional.empty())
         userRepository.findByMobilePhone(mobilePhone) >> (m != null ? Optional.of(user) : Optional.empty())
     }
 
     def noRepeatForAll() {
-        userRepository.findByUserId(_ as UserId) >> Optional.empty()
+        userRepository.findByNaturalId(_ as UserId) >> Optional.empty()
         userRepository.findByUsername(_ as Username) >> Optional.empty()
         userRepository.findByEmail(_ as Email) >> Optional.empty()
         userRepository.findByMobilePhone(_ as MobilePhone) >> Optional.empty()

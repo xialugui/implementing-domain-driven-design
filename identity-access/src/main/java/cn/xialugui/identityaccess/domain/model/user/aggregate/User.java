@@ -37,7 +37,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter(AccessLevel.PROTECTED)
 public class User extends AbstractAggregateRoot<User, UserId> {
-
+    public static final User RANDOM = new User(UserId.random());
     @Embedded
     private Username username;
     @Embedded
@@ -75,6 +75,10 @@ public class User extends AbstractAggregateRoot<User, UserId> {
 
     public User(Username username) {
         this.username = username;
+    }
+
+    public User(UserId userId) {
+        setNaturalId(userId);
     }
 
     /**
@@ -165,10 +169,9 @@ public class User extends AbstractAggregateRoot<User, UserId> {
 
     public void addRole(Role role) {
         if (null == role || null == role.naturalId()) {
-            throw new Exception("role");
+            throw new Exception("role.not.exist");
         }
         getRoleIds().add(role.naturalId());
-
     }
 }
 

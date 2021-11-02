@@ -31,19 +31,19 @@ class PermissionSpecification extends ValidatableSpecification {
             }
         }
         where:
-        id                                    | name                 || path        || errorMessage || size
-        null                                  | 'permissionName'     || 'id'        || NOT_NULL     || 1
-        new PermissionId(null)                | 'permissionName'     || 'id.value'  || NOT_NULL     || 1
-        new PermissionId('')                  | 'permissionName'     || 'id.value'  || PATTERN      || 1
-        new PermissionId('1')                 | 'permissionName'     || 'id.value'  || PATTERN      || 1
-        new PermissionId('abcdef12345678911') | 'permissionName'     || 'id.value'  || PATTERN      || 1
+        id                                    | name                 || path              || errorMessage || size
+        null                                  | 'permissionName'     || 'naturalId'       || NOT_NULL     || 1
+        new PermissionId(null)                | 'permissionName'     || 'naturalId.value' || NOT_NULL     || 1
+        new PermissionId('')                  | 'permissionName'     || 'naturalId.value' || PATTERN      || 1
+        new PermissionId('1')                 | 'permissionName'     || 'naturalId.value' || PATTERN      || 1
+        new PermissionId('abcdef12345678911') | 'permissionName'     || 'naturalId.value' || PATTERN      || 1
 
-        new PermissionId('abcdef1234567891')  | null                 || 'name'      || NOT_NULL     || 1
-        new PermissionId('abcdef1234567891')  | ''                   || 'name'      || PATTERN      || 1
-        new PermissionId('abcdef1234567891')  | 'p'                  || 'name'      || PATTERN      || 1
-        new PermissionId('abcdef1234567891')  | 'abcdef123456789112' || 'name'      || PATTERN      || 1
+        new PermissionId('abcdef1234567891')  | null                 || 'name'            || NOT_NULL     || 1
+        new PermissionId('abcdef1234567891')  | ''                   || 'name'            || PATTERN      || 1
+        new PermissionId('abcdef1234567891')  | 'p'                  || 'name'            || PATTERN      || 1
+        new PermissionId('abcdef1234567891')  | 'abcdef123456789112' || 'name'            || PATTERN      || 1
 
-        new PermissionId('abcdef1234567891')  | 'permissionName'     || _ as String || PATTERN      || 0
+        new PermissionId('abcdef1234567891')  | 'permissionName'     || _ as String       || PATTERN      || 0
 
     }
 }
