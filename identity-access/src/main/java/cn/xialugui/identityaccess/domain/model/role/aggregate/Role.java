@@ -1,10 +1,12 @@
 package cn.xialugui.identityaccess.domain.model.role.aggregate;
 
 import cn.xialugui.identityaccess.domain.model.HibernateAggregateRoot;
+import cn.xialugui.identityaccess.domain.model.permission.aggregate.Permission;
 import cn.xialugui.identityaccess.domain.model.permission.valueobject.PermissionId;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
+import com.lugew.winsin.core.exception.Exception;
 import lombok.*;
 
 import javax.persistence.ElementCollection;
@@ -50,4 +52,10 @@ public final class Role extends HibernateAggregateRoot<Role, RoleId> {
     }
 
 
+    public void addPermission(Permission permission) {
+        if (null == permission || null == permission.naturalId()) {
+            throw new Exception("permission.not.exist");
+        }
+        getPermissionIds().add(permission.naturalId());
+    }
 }

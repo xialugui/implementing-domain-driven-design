@@ -1,8 +1,14 @@
 package cn.xialugui.identityaccess.domain.model.role.aggregate
 
+import cn.xialugui.identityaccess.ValidatableSpecification
+import cn.xialugui.identityaccess.domain.model.permission.aggregate.Permission
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName
-import spock.lang.*
+import com.lugew.winsin.core.exception.Exception
+import spock.lang.Shared
+import spock.lang.Subject
+import spock.lang.Title
+import spock.lang.Unroll
 
 import javax.validation.ConstraintViolation
 import javax.validation.Validation
@@ -16,7 +22,7 @@ import javax.validation.ValidatorFactory
  */
 @Title("角色单元测试")
 @Subject(Role)
-class RoleSpecification extends Specification {
+class RoleSpecification extends ValidatableSpecification {
     @Shared
     String PATTERN = '{javax.validation.constraints.Pattern.message}'
     @Shared
@@ -85,6 +91,24 @@ class RoleSpecification extends Specification {
             naturalId() != null
             name.value == 'libai'
         }
+
+    }
+
+    def '添加权限时，权限或其自然id不能为null'() {
+        given: '初始化角色和权限'
+        Role role = new Role(
+                RoleId.random(),
+                new RoleName("libai")
+        )
+        when: '添加权限'
+        role.addPermission(permission)
+        then: '权限为null或者permissionId不存在时抛出异常'
+        thrown(exception)
+
+        where:
+        permission                 || exception
+        null                       || Exception
+        new Permission(null, null) || Exception
 
     }
 }
