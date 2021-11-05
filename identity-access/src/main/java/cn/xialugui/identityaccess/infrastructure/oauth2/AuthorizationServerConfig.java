@@ -12,6 +12,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -39,8 +40,9 @@ import java.util.UUID;
  * 目前spring-security-oauth2-authorization-server项目尚在实验阶段，
  * 存在一些bug，仅能使用最基本的功能。
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 @AllArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthorizationServerConfig {
 
 
@@ -68,9 +70,7 @@ public class AuthorizationServerConfig {
                                 .authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                .formLogin(httpSecurityFormLoginConfigurer ->
-                        httpSecurityFormLoginConfigurer.loginPage("https://www.baidu.com")
-                )
+                .formLogin()
         ;
         return http.build();
     }
