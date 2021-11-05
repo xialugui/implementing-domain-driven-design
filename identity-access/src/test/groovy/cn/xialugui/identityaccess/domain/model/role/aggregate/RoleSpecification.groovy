@@ -2,6 +2,7 @@ package cn.xialugui.identityaccess.domain.model.role.aggregate
 
 import cn.xialugui.identityaccess.ValidatableSpecification
 import cn.xialugui.identityaccess.domain.model.permission.aggregate.Permission
+import cn.xialugui.identityaccess.domain.model.permission.valueobject.PermissionId
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName
 import com.lugew.winsin.core.exception.Exception
@@ -109,6 +110,32 @@ class RoleSpecification extends ValidatableSpecification {
         permission                 || exception
         null                       || Exception
         new Permission(null, null) || Exception
+
+    }
+
+    def '修改权限，直接将权限覆盖'() {
+        given: '初始化角色和权限'
+        Role role = new Role(
+                RoleId.random(),
+                new RoleName("libai")
+        )
+        Permission permission = new Permission(PermissionId.random(), "test")
+        role.addPermission(permission)
+        when: '修改权限'
+        role.updatePermissions(permissions)
+        then: '权限已被修改'
+        with(role) {
+            permissionIds.size() == (permissions == null ? 0 : permissions.size())
+            if (null != permissions) {
+                permissions.forEach(p -> {
+                    permissionIds.contains(p)
+                })
+            }
+        }
+        where:
+        permissions                                                                                      || exception
+        [new Permission(PermissionId.random(), "test1"), new Permission(PermissionId.random(), "test2")] || Exception
+        null                                                                                             || Exception
 
     }
 }

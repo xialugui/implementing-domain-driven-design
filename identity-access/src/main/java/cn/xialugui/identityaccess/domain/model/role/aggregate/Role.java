@@ -15,7 +15,9 @@ import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 角色聚合
@@ -57,5 +59,13 @@ public final class Role extends HibernateAggregateRoot<Role, RoleId> {
             throw new Exception("permission.not.exist");
         }
         getPermissionIds().add(permission.naturalId());
+    }
+
+    public void updatePermissions(List<Permission> permissions) {
+        if (null == permissions) {
+            permissionIds = new HashSet<>();
+        } else {
+            permissionIds = permissions.stream().map(Permission::naturalId).collect(Collectors.toSet());
+        }
     }
 }
