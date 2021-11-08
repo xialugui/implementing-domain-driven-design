@@ -29,7 +29,12 @@ public abstract class ValueObject<T> implements Serializable {
         return equalsTo(valueObject);
     }
 
-
+    /**
+     * 判断值对象是否相等，由派生类实现。
+     *
+     * @param other 比较对象
+     * @return 相等返回true，否则返回false
+     */
     protected abstract boolean equalsTo(T other);
 
     /*

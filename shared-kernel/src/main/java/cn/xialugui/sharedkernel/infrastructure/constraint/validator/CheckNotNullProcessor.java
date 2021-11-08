@@ -20,7 +20,12 @@ import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
 /**
+ * 此处理器将方法上的注解{@link CheckNotNull}转换为，{@code @Hibernate}支持的
+ * 自定义{@link Exist}注解，将验证逻辑委托给{@code @Hibernate}。
+ *
  * @author 夏露桂
+ * @see Exist
+ * @see ExistValidator
  * @since 2021/10/16 17:19
  */
 @SupportedAnnotationTypes({
