@@ -12,9 +12,9 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +32,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -42,7 +43,6 @@ import java.util.UUID;
  */
 @Configuration
 @AllArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthorizationServerConfig {
 
 
@@ -57,13 +57,18 @@ public class AuthorizationServerConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-
+        OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer =
+                new OAuth2AuthorizationServerConfigurer<>();
+        RequestMatcher endpointsMatcher = authorizationServerConfigurer
+                .getEndpointsMatcher();
         http.headers().frameOptions().sameOrigin()
                 .and()
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests(authorizeRequestsCustomizer ->
                         authorizeRequestsCustomizer
+                                .requestMatchers(endpointsMatcher)
+                                .authenticated()
                                 .antMatchers(EXCLUDE_URLS).permitAll()
                                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                                 .anyRequest()
@@ -71,7 +76,10 @@ public class AuthorizationServerConfig {
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .formLogin()
+                .and()
+                .apply(authorizationServerConfigurer)
         ;
+
         return http.build();
     }
 
@@ -87,11 +95,11 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("https://www.baidu.com")
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
                 .clientSettings(
                         ClientSettings
                                 .builder()
-                                .requireAuthorizationConsent(true)
+                                .requireAuthorizationConsent(false)
                                 .build()
                 )
                 .scope(OidcScopes.OPENID)

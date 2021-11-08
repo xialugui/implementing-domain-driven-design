@@ -122,6 +122,7 @@ class RoleSpecification extends ValidatableSpecification {
         Permission permission = new Permission(PermissionId.random(), "test")
         role.addPermission(permission)
         when: '修改权限'
+
         role.updatePermissions(permissions)
         then: '权限已被修改'
         with(role) {
