@@ -1,12 +1,12 @@
 package cn.xialugui.filecollaboration.domain.model.file.aggregate;
 
-import cn.xialugui.filecollaboration.domain.model.file.valueobject.Creator;
 import cn.xialugui.filecollaboration.domain.model.file.valueobject.FileId;
+import cn.xialugui.sharedkernel.infrastructure.persistence.AbstractAggregateRoot;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.AbstractAggregateRoot;
+import lombok.Setter;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
 /**
@@ -17,10 +17,8 @@ import javax.persistence.Entity;
  */
 @Entity
 @Getter
-@NoArgsConstructor
-public final class File extends AbstractAggregateRoot<File> {
-    @EmbeddedId
-    private FileId id;
-
-    private Creator creator;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter(AccessLevel.PROTECTED)
+public final class File extends AbstractAggregateRoot<File, FileId> {
+    private String name;
 }

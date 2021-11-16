@@ -3,6 +3,9 @@ dependencies {
             "com.google.auto.service:auto-service:1.0",
             "org.hibernate.validator:hibernate-validator:6.2.0.Final",
     )
+    api(
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+    )
     annotationProcessor(
             "com.google.auto.service:auto-service:1.0"
     )
@@ -25,8 +28,3 @@ compileJava {
             ]
     )
 }
-/*
-
-compileJava.options.setCompilerArgs(
-
-)*/

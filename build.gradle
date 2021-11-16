@@ -12,7 +12,7 @@ ext {
 }
 
 allprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     group = 'cn.xialugui'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'

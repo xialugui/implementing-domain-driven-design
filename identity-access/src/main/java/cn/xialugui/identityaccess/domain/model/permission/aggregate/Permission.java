@@ -21,20 +21,10 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 public final class Permission extends HibernateAggregateRoot<Permission, PermissionId> {
 
-    /*    */
-
     public Permission(PermissionId naturalId, String name) {
         setNaturalId(naturalId);
         setName(name);
     }
-
-    /**
-     * 显然权限id是逻辑id，必须唯一。
-     */
-    /*
-    @Embedded
-    @NaturalId
-    private @Valid @NotNull PermissionId permissionId;*/
 
     private @Pattern(regexp = "^[0-9a-zA-Z]{2,16}$") @NotNull String name;
 }

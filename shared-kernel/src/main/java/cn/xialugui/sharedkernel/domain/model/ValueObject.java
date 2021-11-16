@@ -1,4 +1,4 @@
-package cn.xialugui.filecollaboration.domain.model;
+package cn.xialugui.sharedkernel.domain.model;
 
 import java.io.Serializable;
 
@@ -9,6 +9,14 @@ import java.io.Serializable;
  * @since 2021/4/9 18:55
  */
 public abstract class ValueObject<T> implements Serializable {
+
+    /**
+     * 通常来说，在比较相等性
+     * 时，我们将省略掉对非null的检查。
+     *
+     * @param object 要比较的对象
+     * @return 相等返回true
+     */
     @Override
     public boolean equals(Object object) {
         if (object == null) {
@@ -21,13 +29,11 @@ public abstract class ValueObject<T> implements Serializable {
         return equalsTo(valueObject);
     }
 
-
+    /**
+     * 判断值对象是否相等，由派生类实现。
+     *
+     * @param other 比较对象
+     * @return 相等返回true，否则返回false
+     */
     protected abstract boolean equalsTo(T other);
-
-    /*@Override
-    public int hashCode() {
-        return getHashCode();
-    }
-
-    protected abstract int getHashCode();*/
 }
