@@ -1,12 +1,9 @@
 ext {
-    set('mysqlVersion', '8.0.25')
-    set('commonsLang3Version', '3.12.0')
-    set('openapiVersion', '1.5.10')
-    set('authorizationServerVersion', '0.2.0')
-    set('h2Version', '1.4.200')
-    set('passayVersion', '1.6.1')
-    set('winsinVersion', '1.2.15')
-    set('commonsValidatorVersion', '1.7')
+    openapiVersion = '1.5.10'
+    authorizationServerVersion = '0.2.0'
+    passayVersion = '1.6.1'
+    winsinVersion = '1.2.15'
+    commonsValidatorVersion = '1.7'
 }
 
 dependencies {
@@ -17,18 +14,14 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-jpa',
             //web
             'org.springframework.boot:spring-boot-starter-web',
-            //安全机制
-            'org.springframework.boot:spring-boot-starter-security',
-            //lang包工具
-            "org.apache.commons:commons-lang3:${commonsLang3Version}",
             //认证服务器
             "org.springframework.security:spring-security-oauth2-authorization-server:${authorizationServerVersion}",
             //密码验证工具
             "org.passay:passay:${passayVersion}",
-            //通用校验器
-            "commons-validator:commons-validator:${commonsValidatorVersion}",
             //hibernate 校验
             'org.springframework.boot:spring-boot-starter-validation',
+            //通用校验器
+            "commons-validator:commons-validator:${commonsValidatorVersion}",
             //标准化web响应
             "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
             project(":shared-kernel"),
