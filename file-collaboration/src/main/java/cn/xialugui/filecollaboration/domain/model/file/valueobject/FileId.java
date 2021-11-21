@@ -1,22 +1,21 @@
 package cn.xialugui.filecollaboration.domain.model.file.valueobject;
 
+import cn.hutool.core.util.IdUtil;
 import cn.xialugui.sharedkernel.domain.model.NaturalId;
 import cn.xialugui.sharedkernel.domain.model.ValueObject;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class FileId extends ValueObject<FileId> implements NaturalId {
 
-    private String value;
+    private Long value;
 
-    public FileId(String value) {
-        setValue(value);
+    public FileId() {
+        setValue(IdUtil.getSnowflake().nextId());
     }
 
     @Override

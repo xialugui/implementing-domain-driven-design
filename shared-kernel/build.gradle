@@ -1,3 +1,6 @@
+ext {
+    hutoolVersion = '5.7.16'
+}
 dependencies {
     implementation(
             "com.google.auto.service:auto-service:1.0",
@@ -5,6 +8,8 @@ dependencies {
     )
     api(
             'org.springframework.boot:spring-boot-starter-data-jpa',
+            "cn.hutool:hutool-all:${hutoolVersion}",
+
     )
     annotationProcessor(
             "com.google.auto.service:auto-service:1.0"

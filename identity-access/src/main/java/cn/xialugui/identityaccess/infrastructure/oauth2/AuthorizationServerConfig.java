@@ -31,9 +31,11 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -85,7 +87,7 @@ public class AuthorizationServerConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+        RegisteredClient registeredClient1 = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("ddd")
                 .clientSecret("ddd")
                 .clientIdIssuedAt(Instant.now())
@@ -101,11 +103,40 @@ public class AuthorizationServerConfig {
                                 .builder()
                                 .requireAuthorizationConsent(false)
                                 .build()
+                ).tokenSettings(
+                        TokenSettings.builder()
+                                .accessTokenTimeToLive(Duration.ofHours(1))
+                                .build()
                 )
                 .scope(OidcScopes.OPENID)
                 .scope("ddd.read")
                 .scope("ddd.write")
                 .scope("ddd.c")
+                .build();
+        RegisteredClient registeredClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("file-collaboration")
+                .clientSecret("file-collaboration")
+                .clientIdIssuedAt(Instant.now())
+                .clientSecretExpiresAt(Instant.MAX)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
+                .clientSettings(
+                        ClientSettings
+                                .builder()
+                                .requireAuthorizationConsent(false)
+                                .build()
+                ).tokenSettings(
+                        TokenSettings.builder()
+                                .accessTokenTimeToLive(Duration.ofHours(1))
+                                .build()
+                )
+                .scope(OidcScopes.OPENID)
+                .scope("r")
+                .scope("w")
                 .build();
 
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
@@ -113,7 +144,8 @@ public class AuthorizationServerConfig {
                 registeredClientParametersMapper = new JdbcRegisteredClientRepository.RegisteredClientParametersMapper();
         registeredClientParametersMapper.setPasswordEncoder(passwordEncoder);
         registeredClientRepository.setRegisteredClientParametersMapper(registeredClientParametersMapper);
-        registeredClientRepository.save(registeredClient);
+        registeredClientRepository.save(registeredClient1);
+        registeredClientRepository.save(registeredClient2);
 
         return registeredClientRepository;
     }

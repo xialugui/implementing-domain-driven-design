@@ -1,11 +1,13 @@
 ext {
+    springSecurityOauth2Version = '2.5.1.RELEASE'
 }
 
 dependencies {
     implementation(
             project(':shared-kernel'),
             'org.springframework.boot:spring-boot-starter-web',
-            'org.springframework.security:spring-security-oauth2-resource-server',
+//            "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}",
+            'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure',
             //标准化web响应
             "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
     )

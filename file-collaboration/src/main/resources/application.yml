@@ -19,8 +19,10 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-  aop:
-    proxy-target-class:
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:24000/oauth2/introspect
 logging:
   level:
     cn:
