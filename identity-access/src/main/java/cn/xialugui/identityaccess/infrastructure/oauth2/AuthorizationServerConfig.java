@@ -174,7 +174,7 @@ public class AuthorizationServerConfig {
 
     @Bean
     public ProviderSettings providerSettings() {
-        return ProviderSettings.builder().issuer("http://auth-server:24000").build();
+        return ProviderSettings.builder().issuer("http://localhost:24000").build();
     }
 
     @Bean

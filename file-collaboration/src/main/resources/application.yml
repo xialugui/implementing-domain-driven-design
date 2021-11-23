@@ -5,7 +5,7 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    url: jdbc:h2:mem:file-collaboration;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
     username: sa
     password:
@@ -19,17 +19,20 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-security:
-  oauth2:
-    resource:
-      token-info-uri: http://localhost:24000/oauth2/introspect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:24000
 logging:
   level:
-    cn:
-      xialugui: debug
+    com:
+      mimovr: debug
     org:
       hibernate:
         SQL: debug
         type:
           descriptor:
             sql: trace
+      springframework:
+        security: debug

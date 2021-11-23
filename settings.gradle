@@ -2,4 +2,5 @@ rootProject.name = 'implementing-domain-driven-design'
 include('identity-access')
 include('file-collaboration')
 include('eureka-server')
+include('system-information')
 include('shared-kernel')

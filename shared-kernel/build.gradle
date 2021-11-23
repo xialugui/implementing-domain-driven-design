@@ -5,10 +5,12 @@ dependencies {
     implementation(
             "com.google.auto.service:auto-service:1.0",
             "org.hibernate.validator:hibernate-validator:6.2.0.Final",
+            'org.springframework.boot:spring-boot-starter-validation',
     )
     api(
             'org.springframework.boot:spring-boot-starter-data-jpa',
             "cn.hutool:hutool-all:${hutoolVersion}",
+            'org.springframework.security:spring-security-oauth2-resource-server',
 
     )
     annotationProcessor(

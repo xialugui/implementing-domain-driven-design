@@ -1,15 +1,12 @@
-package cn.xialugui.identityaccess.infrastructure.oauth2;
+package cn.xialugui.sharedkernel.infrastructure.persistence;
 
-import cn.xialugui.identityaccess.domain.model.user.aggregate.User;
-import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
-import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
+import cn.xialugui.sharedkernel.domain.model.user.valueobject.Username;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -19,21 +16,17 @@ import java.util.Optional;
  * @author 夏露桂
  * @since 2021/9/3 17:13
  */
-@Component
 @Slf4j
 @RequiredArgsConstructor
-public class SpringSecurityAuditorAware implements AuditorAware<User> {
-
-    private final UserRepository userRepository;
-
+public class SpringSecurityAuditorAware implements AuditorAware<Username> {
 
     @Override
-    public Optional<User> getCurrentAuditor() {
+    public Optional<Username> getCurrentAuditor() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken) {
             JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
-            return userRepository.findByUsername(new Username(token.getName()));
+            return Optional.of(new Username(token.getName()));
         } else {
             log.debug("认证不是Jwt类型的：{}", authentication);
             return Optional.empty();
