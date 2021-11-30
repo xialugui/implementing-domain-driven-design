@@ -1,6 +1,5 @@
 package cn.xialugui.sharedkernel.infrastructure.persistence;
 
-import cn.xialugui.sharedkernel.domain.model.user.valueobject.Username;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AuditorAware;
@@ -18,15 +17,15 @@ import java.util.Optional;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class SpringSecurityAuditorAware implements AuditorAware<Username> {
+public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
     @Override
-    public Optional<Username> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken) {
             JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
-            return Optional.of(new Username(token.getName()));
+            return Optional.of(token.getName());
         } else {
             log.debug("认证不是Jwt类型的：{}", authentication);
             return Optional.empty();

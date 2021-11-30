@@ -25,6 +25,11 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends Abst
     private Date lastModifiedDate;
 
     @Override
+    public void setId(PK id) {
+        super.setId(id);
+    }
+
+    @Override
     public Optional<U> getCreatedBy() {
         return Optional.ofNullable(createdBy);
     }

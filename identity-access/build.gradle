@@ -26,6 +26,9 @@ dependencies {
             "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
             project(":shared-kernel"),
     )
+    implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
+        exclude group: 'org.axonframework', module: 'axon-server-connector'
+    }
     annotationProcessor(
             project(":shared-kernel"),
     )

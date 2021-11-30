@@ -7,6 +7,7 @@ ext {
     springCloudVersion = '2020.0.3'
     openapiVersion = '1.5.6'
     winsinVersion = '1.2.15'
+    axonVersion = '4.5.5'
 }
 
 allprojects {
