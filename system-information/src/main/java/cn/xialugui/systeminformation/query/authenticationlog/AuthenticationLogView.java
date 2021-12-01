@@ -16,18 +16,25 @@
 
 package cn.xialugui.systeminformation.query.authenticationlog;
 
-import cn.xialugui.sharedkernel.domain.model.user.valueobject.Username;
-import cn.xialugui.sharedkernel.infrastructure.persistence.AbstractAuditable;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 
 @Entity
 @Getter
 @Setter
-public class AuthenticationLogView extends AbstractAuditable<String, Long> {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class AuthenticationLogView extends AbstractPersistable<Long> {
+    @NaturalId
+    private Long identifier;
     private String name;
     private Long timestamp;
     private String detail;
+    private String remark;
+    private AuthenticationType type;
 }

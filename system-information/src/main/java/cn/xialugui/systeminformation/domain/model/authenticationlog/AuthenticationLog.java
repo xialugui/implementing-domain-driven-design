@@ -1,6 +1,8 @@
 package cn.xialugui.systeminformation.domain.model.authenticationlog;
 
+import cn.xialugui.systeminformation.domain.model.authenticationlog.command.CreateAuthenticationFailureLogCommand;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.command.CreateAuthenticationSuccessLogCommand;
+import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationFailureLogCreatedEvent;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationSuccessLogCreatedEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -20,9 +22,6 @@ import org.axonframework.spring.stereotype.Aggregate;
 public class AuthenticationLog {
     @AggregateIdentifier
     private AuthenticationLogId authenticationLogId;
-    private String name;
-    private String detail;
-    private Long timestamp;
 
     @CommandHandler
     public AuthenticationLog(CreateAuthenticationSuccessLogCommand command) {
@@ -34,12 +33,25 @@ public class AuthenticationLog {
         ));
     }
 
+    @CommandHandler
+    public AuthenticationLog(CreateAuthenticationFailureLogCommand command) {
+        AggregateLifecycle.apply(new AuthenticationFailureLogCreatedEvent(
+                command.getAuthenticationLogId(),
+                command.getName(),
+                command.getDetail(),
+                command.getTimestamp(),
+                command.getRemark()
+        ));
+    }
+
     @EventSourcingHandler
     public void on(AuthenticationSuccessLogCreatedEvent event) {
         this.authenticationLogId = event.getAuthenticationLogId();
-        this.name = event.getName();
-        this.detail = event.getDetail();
-        this.timestamp = event.getTimestamp();
+    }
+
+    @EventSourcingHandler
+    public void on(AuthenticationFailureLogCreatedEvent event) {
+        this.authenticationLogId = event.getAuthenticationLogId();
     }
 
 }

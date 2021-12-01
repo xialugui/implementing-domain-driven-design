@@ -1,5 +1,6 @@
 package cn.xialugui.systeminformation.query.authenticationlog;
 
+import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationFailureLogCreatedEvent;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationSuccessLogCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.eventhandling.EventHandler;
@@ -19,8 +20,20 @@ public class AuthenticationLogEventHandler {
     public void on(AuthenticationSuccessLogCreatedEvent event) {
         AuthenticationLogView view = new AuthenticationLogView();
 
-        view.setId(event.getAuthenticationLogId().getIdentifier());
+        view.setIdentifier(event.getAuthenticationLogId().getIdentifier());
         view.setName(event.getName());
+        view.setType(AuthenticationType.SUCCESS);
+        view.setDetail(event.getDetail());
+        repository.save(view);
+    }
+
+    @EventHandler
+    public void on(AuthenticationFailureLogCreatedEvent event) {
+        AuthenticationLogView view = new AuthenticationLogView();
+        view.setIdentifier(event.getAuthenticationLogId().getIdentifier());
+        view.setName(event.getName());
+        view.setRemark(event.getRemark());
+        view.setType(AuthenticationType.FAILURE);
         view.setDetail(event.getDetail());
         repository.save(view);
     }

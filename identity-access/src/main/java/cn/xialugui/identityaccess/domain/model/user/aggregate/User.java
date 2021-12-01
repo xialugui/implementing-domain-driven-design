@@ -70,7 +70,6 @@ public class User extends AbstractAggregateRoot<User, UserId> {
      * 需要在标识引用和直接引用之间折中考虑了。
      */
     @ElementCollection
-    @NotNull
     private Set<RoleId> roleIds;
 
     public User(Username username) {
@@ -106,6 +105,10 @@ public class User extends AbstractAggregateRoot<User, UserId> {
           发布领域事件
          */
         andEvent(new UserCreatedEvent(this.naturalId(), username));
+    }
+
+    private void setRoleIds(HashSet<RoleId> roleIds) {
+        this.roleIds = roleIds;
     }
 
     private void setUsername(Username username) {

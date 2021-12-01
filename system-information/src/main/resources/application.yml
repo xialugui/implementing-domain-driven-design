@@ -5,17 +5,15 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:file:./testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    url: jdbc:h2:file:./testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;AUTO_SERVER=TRUE
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
-    defer-datasource-initialization: true
     open-in-view: false
-      #    hibernate:
-      #      naming:
-    #隐式命名规则，以组件路径命名。
-    #        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+    hibernate:
+      use-new-id-generator-mappings: false
+      ddl-auto: create-drop
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
@@ -24,3 +22,10 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:24000
+logging:
+  level:
+    cn:
+      xialugui: debug
+axon:
+  serializer:
+    events: jackson

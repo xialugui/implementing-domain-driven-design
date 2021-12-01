@@ -1,5 +1,6 @@
 package cn.xialugui.identityaccess.infrastructure.oauth2.event;
 
+import cn.xialugui.sharedkernel.domain.model.event.AuthenticationFailureEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.gateway.EventGateway;
@@ -16,13 +17,27 @@ public class AuthenticationEvents {
 
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent success) {
-        eventGateway.publish(success);
-        log.debug("认证成功：{}", success);
+        log.debug("认证成功：{}", success.getAuthentication().getName());
+        eventGateway.publish(
+                new cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent(
+                        success.getAuthentication().getName(),
+                        success.getAuthentication().getDetails().toString(),
+                        success.getTimestamp()
+                )
+        );
+
     }
 
     @EventListener
     public void onFailure(AbstractAuthenticationFailureEvent failures) {
-        eventGateway.publish(failures);
-        log.debug("认证失败：{}", failures);
+        log.debug("认证失败：{}", failures.getAuthentication().getName());
+        eventGateway.publish(
+                new AuthenticationFailureEvent(
+                        failures.getAuthentication().getName(),
+                        failures.getAuthentication().getDetails().toString(),
+                        failures.getException().getMessage(),
+                        failures.getTimestamp()
+                )
+        );
     }
 }
