@@ -4,20 +4,28 @@ server:
 spring:
   h2:
     console:
+      #h2开启web访问，显然这是开发/测试环境的才会开启的配置
+      #在使用IDE的情况下，我倾向于使用数据库工具查看，不过内存模式下，h2数据库只
+      #运行一个连接，所以此选项还是有重大意义的。
       enabled: true
   datasource:
+    #    h2的嵌入模式，此处关键的参数是AUTO_SERVER=TRUE，开启意味着允许多个客户端连接数据库。
     url: jdbc:h2:file:./testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;AUTO_SERVER=TRUE
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
+    #jpa数据源延迟初始化，目的是等待认证授权表的schema执行完毕。
     defer-datasource-initialization: true
     open-in-view: false
     hibernate:
       naming:
-        #隐式命名规则，以组件路径命名。
+        #隐式命名规则，以组件路径命名。目的是避免持久化对象中存在相同字段导致的列名重复，这个属性在axon框架
+        #下存在bug，所以在system-information模块就没有使用。
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+      #数据定义语言模式，连接时创建schema，断开时删除schema，显然，此属性只适用于开发/测试环境。
       ddl-auto: create-drop
+      #不使用hibernate自增序列，如果使用自增序列，那数据库会生成序列表。
       use-new-id-generator-mappings: false
     properties:
       hibernate:
@@ -25,12 +33,17 @@ spring:
   sql:
     init:
       schema-locations: classpath:sql/*.sql
+      #sql初始化总是执行，默认情况下只有embedded模式才会执行初始化。
       mode: always
-
+#领域事件的序列化使用jackson而不是默认的xstream，
+#xstream是将对象序列化为xml文件的技术，xml文件
+#相对json来说过于臃肿，在领域事件的序列化上使用
+#jackson较适合。xstream在某些应用场景存在优势
+#此处暂不详述。
 axon:
   serializer:
     events: jackson
-
+#开发/测试状态下，我们希望所有的日志都在控制打印。
 logging:
   level:
     cn:

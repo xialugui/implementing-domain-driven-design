@@ -1,13 +1,24 @@
-# 基于Spring Boot、Spring Cloud的领域驱动设计实践
+# 领域驱动设计实践
 
-此项目是《实现领域驱动设计》（IMPLEMENTING DOMAIN-DRIVEN DESIGN)
-书籍的实践，将其落地于基于最新的SpringBoot、SpringCloud框架和Spock测试框架。
+此项目理论基础源于`Eric Evans`的《[领域驱动设计][ddd]》，`Vaughn Vernon`的《[实现领域驱动设计][ddd-implementation]》 （IMPLEMENTING DOMAIN-DRIVEN
+DESIGN)
+，[彭晨阳][peng-chen-yang]的《[复杂软件设计之道：领域驱动设计全面解析与实战][peng-chen-yang-book]》。10几年前`Eric Evans`给我们带来了领域驱动设计，其理论抽象
+地描述了复杂软件解决之道，随后`Vaughn Vernon`将理论同实际相结合，让我们看到了领域驱动设计的落地方案。如今彭晨阳前辈将其十几年领域驱动设计经验凝结于书中，全面分析了领域驱动
+设计的发展、技术实现和实战。此刻我们站在巨人的肩膀上，前行...
 
-## 进度（概念完成度）
+## 序
 
-1. 领域、子域和限界上下文✖
-2. 上下文映射图✖
-3. 架构✖
+> 当人们学习设计技术时，各种可能性令他们兴奋不已，然而真实项目的错综复杂又会为他们泼一盆冷水
+> --
+> 引自[领域驱动设计][ddd]-前言
+
+真实项目错综复杂，如何将领域驱动应用于实际？本项目或许能窥知一二。
+
+## 概念完成度
+
+1. 领域、子域和限界上下文✔
+2. 上下文映射图✔
+3. 架构✔
 4. 实体✔
 5. 值对象✔
 6. 领域服务✔
@@ -16,11 +27,12 @@
 9. 聚合✔
 10. 工厂✔
 11. 资源库✔
-12. 集成限界上下文✖
+12. 集成限界上下文✔
 13. 应用程序✔
-14. 聚合与事件溯源（该部分会在Axon（DDD）框架分支详解 ）
+14. 聚合与事件溯源（该部分会在Axon（DDD）框架分支详解 ）✔
 
 ## 使用方式
+
 1. 启动`IdentityAccessApplication`应用
 2. 端口：`24000`
 3. H2数据：http://localhost:24000/h2-console
@@ -33,8 +45,7 @@
    ![img_1.png](image/img_1.png)
    目前仅有注册和获取信息两个接口，以注册为例：
    ![img_6.png](image/img_6.png)![img_7.png](image/img_7.png)
-   因采用实验版本的授权服务器，目前swagger文档仅支持注册，其它接口
-   建议使用postman进行测试。
+   因采用实验版本的授权服务器，目前swagger文档仅支持注册，其它接口 建议使用postman进行测试。
 5. 根据接口熟悉内部流程：
    ![img_8.png](image/img_8.png)
 
@@ -50,6 +61,7 @@
 ![img.png](image/img_21.png)
 
 ![img.png](image/img_16.png)使用客户端模式测试即可，接口测试说明：
+
 1. 获取token
    ![img_1.png](image/img_17.png)
 2. 设置token
@@ -59,6 +71,7 @@
    ![img_4.png](image/img_20.png)
 
 ### package-info
+
 每个包都对应DDD的概念，如
 
 ![img_10.png](image/img_10.png)
@@ -71,13 +84,11 @@
 ![img_13.png](image/img_13.png)
 可跳转直达：
 ![img_15.png](image/img_15.png)
-点击
-⏬
+点击 ⏬
 ![img_14.png](image/img_14.png)
 。
 
-此举意在将理论落实到实际，讨论清楚为什么会采用代码中的方法，对实际编码的
-好处，及其其它可行的方法，而不是为DDD 而DDD。
+此举意在将理论落实到实际，讨论清楚为什么会采用代码中的方法，对实际编码的 好处，及其其它可行的方法，而不是为DDD 而DDD。
 
 ## 书籍信息
 
@@ -121,6 +132,7 @@
 5. 持久化值对象
 
 #### 实体
+
 1. 唯一标识
     1. 应用程序生成唯一标识
     2. 持久化机制生成唯一标识
@@ -150,17 +162,26 @@ Spock是基于Groovy语言的Java测试框架，是Junit的超集。简化了断
 详情可参考：[Spock官网][spock]
 
 也可参考我的翻译：[点击直达][yuque-spock]
+
 ##### 测试文件位置
+
 ![img_2.png](image/img_2.png)
+
 # 参考资料
 
 1. [实现领域驱动设计][ddd-implementation]
+
+[peng-chen-yang]: https://www.jdon.com
+
+[peng-chen-yang-book]: https://item.jd.com/12958558.html
 
 [Spock]: https://spockframework.org/
 
 [yuque-spock]: https://www.yuque.com/lugew/spock
 
 [ddd-implementation]: https://kdocs.cn/l/sbM4tTbSgK6m
+
+[ddd]: https://kdocs.cn/l/snqXPOgp8Uh5
 
 [postman]: https://www.postman.com/
 
