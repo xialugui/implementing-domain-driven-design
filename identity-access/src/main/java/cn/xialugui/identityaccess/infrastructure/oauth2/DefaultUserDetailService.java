@@ -3,7 +3,9 @@ package cn.xialugui.identityaccess.infrastructure.oauth2;
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId;
 import cn.xialugui.identityaccess.domain.model.user.repository.UserRepository;
 import cn.xialugui.identityaccess.domain.model.user.valueobject.Username;
+import cn.xialugui.sharedkernel.domain.model.event.AuthenticationFailureEvent;
 import lombok.AllArgsConstructor;
+import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @AllArgsConstructor
 public class DefaultUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final EventGateway eventGateway;
 
     @Override
     @Transactional
@@ -35,8 +38,18 @@ public class DefaultUserDetailService implements UserDetailsService {
                 .authorities("book")
                 .roles(user.getRoleIds().stream().map(RoleId::getValue).toArray(String[]::new))
                 .build()), () -> {
+
+            eventGateway.publish(
+                    new AuthenticationFailureEvent(
+                            username,
+                            null,
+                            "用户未注册",
+                            System.currentTimeMillis()
+                    )
+            );
             throw new IllegalArgumentException("用户未注册");
         });
+
         return userDetailsAtomicReference.get();
     }
 }
