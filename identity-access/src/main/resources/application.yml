@@ -50,6 +50,8 @@ logging:
       xialugui:
         identityaccess: debug
     org:
+      springframework:
+        security: DEBUG
       hibernate:
         SQL: debug
         type:

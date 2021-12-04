@@ -7,6 +7,7 @@ import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,11 +18,13 @@ public class AuthenticationEvents {
 
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent success) {
-        log.debug("认证成功：{}", success.getAuthentication().getName());
+        Authentication authentication = success.getAuthentication();
+        log.debug("认证成功：{}", authentication.getName());
+        String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
         eventGateway.publish(
                 new cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent(
-                        success.getAuthentication().getName(),
-                        success.getAuthentication().getDetails().toString(),
+                        authentication.getName(),
+                        detail,
                         success.getTimestamp()
                 )
         );
@@ -30,11 +33,13 @@ public class AuthenticationEvents {
 
     @EventListener
     public void onFailure(AbstractAuthenticationFailureEvent failures) {
-        log.debug("认证失败：{}", failures.getAuthentication().getName());
+        Authentication authentication = failures.getAuthentication();
+        log.debug("认证失败：{}", authentication.getName());
+        String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
         eventGateway.publish(
                 new AuthenticationFailureEvent(
-                        failures.getAuthentication().getName(),
-                        failures.getAuthentication().getDetails().toString(),
+                        authentication.getName(),
+                        detail,
                         failures.getException().getMessage(),
                         failures.getTimestamp()
                 )

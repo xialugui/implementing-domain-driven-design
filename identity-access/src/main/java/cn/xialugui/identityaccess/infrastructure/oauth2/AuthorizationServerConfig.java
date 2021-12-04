@@ -12,8 +12,12 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,7 +49,7 @@ import java.util.UUID;
  */
 @Configuration
 @AllArgsConstructor
-public class AuthorizationServerConfig {
+public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
 
     private static final String[] EXCLUDE_URLS = {
@@ -56,7 +60,34 @@ public class AuthorizationServerConfig {
             "/index.html",
     };
 
-    @Bean
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+//        super.configure(http);
+        OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer =
+                new OAuth2AuthorizationServerConfigurer<>();
+        RequestMatcher endpointsMatcher = authorizationServerConfigurer
+                .getEndpointsMatcher();
+        http.headers().frameOptions().sameOrigin()
+                .and()
+                .cors().disable()
+                .csrf().disable()
+                .authorizeRequests(authorizeRequestsCustomizer ->
+                        authorizeRequestsCustomizer
+                                .requestMatchers(endpointsMatcher)
+                                .authenticated()
+                                .antMatchers(EXCLUDE_URLS).permitAll()
+                                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .formLogin()
+                .and()
+                .apply(authorizationServerConfigurer)
+        ;
+    }
+
+   /* @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer =
@@ -83,7 +114,7 @@ public class AuthorizationServerConfig {
         ;
 
         return http.build();
-    }
+    }*/
 
     @Bean
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
