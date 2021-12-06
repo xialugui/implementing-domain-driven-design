@@ -13,6 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationSuccessEvent {
     private String name;
-    private String detail;
+
+    private String ip;
+
+    private String remarks;
+    private String type;
+
     private Long timestamp;
 }

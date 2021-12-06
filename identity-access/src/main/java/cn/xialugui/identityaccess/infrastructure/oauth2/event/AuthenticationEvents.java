@@ -19,12 +19,14 @@ public class AuthenticationEvents {
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent success) {
         Authentication authentication = success.getAuthentication();
-        log.debug("认证成功：{}", authentication.getName());
+        log.debug("认证成功：{}，类型：{}", authentication.getName(), authentication.getClass().getName());
         String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
         eventGateway.publish(
                 new cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent(
                         authentication.getName(),
                         detail,
+                        null,
+                        authentication.getClass().getName(),
                         success.getTimestamp()
                 )
         );
@@ -34,13 +36,14 @@ public class AuthenticationEvents {
     @EventListener
     public void onFailure(AbstractAuthenticationFailureEvent failures) {
         Authentication authentication = failures.getAuthentication();
-        log.debug("认证失败：{}", authentication.getName());
+        log.debug("认证失败：{}，类型：{}", authentication.getName(), authentication.getClass().getName());
         String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
         eventGateway.publish(
                 new AuthenticationFailureEvent(
                         authentication.getName(),
                         detail,
                         failures.getException().getMessage(),
+                        authentication.getClass().getName(),
                         failures.getTimestamp()
                 )
         );

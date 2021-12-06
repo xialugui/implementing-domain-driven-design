@@ -1,7 +1,9 @@
 package cn.xialugui.systeminformation.query.authenticationlog;
 
 import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationFailureLogCreatedEvent;
+import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationLogEvent;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationSuccessLogCreatedEvent;
+import cn.xialugui.systeminformation.domain.model.authenticationlog.valueobject.Detail;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Service;
@@ -18,23 +20,24 @@ public class AuthenticationLogEventHandler {
 
     @EventHandler
     public void on(AuthenticationSuccessLogCreatedEvent event) {
-        AuthenticationLogView view = new AuthenticationLogView();
+        repository.save(build(event, AuthenticationType.SUCCESS));
+    }
 
+    private AuthenticationLogView build(AuthenticationLogEvent event, AuthenticationType authenticationType) {
+        AuthenticationLogView view = new AuthenticationLogView();
         view.setIdentifier(event.getAuthenticationLogId().getIdentifier());
         view.setName(event.getName());
-        view.setType(AuthenticationType.SUCCESS);
-        view.setDetail(event.getDetail());
-        repository.save(view);
+        view.setType(authenticationType);
+        view.setIp(event.getIp());
+        view.setDetailType(Detail.Type.ofClassName(event.getType()));
+        view.setRemarks(event.getRemarks());
+        view.setTimestamp(event.getTimestamp());
+        return view;
     }
 
     @EventHandler
     public void on(AuthenticationFailureLogCreatedEvent event) {
-        AuthenticationLogView view = new AuthenticationLogView();
-        view.setIdentifier(event.getAuthenticationLogId().getIdentifier());
-        view.setName(event.getName());
-        view.setRemark(event.getRemark());
-        view.setType(AuthenticationType.FAILURE);
-        view.setDetail(event.getDetail());
-        repository.save(view);
+
+        repository.save(build(event, AuthenticationType.FAILURE));
     }
 }

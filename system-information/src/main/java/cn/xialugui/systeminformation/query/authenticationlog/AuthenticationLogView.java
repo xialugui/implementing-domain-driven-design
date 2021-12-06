@@ -16,6 +16,7 @@
 
 package cn.xialugui.systeminformation.query.authenticationlog;
 
+import cn.xialugui.systeminformation.domain.model.authenticationlog.valueobject.Detail;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,9 @@ public class AuthenticationLogView extends AbstractPersistable<Long> {
     @NaturalId
     private Long identifier;
     private String name;
-    private Long timestamp;
-    private String detail;
-    private String remark;
+    private String ip;
+    private String remarks;
     private AuthenticationType type;
+    private Detail.Type detailType;
+    private Long timestamp;
 }

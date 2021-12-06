@@ -9,17 +9,9 @@ import lombok.Getter;
  */
 @Getter
 public class CreateAuthenticationSuccessLogCommand extends AuthenticationLogCommand {
-    private final String name;
-    private final String detail;
-    private final Long timestamp;
 
-    public CreateAuthenticationSuccessLogCommand(AuthenticationLogId authenticationLogId,
-                                                 String name,
-                                                 String detail,
-                                                 long timestamp) {
-        super(authenticationLogId);
-        this.name = name;
-        this.detail = detail;
-        this.timestamp = timestamp;
+
+    public CreateAuthenticationSuccessLogCommand(AuthenticationLogId authenticationLogId, String name, String ip, String remarks, String type, Long timestamp) {
+        super(authenticationLogId, name, ip, remarks, type, timestamp);
     }
 }

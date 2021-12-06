@@ -9,16 +9,8 @@ import lombok.Getter;
  */
 @Getter
 public class AuthenticationFailureLogCreatedEvent extends AuthenticationLogEvent {
-    private final String name;
-    private final String detail;
-    private final Long timestamp;
-    private final String remark;
 
-    public AuthenticationFailureLogCreatedEvent(AuthenticationLogId authenticationLogId, String name, String detail, Long timestamp, String remark) {
-        super(authenticationLogId);
-        this.name = name;
-        this.detail = detail;
-        this.timestamp = timestamp;
-        this.remark = remark;
+    public AuthenticationFailureLogCreatedEvent(AuthenticationLogId authenticationLogId, String name, String ip, String remarks, String type, Long timestamp) {
+        super(authenticationLogId, name, ip, remarks, type, timestamp);
     }
 }

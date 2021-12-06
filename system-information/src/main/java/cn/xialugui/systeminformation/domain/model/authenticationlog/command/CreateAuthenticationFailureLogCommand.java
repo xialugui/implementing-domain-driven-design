@@ -9,19 +9,8 @@ import lombok.Getter;
  */
 @Getter
 public class CreateAuthenticationFailureLogCommand extends AuthenticationLogCommand {
-    private final String name;
-    private final String detail;
-    private final String remark;
-    private final Long timestamp;
 
-    public CreateAuthenticationFailureLogCommand(AuthenticationLogId authenticationLogId,
-                                                 String name,
-                                                 String detail,
-                                                 String remark, long timestamp) {
-        super(authenticationLogId);
-        this.name = name;
-        this.detail = detail;
-        this.remark = remark;
-        this.timestamp = timestamp;
+    public CreateAuthenticationFailureLogCommand(AuthenticationLogId authenticationLogId, String name, String ip, String remarks, String type, Long timestamp) {
+        super(authenticationLogId, name, ip, remarks, type, timestamp);
     }
 }

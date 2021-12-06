@@ -23,13 +23,15 @@ public class AuthenticationListener {
     private final CommandGateway commandGateway;
 
     @EventHandler
-    public void handle(AuthenticationSuccessEvent successEvent) {
-        log.debug("认证成功事件：{}", successEvent);
+    public void handle(AuthenticationSuccessEvent event) {
+        log.debug("认证成功事件：{}", event);
         commandGateway.send(new CreateAuthenticationSuccessLogCommand(
                 new AuthenticationLogId(),
-                successEvent.getName(),
-                successEvent.getDetail(),
-                successEvent.getTimestamp()
+                event.getName(),
+                event.getIp(),
+                event.getRemarks(),
+                event.getType(),
+                event.getTimestamp()
         ));
     }
 
@@ -39,8 +41,9 @@ public class AuthenticationListener {
         commandGateway.send(new CreateAuthenticationFailureLogCommand(
                 new AuthenticationLogId(),
                 event.getName(),
-                event.getDetail(),
-                event.getRemark(),
+                event.getIp(),
+                event.getRemarks(),
+                event.getType(),
                 event.getTimestamp()
         ));
     }

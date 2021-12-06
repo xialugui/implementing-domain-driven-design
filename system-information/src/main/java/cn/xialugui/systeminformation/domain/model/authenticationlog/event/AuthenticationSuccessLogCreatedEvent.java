@@ -9,14 +9,8 @@ import lombok.Getter;
  */
 @Getter
 public class AuthenticationSuccessLogCreatedEvent extends AuthenticationLogEvent {
-    private final String name;
-    private final String detail;
-    private final Long timestamp;
 
-    public AuthenticationSuccessLogCreatedEvent(AuthenticationLogId authenticationLogId, String name, String detail, Long timestamp) {
-        super(authenticationLogId);
-        this.name = name;
-        this.detail = detail;
-        this.timestamp = timestamp;
+    public AuthenticationSuccessLogCreatedEvent(AuthenticationLogId authenticationLogId, String name, String ip, String remarks, String type, Long timestamp) {
+        super(authenticationLogId, name, ip, remarks, type, timestamp);
     }
 }
