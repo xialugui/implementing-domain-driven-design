@@ -23,6 +23,11 @@ public class AuthenticationLogEventHandler {
         repository.save(build(event, AuthenticationType.SUCCESS));
     }
 
+    @EventHandler
+    public void on(AuthenticationFailureLogCreatedEvent event) {
+        repository.save(build(event, AuthenticationType.FAILURE));
+    }
+
     private AuthenticationLogView build(AuthenticationLogEvent event, AuthenticationType authenticationType) {
         AuthenticationLogView view = new AuthenticationLogView();
         view.setIdentifier(event.getAuthenticationLogId().getIdentifier());
@@ -35,9 +40,5 @@ public class AuthenticationLogEventHandler {
         return view;
     }
 
-    @EventHandler
-    public void on(AuthenticationFailureLogCreatedEvent event) {
 
-        repository.save(build(event, AuthenticationType.FAILURE));
-    }
 }
