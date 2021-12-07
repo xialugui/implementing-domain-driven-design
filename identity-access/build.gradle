@@ -1,6 +1,6 @@
 ext {
     openapiVersion = '1.5.10'
-    authorizationServerVersion = '0.2.0'
+    authorizationServerVersion = '0.2.1'
     passayVersion = '1.6.1'
     winsinVersion = '1.2.15'
     commonsValidatorVersion = '1.7'
