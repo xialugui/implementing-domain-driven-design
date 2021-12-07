@@ -47,6 +47,7 @@ public class AuthenticationEvents {
                         .remarks(failures.getException().getMessage())
                         .type(authentication.getClass().getName())
                         .timestamp(failures.getTimestamp())
+                        .build()
         );
     }
 }

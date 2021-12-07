@@ -84,7 +84,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
         RegisteredClient registeredClient1 = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("ddd")
-                .clientSecret("ddd")
+                .clientSecret(passwordEncoder.encode("ddd"))
                 .clientIdIssuedAt(Instant.now())
                 .clientSecretExpiresAt(Instant.MAX)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
@@ -110,7 +110,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .build();
         RegisteredClient registeredClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("file-collaboration")
-                .clientSecret("file-collaboration")
+                .clientSecret(passwordEncoder.encode("file-collaboration"))
                 .clientIdIssuedAt(Instant.now())
                 .clientSecretExpiresAt(Instant.MAX)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
@@ -135,10 +135,6 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .build();
 
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
-        JdbcRegisteredClientRepository.RegisteredClientParametersMapper
-                registeredClientParametersMapper = new JdbcRegisteredClientRepository.RegisteredClientParametersMapper();
-        registeredClientParametersMapper.setPasswordEncoder(passwordEncoder);
-        registeredClientRepository.setRegisteredClientParametersMapper(registeredClientParametersMapper);
         insertClient(registeredClientRepository, registeredClient1);
         insertClient(registeredClientRepository, registeredClient2);
         return registeredClientRepository;
