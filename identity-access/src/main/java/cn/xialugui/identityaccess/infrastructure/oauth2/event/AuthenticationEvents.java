@@ -8,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,16 +22,19 @@ public class AuthenticationEvents {
         Authentication authentication = success.getAuthentication();
         log.debug("认证成功：{}，类型：{}", authentication.getName(), authentication.getClass().getName());
         String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
-        eventGateway.publish(
-                new cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent(
-                        authentication.getName(),
-                        detail,
-                        null,
-                        authentication.getClass().getName(),
-                        success.getTimestamp()
-                )
-        );
-
+        if (!(authentication instanceof JwtAuthenticationToken)) {
+            eventGateway.publish(
+                    new cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent(
+                            authentication.getName(),
+                            detail,
+                            null,
+                            authentication.getClass().getName(),
+                            success.getTimestamp()
+                    )
+            );
+        } else {
+            log.debug("Jwt 认证成功：{}", authentication.getName());
+        }
     }
 
     @EventListener
