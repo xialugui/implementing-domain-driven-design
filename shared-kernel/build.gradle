@@ -1,5 +1,6 @@
 ext {
     hutoolVersion = '5.7.16'
+    jacksonVersion = '2.13.0'
 }
 dependencies {
     implementation(
@@ -11,7 +12,10 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-jpa',
             "cn.hutool:hutool-all:${hutoolVersion}",
             'org.springframework.security:spring-security-oauth2-resource-server',
-
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion",
+            "com.fasterxml.jackson.module:jackson-module-parameter-names:$jacksonVersion"
     )
     annotationProcessor(
             "com.google.auto.service:auto-service:1.0"
