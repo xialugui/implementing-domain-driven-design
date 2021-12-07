@@ -29,26 +29,30 @@ public final class AuthenticationLog {
 
     @CommandHandler
     public AuthenticationLog(CreateAuthenticationSuccessLogCommand command) {
-        AggregateLifecycle.apply(new AuthenticationSuccessLogCreatedEvent(
-                command.getAuthenticationLogId(),
-                command.getName(),
-                command.getIp(),
-                command.getRemarks(),
-                command.getType(),
-                command.getTimestamp()
-        ));
+        AggregateLifecycle.apply(
+                AuthenticationSuccessLogCreatedEvent.builder()
+                        .authenticationLogId(command.getAuthenticationLogId())
+                        .name(command.getName())
+                        .ip(command.getIp())
+                        .remarks(command.getRemarks())
+                        .type(command.getType())
+                        .timestamp(command.getTimestamp())
+                        .build()
+        );
     }
 
     @CommandHandler
     public AuthenticationLog(CreateAuthenticationFailureLogCommand command) {
-        AggregateLifecycle.apply(new AuthenticationFailureLogCreatedEvent(
-                command.getAuthenticationLogId(),
-                command.getName(),
-                command.getIp(),
-                command.getRemarks(),
-                command.getType(),
-                command.getTimestamp()
-        ));
+        AggregateLifecycle.apply(
+                AuthenticationFailureLogCreatedEvent.builder()
+                        .authenticationLogId(command.getAuthenticationLogId())
+                        .name(command.getName())
+                        .ip(command.getIp())
+                        .remarks(command.getRemarks())
+                        .type(command.getType())
+                        .timestamp(command.getTimestamp())
+                        .build()
+        );
     }
 
     @EventSourcingHandler

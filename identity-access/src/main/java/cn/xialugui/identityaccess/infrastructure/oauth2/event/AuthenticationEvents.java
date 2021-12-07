@@ -24,14 +24,12 @@ public class AuthenticationEvents {
         String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
         if (!(authentication instanceof JwtAuthenticationToken)) {
             eventGateway.publish(
-                    new cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent(
-                            authentication.getName(),
-                            detail,
-                            null,
-                            authentication.getClass().getName(),
-                            success.getTimestamp()
-                    )
-            );
+                    cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent.builder()
+                            .name(authentication.getName())
+                            .ip(detail)
+                            .name(authentication.getClass().getName())
+                            .timestamp(success.getTimestamp())
+                            .build());
         } else {
             log.debug("Jwt 认证成功：{}", authentication.getName());
         }
@@ -43,13 +41,12 @@ public class AuthenticationEvents {
         log.debug("认证失败：{}，类型：{}", authentication.getName(), authentication.getClass().getName());
         String detail = authentication.getDetails() == null ? null : authentication.getDetails().toString();
         eventGateway.publish(
-                new AuthenticationFailureEvent(
-                        authentication.getName(),
-                        detail,
-                        failures.getException().getMessage(),
-                        authentication.getClass().getName(),
-                        failures.getTimestamp()
-                )
+                AuthenticationFailureEvent.builder()
+                        .name(authentication.getName())
+                        .ip(detail)
+                        .remarks(failures.getException().getMessage())
+                        .type(authentication.getClass().getName())
+                        .timestamp(failures.getTimestamp())
         );
     }
 }

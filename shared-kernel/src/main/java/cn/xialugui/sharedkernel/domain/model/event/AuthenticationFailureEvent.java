@@ -1,24 +1,20 @@
 package cn.xialugui.sharedkernel.domain.model.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author 夏露桂
  * @since 2021/12/1 16:31
  */
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Value
+@Jacksonized
+@Builder
 public class AuthenticationFailureEvent {
-    private String name;
-
-    private String ip;
-
-    private String remarks;
-
-    private String type;
-
-    private Long timestamp;
+    String name;
+    String ip;
+    String remarks;
+    String type;
+    Long timestamp;
 }

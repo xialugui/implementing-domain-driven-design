@@ -1,16 +1,18 @@
 package cn.xialugui.systeminformation.domain.model.authenticationlog.event;
 
-import cn.xialugui.systeminformation.domain.model.authenticationlog.AuthenticationLogId;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author 夏露桂
  * @since 2021/11/30 20:08
  */
-@Getter
-public class AuthenticationSuccessLogCreatedEvent extends AuthenticationLogEvent {
 
-    public AuthenticationSuccessLogCreatedEvent(AuthenticationLogId authenticationLogId, String name, String ip, String remarks, String type, Long timestamp) {
-        super(authenticationLogId, name, ip, remarks, type, timestamp);
-    }
+@EqualsAndHashCode(callSuper = true)
+@Jacksonized
+@Value
+@SuperBuilder
+public class AuthenticationSuccessLogCreatedEvent extends AuthenticationLogEvent {
 }
