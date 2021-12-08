@@ -1,10 +1,13 @@
 package cn.xialugui.systeminformation.interfaces.listener;
 
+import cn.xialugui.sharedkernel.domain.model.event.AccessTokenIssuedEvent;
 import cn.xialugui.sharedkernel.domain.model.event.AuthenticationFailureEvent;
 import cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.AuthenticationLogId;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.command.CreateAuthenticationFailureLogCommand;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.command.CreateAuthenticationSuccessLogCommand;
+import cn.xialugui.systeminformation.domain.model.token.command.IssueTokenCommand;
+import cn.xialugui.systeminformation.domain.model.token.valueobject.TokenId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -33,6 +36,17 @@ public class AuthenticationListener {
                 event.getType(),
                 event.getTimestamp()
         ));
+    }
+
+    @EventHandler
+    public void handle(AccessTokenIssuedEvent event) {
+        log.debug("令牌发放事件：{}", event);
+        commandGateway.send(
+                IssueTokenCommand.builder()
+                        .tokenId(new TokenId(event.getAccessTokenValue()))
+                        .name(event.getName())
+                        .build()
+        );
     }
 
     @EventHandler

@@ -2,6 +2,9 @@ package cn.xialugui.systeminformation.domain.model.authenticationlog.valueobject
 
 import lombok.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 日志细节
  *
@@ -46,18 +49,22 @@ public final class Detail {
         USERNAME_PASSWORD("org.springframework.security.authentication.UsernamePasswordAuthenticationToken"),
         UNKNOWN("unknown");
         private final String className;
+        private static final Map<String, Type> TYPE_MAP = new HashMap<>() {{
+            for (Type type : Type.values()) {
+                put(type.className, type);
+            }
+        }};
 
         Type(String className) {
             this.className = className;
         }
 
         public static Type ofClassName(String className) {
-            for (Type value : Type.values()) {
-                if (value.className.equals(className)) {
-                    return value;
-                }
-            }
-            return UNKNOWN;
+            return TYPE_MAP.getOrDefault(className, UNKNOWN);
+        }
+
+        public static boolean isAccessToken(String className) {
+            return ACCESS_TOKEN.equals(ofClassName(className));
         }
     }
 }
