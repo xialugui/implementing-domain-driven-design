@@ -16,13 +16,14 @@
 
 package cn.xialugui.systeminformation.query.authenticationlog;
 
+import cn.xialugui.sharedkernel.infrastructure.persistence.PropertiesIgnoredPersistable;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.valueobject.Detail;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 
@@ -30,7 +31,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AuthenticationLogView extends AbstractPersistable<Long> {
+public class AuthenticationLogView extends PropertiesIgnoredPersistable<Long> {
     @NaturalId
     private Long identifier;
     private String name;

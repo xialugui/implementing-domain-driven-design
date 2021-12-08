@@ -27,7 +27,7 @@ public class AuthenticationEvents {
                     cn.xialugui.sharedkernel.domain.model.event.AuthenticationSuccessEvent.builder()
                             .name(authentication.getName())
                             .ip(detail)
-                            .name(authentication.getClass().getName())
+                            .type(authentication.getClass().getName())
                             .timestamp(success.getTimestamp())
                             .build());
         } else {
