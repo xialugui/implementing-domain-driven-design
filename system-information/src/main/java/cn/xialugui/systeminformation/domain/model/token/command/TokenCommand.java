@@ -13,6 +13,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @SuperBuilder
 @Getter
 @RequiredArgsConstructor
+
 public class TokenCommand {
     @TargetAggregateIdentifier
     private final TokenId tokenId;

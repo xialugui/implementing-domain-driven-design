@@ -1,6 +1,7 @@
 package cn.xialugui.systeminformation.domain.model.authenticationlog.event;
 
 import cn.xialugui.systeminformation.domain.model.authenticationlog.AuthenticationLogId;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -12,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Getter
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class AuthenticationLogEvent {
     private final AuthenticationLogId authenticationLogId;
     private final String name;

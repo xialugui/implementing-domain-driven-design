@@ -15,4 +15,5 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 @SuperBuilder
 public class AuthenticationSuccessLogCreatedEvent extends AuthenticationLogEvent {
+
 }

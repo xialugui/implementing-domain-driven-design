@@ -6,6 +6,7 @@ import cn.xialugui.systeminformation.domain.model.authenticationlog.event.Authen
 import cn.xialugui.systeminformation.domain.model.authenticationlog.event.AuthenticationSuccessLogCreatedEvent;
 import cn.xialugui.systeminformation.domain.model.authenticationlog.valueobject.Detail;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.axonframework.commandhandling.CommandHandler;
@@ -22,6 +23,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 //无参构造函数，axon框架在对象初始化时需要调用。
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter(AccessLevel.PRIVATE)
+@Getter
 public final class AuthenticationLog {
     @AggregateIdentifier
     private AuthenticationLogId authenticationLogId;
