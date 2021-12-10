@@ -6,6 +6,7 @@ import cn.xialugui.systeminformation.domain.model.token.valueobject.TokenId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.common.StringUtils;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -28,6 +29,12 @@ public class Token {
 
     @CommandHandler
     public Token(IssueTokenCommand command) {
+        if (!StringUtils.nonEmptyOrNull(command.getTokenId().getIdentifier())) {
+            throw new TokenIdEmptyException();
+        }
+        if (!StringUtils.nonEmptyOrNull(command.getName())) {
+            throw new TokenNameEmptyException();
+        }
         apply(TokenIssuedEvent.builder()
                 .tokenId(command.getTokenId())
                 .name(command.getName())

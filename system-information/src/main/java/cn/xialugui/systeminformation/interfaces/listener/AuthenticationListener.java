@@ -43,7 +43,9 @@ public class AuthenticationListener {
         log.debug("令牌发放事件：{}", event);
         commandGateway.send(
                 IssueTokenCommand.builder()
-                        .tokenId(new TokenId(event.getAccessTokenValue()))
+                        .tokenId(TokenId.builder()
+                                .identifier(event.getAccessTokenValue())
+                                .build())
                         .name(event.getName())
                         .build()
         );
