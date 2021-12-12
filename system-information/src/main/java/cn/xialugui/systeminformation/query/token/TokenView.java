@@ -12,4 +12,5 @@ import javax.persistence.Entity;
 public class TokenView extends DefaultPersistable {
     private String token;
     private String name;
+    private Status status;
 }

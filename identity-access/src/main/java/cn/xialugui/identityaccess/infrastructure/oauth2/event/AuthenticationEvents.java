@@ -2,6 +2,7 @@ package cn.xialugui.identityaccess.infrastructure.oauth2.event;
 
 import cn.xialugui.sharedkernel.domain.model.event.AccessTokenIssuedEvent;
 import cn.xialugui.sharedkernel.domain.model.event.AuthenticationFailureEvent;
+import cn.xialugui.sharedkernel.domain.model.event.TokenRevocatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.gateway.EventGateway;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2TokenRevocationAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -43,7 +45,24 @@ public class AuthenticationEvents {
             if (authentication instanceof OAuth2AccessTokenAuthenticationToken) {
                 publishAccessTokenIssuedEvent(authentication);
             }
+            if (authentication instanceof OAuth2TokenRevocationAuthenticationToken) {
+                publishTokenRevocatedEvent(authentication);
+            }
         }
+
+    }
+
+    private void publishTokenRevocatedEvent(Authentication authentication) {
+        OAuth2TokenRevocationAuthenticationToken token = (OAuth2TokenRevocationAuthenticationToken) authentication;
+        String tokenValue = token.getToken();
+        String detail = token.getDetails() == null ? null : token.getDetails().toString();
+        eventGateway.publish(
+                TokenRevocatedEvent.builder()
+                        .token(tokenValue)
+                        .name(token.getName())
+                        .detail(detail)
+                        .build()
+        );
     }
 
     private void publishAccessTokenIssuedEvent(Authentication authentication) {
