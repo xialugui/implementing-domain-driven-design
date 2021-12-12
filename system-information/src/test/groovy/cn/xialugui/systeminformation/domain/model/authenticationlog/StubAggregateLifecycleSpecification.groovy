@@ -27,8 +27,8 @@ abstract class StubAggregateLifecycleSpecification extends Specification {
         lifecycle.close()
     }
 
-    def expectEvent(event) {
-        lifecycle.with {
+    void expectEvent(event) {
+        with(lifecycle) {
             appliedEvents.size() == 1
             appliedEventPayloads[0] == event
         }
