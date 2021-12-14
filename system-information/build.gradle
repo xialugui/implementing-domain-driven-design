@@ -9,6 +9,7 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
             //标准化web响应
             "com.lugew.winsin:web-spring-boot-starter:${winsinVersion}",
+
     )
     implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
         exclude group: 'org.axonframework', module: 'axon-server-connector'
