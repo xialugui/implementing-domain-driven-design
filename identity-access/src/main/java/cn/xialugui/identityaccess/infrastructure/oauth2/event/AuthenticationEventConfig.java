@@ -30,7 +30,5 @@ public class AuthenticationEventConfig {
 
         defaultAuthenticationEventPublisher.setAdditionalExceptionMappings(mappings);
         return defaultAuthenticationEventPublisher;
-
-
     }
 }

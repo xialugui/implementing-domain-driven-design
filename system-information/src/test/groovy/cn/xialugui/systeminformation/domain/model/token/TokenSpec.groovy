@@ -8,13 +8,13 @@ import spock.lang.Unroll
 
 class TokenSpec extends StubAggregateLifecycleSpecification {
     TokenId tokenId
+    String tokenValue
     String name
 
     def setup() {
         name = "ddd"
-        tokenId = TokenId.builder()
-                .identifier("eyJraWQiOiI0ODcxM2U2OC05MTQ2LTQ4MTUtYjhjZS01MTEyODEyN2Q0YWMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaWJhaSIsImF1ZCI6ImRkZCIsIm5iZiI6MTYzODgwNzgzNSwic2NvcGUiOlsiZGRkLndyaXRlIiwiZGRkLmMiXSwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjI0MDAwIiwiZXhwIjoxNjM4ODExNDM1LCJpYXQiOjE2Mzg4MDc4MzV9.lECuoil9x0nnVa4-KibI8mOjFBCmwQ1BoUY-v7tNfqXkKNQIKQxB4T1XtXC0fPTL4gUzR3dnFf6dQTgNE_g0iPXUNZGGdMEZX5zGYMYlTrSgRmqH1XGQLJ9dbn56b1t29MMbXnNSrswsudynLaHFIRJvAcijcz4FFfxSrDbZYRUhalNjZOoQtVc2IRsOCuRlpRRVKlTfCkOjqCr95TBnV2-nXXrym-jxuOpAbAOTS6nCLXkBpJ1plV_RaJN_I13OHJSQOY8foVoLtfIYTi94Sbg1NQQ4j4b3JcBr6qV9saTgkLiif3ZVdyVn9e4WQ1D7YD3tprjuJIFKVRItT5L7vw")
-                .build()
+        tokenValue == "eyJraWQiOiI0ODcxM2U2OC05MTQ2LTQ4MTUtYjhjZS01MTEyODEyN2Q0YWMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJsaWJhaSIsImF1ZCI6ImRkZCIsIm5iZiI6MTYzODgwNzgzNSwic2NvcGUiOlsiZGRkLndyaXRlIiwiZGRkLmMiXSwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjI0MDAwIiwiZXhwIjoxNjM4ODExNDM1LCJpYXQiOjE2Mzg4MDc4MzV9.lECuoil9x0nnVa4-KibI8mOjFBCmwQ1BoUY-v7tNfqXkKNQIKQxB4T1XtXC0fPTL4gUzR3dnFf6dQTgNE_g0iPXUNZGGdMEZX5zGYMYlTrSgRmqH1XGQLJ9dbn56b1t29MMbXnNSrswsudynLaHFIRJvAcijcz4FFfxSrDbZYRUhalNjZOoQtVc2IRsOCuRlpRRVKlTfCkOjqCr95TBnV2-nXXrym-jxuOpAbAOTS6nCLXkBpJ1plV_RaJN_I13OHJSQOY8foVoLtfIYTi94Sbg1NQQ4j4b3JcBr6qV9saTgkLiif3ZVdyVn9e4WQ1D7YD3tprjuJIFKVRItT5L7vw"
+        tokenId = TokenId.RANDOM
     }
 
     def '发放令牌'() {
@@ -22,6 +22,7 @@ class TokenSpec extends StubAggregateLifecycleSpecification {
         new Token(
                 IssueTokenCommand.builder()
                         .tokenId(tokenId)
+                        .tokenValue(tokenValue)
                         .name(name)
                         .build()
         )
@@ -29,6 +30,7 @@ class TokenSpec extends StubAggregateLifecycleSpecification {
         expectEvent(
                 TokenIssuedEvent.builder()
                         .tokenId(tokenId)
+                        .tokenValue(tokenValue)
                         .name(name)
                         .build()
         )
@@ -39,20 +41,21 @@ class TokenSpec extends StubAggregateLifecycleSpecification {
         when: '发放令牌'
         new Token(
                 IssueTokenCommand.builder()
-                        .tokenId(TokenId.builder().identifier(identifier).build())
+                        .tokenId(tokenId)
+                        .tokenValue(tokenValueInput)
                         .name(nameInput)
                         .build()
         )
         then: '抛出相应异常'
         thrown(exception)
         where:
-        identifier | nameInput || exception
-        null       | "ddd"     || TokenIdEmptyException
-        ""         | "ddd"     || TokenIdEmptyException
-        "token"    | null      || TokenNameEmptyException
-        "token"    | ""        || TokenNameEmptyException
-        ""         | ""        || TokenIdEmptyException
-        null       | null      || TokenIdEmptyException
+        tokenValueInput | nameInput || exception
+        null            | "ddd"     || TokenValueEmptyException
+        ""              | "ddd"     || TokenValueEmptyException
+        "token"         | null      || TokenNameEmptyException
+        "token"         | ""        || TokenNameEmptyException
+        ""              | ""        || TokenValueEmptyException
+        null            | null      || TokenValueEmptyException
     }
 
 }

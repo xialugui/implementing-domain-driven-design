@@ -18,7 +18,8 @@ public class TokenViewEventHandler {
     @EventHandler
     public void on(TokenIssuedEvent event) {
         TokenView view = new TokenView();
-        view.setToken(event.getTokenId().getIdentifier());
+        view.setIdentifier(event.getTokenId().getIdentifier());
+        view.setToken(event.getTokenValue());
         view.setName(event.getName());
         repository.save(view);
     }

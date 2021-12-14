@@ -15,4 +15,5 @@ import lombok.extern.jackson.Jacksonized;
 @SuperBuilder
 public class TokenIssuedEvent extends TokenEvent {
     String name;
+    String tokenValue;
 }

@@ -13,4 +13,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class IssueTokenCommand extends TokenCommand {
     String name;
+    String tokenValue;
 }
