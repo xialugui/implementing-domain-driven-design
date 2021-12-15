@@ -45,7 +45,7 @@ public class AuthenticationListener {
                 IssueTokenCommand.builder()
                         .tokenId(TokenId.RANDOM)
                         .name(event.getName())
-                        .tokenValue(event.getAccessTokenValue())
+                        .value(event.getAccessTokenValue())
                         .build()
         );
     }

@@ -11,9 +11,9 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class TokenView extends DefaultPersistable {
-    private Long identifier;
+    private Long tokenId;
     @Column(length = 1024)
-    private String token;
+    private String value;
     private String name;
-    private Status status;
+    private String status;
 }

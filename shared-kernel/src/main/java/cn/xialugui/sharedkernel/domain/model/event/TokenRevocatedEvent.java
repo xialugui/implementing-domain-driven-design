@@ -12,7 +12,8 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class TokenRevocatedEvent {
-    String tokenValue;
+    Long tokenId;
+    String value;
     String name;
     String detail;
 }

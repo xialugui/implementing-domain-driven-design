@@ -17,5 +17,9 @@ import lombok.extern.jackson.Jacksonized;
 public class TokenId {
     public static final TokenId RANDOM = new TokenId(IdUtil.getSnowflake().nextId());
     Long identifier;
+
+    public static boolean isEmpty(TokenId tokenId) {
+        return null == tokenId || null == tokenId.getIdentifier();
+    }
 }
 

@@ -1,6 +1,5 @@
 package cn.xialugui.systeminformation.domain.model.token.event;
 
-import cn.xialugui.systeminformation.domain.model.token.valueobject.TokenId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +14,5 @@ import lombok.experimental.SuperBuilder;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 public class TokenEvent {
-    private final TokenId tokenId;
+    private final Long tokenId;
 }

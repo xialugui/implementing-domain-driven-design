@@ -58,7 +58,7 @@ public class AuthenticationEvents {
         String detail = token.getDetails() == null ? null : token.getDetails().toString();
         eventGateway.publish(
                 TokenRevocatedEvent.builder()
-                        .tokenValue(tokenValue)
+                        .value(tokenValue)
                         .name(token.getName())
                         .detail(detail)
                         .build()
