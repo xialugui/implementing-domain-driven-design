@@ -1,0 +1,27 @@
+ext {
+
+}
+
+dependencies {
+    implementation(
+            project(':shared-kernel'),
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
+
+    )
+    implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
+        exclude group: 'org.axonframework', module: 'axon-server-connector'
+    }
+    annotationProcessor(
+            project(':shared-kernel')
+    )
+    runtimeOnly(
+            "com.h2database:h2"
+    )
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test',
+            "org.axonframework:axon-test:$axonVersion",
+
+    )
+
+}
