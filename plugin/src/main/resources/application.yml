@@ -28,11 +28,3 @@ logging:
   level:
     cn:
       xialugui: debug
-#领域事件的序列化使用jackson而不是默认的xstream，
-#xstream是将对象序列化为xml文件的技术，xml文件
-#相对json来说过于臃肿，在领域事件的序列化上使用
-#jackson较适合。xstream在某些应用场景存在优势
-#此处暂不详述。
-axon:
-  serializer:
-    events: jackson
