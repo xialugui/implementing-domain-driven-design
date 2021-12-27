@@ -1,11 +1,17 @@
 package cn.xialugui.plugin.domain.model;
 
+import cn.xialugui.plugin.domain.model.command.PublishPluginCommand;
+import cn.xialugui.plugin.domain.model.event.PluginPublishedEvent;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
+
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 /**
  * @author 夏露桂
@@ -34,4 +40,23 @@ public class Plugin {
      */
     private String icon;
 
+    @CommandHandler
+    public Plugin(PublishPluginCommand command) {
+        apply(PluginPublishedEvent.builder()
+                .id(command.getId().getValue())
+                .name(command.getName())
+                .description(command.getDescription())
+                .icon(command.getIcon())
+                .build());
+    }
+
+    @EventSourcingHandler
+    public void on(PluginPublishedEvent event) {
+        setId(PluginId.builder()
+                .value(event.getId())
+                .build());
+        setName(event.getName());
+        setDescription(event.getDescription());
+        setIcon(event.getIcon());
+    }
 }

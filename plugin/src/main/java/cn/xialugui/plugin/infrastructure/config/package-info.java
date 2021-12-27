@@ -1,0 +1,1 @@
+package cn.xialugui.plugin.infrastructure.config;
