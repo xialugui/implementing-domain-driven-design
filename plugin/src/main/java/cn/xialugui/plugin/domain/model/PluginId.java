@@ -1,4 +1,4 @@
-package cn.xialugui.tool.domain.model;
+package cn.xialugui.plugin.domain.model;
 
 import lombok.Builder;
 import lombok.Value;

@@ -1,4 +1,4 @@
-package cn.xialugui.tool.domain.model;
+package cn.xialugui.plugin.domain.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,5 +29,9 @@ public class Plugin {
      */
     private String description;
 
+    /**
+     * 以url形式存储的图标。
+     */
+    private String icon;
 
 }
