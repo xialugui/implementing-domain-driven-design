@@ -1,10 +1,10 @@
-package cn.xialugui.plugin.domain.model
+package cn.xialugui.plugin.command
 
 
-import cn.xialugui.plugin.command.Plugin
 import cn.xialugui.plugin.command.api.PluginId
 import cn.xialugui.plugin.command.api.PluginPublishedEvent
 import cn.xialugui.plugin.command.api.PublishPluginCommand
+import cn.xialugui.plugin.StubAggregateLifecycleSpecification
 import spock.lang.Subject
 import spock.lang.Title
 

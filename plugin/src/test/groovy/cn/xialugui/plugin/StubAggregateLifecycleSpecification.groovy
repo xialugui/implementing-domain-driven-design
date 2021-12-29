@@ -1,4 +1,4 @@
-package cn.xialugui.plugin.domain.model
+package cn.xialugui.plugin
 
 import org.axonframework.test.aggregate.StubAggregateLifecycleExtension
 import spock.lang.Specification
