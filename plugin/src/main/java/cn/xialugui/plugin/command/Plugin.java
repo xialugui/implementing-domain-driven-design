@@ -1,7 +1,8 @@
-package cn.xialugui.plugin.domain.model;
+package cn.xialugui.plugin.command;
 
-import cn.xialugui.plugin.domain.model.command.PublishPluginCommand;
-import cn.xialugui.plugin.domain.model.event.PluginPublishedEvent;
+import cn.xialugui.plugin.command.api.PluginId;
+import cn.xialugui.plugin.command.api.PluginPublishedEvent;
+import cn.xialugui.plugin.command.api.PublishPluginCommand;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,19 +43,17 @@ public class Plugin {
 
     @CommandHandler
     public Plugin(PublishPluginCommand command) {
-        apply(PluginPublishedEvent.builder()
-                .id(command.getId().getValue())
-                .name(command.getName())
-                .description(command.getDescription())
-                .icon(command.getIcon())
-                .build());
+        apply(new PluginPublishedEvent(
+                command.getId(),
+                command.getName(),
+                command.getDescription(),
+                command.getIcon()
+        ));
     }
 
     @EventSourcingHandler
     public void on(PluginPublishedEvent event) {
-        setId(PluginId.builder()
-                .value(event.getId())
-                .build());
+        setId(event.getId());
         setName(event.getName());
         setDescription(event.getDescription());
         setIcon(event.getIcon());

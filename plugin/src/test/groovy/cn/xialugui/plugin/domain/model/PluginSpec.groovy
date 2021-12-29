@@ -3,6 +3,7 @@ package cn.xialugui.plugin.domain.model
 import cn.hutool.core.util.IdUtil
 import cn.xialugui.plugin.domain.model.command.PublishPluginCommand
 import cn.xialugui.plugin.domain.model.event.PluginPublishedEvent
+import cn.xialugui.plugin.domain.model.plugin.command.Plugin
 import spock.lang.Subject
 import spock.lang.Title
 

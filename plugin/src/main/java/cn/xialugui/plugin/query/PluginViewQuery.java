@@ -1,4 +1,4 @@
-package cn.xialugui.plugin.domain.model.query;
+package cn.xialugui.plugin.query;
 
 import lombok.Data;
 
