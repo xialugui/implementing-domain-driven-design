@@ -26,25 +26,11 @@ public class Plugin {
     @AggregateIdentifier
     private PluginId id;
 
-    /**
-     * 名称，如：计算器。
-     */
-    private String name;
-
-    /**
-     * 描述，如：这是一个很好的计算器，试试看吧。
-     */
-    private String description;
-
-    /**
-     * 以url形式存储的图标。
-     */
-    private String icon;
 
     @CommandHandler
     public Plugin(PublishPluginCommand command) {
         apply(new PluginPublishedEvent(
-                command.getId(),
+                command.getPluginId(),
                 command.getName(),
                 command.getDescription(),
                 command.getIcon()
@@ -53,9 +39,6 @@ public class Plugin {
 
     @EventSourcingHandler
     public void on(PluginPublishedEvent event) {
-        setId(event.getId());
-        setName(event.getName());
-        setDescription(event.getDescription());
-        setIcon(event.getIcon());
+        setId(event.getPluginId());
     }
 }
