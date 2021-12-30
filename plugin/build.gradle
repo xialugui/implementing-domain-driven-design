@@ -1,10 +1,14 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id "org.jetbrains.kotlin.plugin.spring" version "1.6.10"
+    id "org.jetbrains.kotlin.plugin.jpa" version "1.6.10"
 }
+
 ext {
     zipVersion = '1.14'
     jacksonVersion = '2.13.0'
     ioVersion = '2.11.0'
+    axonReactorVersion = '4.5.1'
 }
 
 dependencies {
@@ -16,6 +20,7 @@ dependencies {
             "org.zeroturnaround:zt-zip:$zipVersion",
             'org.jetbrains.kotlin:kotlin-reflect',
             "commons-io:commons-io:$ioVersion",
+            "org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter:$axonReactorVersion",
 
     )
     implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
