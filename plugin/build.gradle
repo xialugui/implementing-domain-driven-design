@@ -2,14 +2,20 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
 }
 ext {
-
+    zipVersion = '1.14'
+    jacksonVersion = '2.13.0'
+    ioVersion = '2.11.0'
 }
 
 dependencies {
     implementation(
             project(':shared-kernel'),
+            "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion",
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
+            "org.zeroturnaround:zt-zip:$zipVersion",
+            'org.jetbrains.kotlin:kotlin-reflect',
+            "commons-io:commons-io:$ioVersion",
 
     )
     implementation("org.axonframework:axon-spring-boot-starter:${axonVersion}") {
