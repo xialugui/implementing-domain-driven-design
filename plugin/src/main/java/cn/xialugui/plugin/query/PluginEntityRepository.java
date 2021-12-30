@@ -1,5 +1,7 @@
 package cn.xialugui.plugin.query;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -7,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since 2021/12/29 21:38
  */
 public interface PluginEntityRepository extends JpaRepository<PluginEntity, Long> {
+    Page<PluginEntity> findAllByNameContains(String name, Pageable pageable);
 }

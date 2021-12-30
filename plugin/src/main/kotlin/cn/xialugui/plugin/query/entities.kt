@@ -1,6 +1,5 @@
 package cn.xialugui.plugin.query
 
-import lombok.Data
 import javax.persistence.Entity
 import javax.persistence.Id
 
@@ -11,7 +10,6 @@ import javax.persistence.Id
  */
 
 @Entity
-@Data
 data class PluginEntity(
         @Id
         var id: Long,
