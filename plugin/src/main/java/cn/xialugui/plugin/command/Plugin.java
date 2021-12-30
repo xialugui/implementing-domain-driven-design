@@ -3,6 +3,7 @@ package cn.xialugui.plugin.command;
 import cn.xialugui.plugin.command.api.PluginId;
 import cn.xialugui.plugin.command.api.PluginPublishedEvent;
 import cn.xialugui.plugin.command.api.PublishPluginCommand;
+import cn.xialugui.plugin.util.PluginUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,12 +30,21 @@ public class Plugin {
 
     @CommandHandler
     public Plugin(PublishPluginCommand command) {
+        unpack(command.getFilename(), command.getPluginId());
         apply(new PluginPublishedEvent(
                 command.getPluginId(),
                 command.getName(),
                 command.getDescription(),
                 command.getIcon()
         ));
+    }
+
+    protected void unpack(String filename, PluginId pluginId) {
+        PluginUtil.unpack(filename, getDestination(pluginId));
+    }
+
+    private String getDestination(PluginId pluginId) {
+        return pluginId.toString();
     }
 
     @EventSourcingHandler
