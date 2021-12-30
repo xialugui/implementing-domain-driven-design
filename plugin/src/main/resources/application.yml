@@ -28,3 +28,6 @@ logging:
   level:
     cn:
       xialugui: debug
+axon:
+  serializer:
+    events: jackson
