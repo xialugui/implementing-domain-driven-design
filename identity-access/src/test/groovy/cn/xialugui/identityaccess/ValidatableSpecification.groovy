@@ -13,8 +13,7 @@ import java.lang.reflect.Method
 
 /**
  * 具有验证特性的规格说明
- * @author 夏露桂
- * @since 2021/9/7 10:20
+ * @author 夏露桂* @since 2021/9/7 10:20
  */
 class ValidatableSpecification extends Specification {
     @Shared

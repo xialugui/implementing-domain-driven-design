@@ -6,38 +6,20 @@ import cn.xialugui.identityaccess.domain.model.permission.valueobject.Permission
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleId
 import cn.xialugui.identityaccess.domain.model.role.valueobject.RoleName
 import com.lugew.winsin.core.exception.Exception
-import spock.lang.Shared
 import spock.lang.Subject
 import spock.lang.Title
 import spock.lang.Unroll
 
 import javax.validation.ConstraintViolation
 import javax.validation.Validation
-import javax.validation.Validator
-import javax.validation.ValidatorFactory
 
 /**
  *
- * @author 夏露桂
- * @since 2021/8/26 17:52
+ * @author 夏露桂* @since 2021/8/26 17:52
  */
 @Title("角色单元测试")
 @Subject(Role)
 class RoleSpecification extends ValidatableSpecification {
-    @Shared
-    String PATTERN = '{javax.validation.constraints.Pattern.message}'
-    @Shared
-    String NOT_NULL = '{javax.validation.constraints.NotNull.message}'
-    @Shared
-    ValidatorFactory validatorFactory
-    @Shared
-    Validator validator
-
-
-    def setupSpec() {
-        validatorFactory = Validation.buildDefaultValidatorFactory()
-        validator = validatorFactory.getValidator();
-    }
 
     @Unroll("id：#id 不合法")
     def '角色id（2-16位数字和字母）'() {
