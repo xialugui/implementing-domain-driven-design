@@ -27,7 +27,6 @@ public class Tool {
     @AggregateIdentifier
     private ToolId id;
 
-
     @CommandHandler
     public Tool(PublishToolCommand command) {
         unpack(command.getFilename(), command.getToolId());

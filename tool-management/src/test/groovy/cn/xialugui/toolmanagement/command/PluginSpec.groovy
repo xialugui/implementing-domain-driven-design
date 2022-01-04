@@ -1,41 +1,41 @@
 package cn.xialugui.toolmanagement.command
 
-import cn.xialugui.plugin.StubAggregateLifecycleSpecification
-import cn.xialugui.plugin.command.api.PluginId
-import cn.xialugui.plugin.command.api.PluginPublishedEvent
-import cn.xialugui.plugin.command.api.PublishPluginCommand
-import cn.xialugui.plugin.util.Environment
-import cn.xialugui.plugin.util.PluginUtil
+import cn.xialugui.toolmanagement.StubAggregateLifecycleSpecification
+import cn.xialugui.toolmanagement.command.api.PublishToolCommand
+import cn.xialugui.toolmanagement.command.api.ToolId
+import cn.xialugui.toolmanagement.command.api.ToolPublishedEvent
+import cn.xialugui.toolmanagement.util.Environment
+import cn.xialugui.toolmanagement.util.ToolUtil
 import spock.lang.Subject
 import spock.lang.Title
 
-@Title("插件说明")
+@Title("工具说明")
 @Subject(Tool)
 class PluginSpec extends StubAggregateLifecycleSpecification {
-    def pluginId = new PluginId()
+    def toolId = new ToolId()
     def name = "计算器"
     def description = "这是一个很好用的计算器，试试看吧"
     def icon = "https://xialugui.cn/folder/hello.icon"
-    def filename = Environment.path() + "\\src\\test\\resources\\plugin\\Plugin.zip"
+    def filename = Environment.path() + "\\src\\test\\resources\\plugin\\Tool.zip"
 
-    def "发布插件"() {
+    def "发布工具"() {
         setup:
-        PublishPluginCommand command =
-                new PublishPluginCommand(pluginId, name, description, icon, filename)
+        PublishToolCommand command =
+                new PublishToolCommand(toolId, name, description, icon, filename)
 
-        PluginPublishedEvent event = new PluginPublishedEvent(pluginId, name, description, icon)
+        ToolPublishedEvent event = new ToolPublishedEvent(toolId, name, description, icon)
         when: "发布"
-        def plugin = new Tool(command)
+        def tool = new Tool(command)
         then: "已发布"
         expectEvent(event)
         and: "处理事件"
-        plugin.on(event)
+        tool.on(event)
         then: "修改状态"
-        with(plugin) {
-            pluginId == event.toolId
+        with(tool) {
+            toolId == event.toolId
         }
-        cleanup: "清除已安装的插件"
-        PluginUtil.remove(pluginId.identifier)
+        cleanup: "清除已安装的工具"
+        ToolUtil.remove(toolId.identifier)
     }
 
 }
