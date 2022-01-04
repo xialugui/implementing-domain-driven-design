@@ -10,7 +10,7 @@ import javax.persistence.Id
  */
 
 @Entity
-data class PluginEntity(
+data class ToolEntity(
         @Id
         var id: Long,
         var name: String,

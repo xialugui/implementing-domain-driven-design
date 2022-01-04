@@ -1,9 +1,9 @@
 package cn.xialugui.toolmanagement.command;
 
-import cn.xialugui.toolmanagement.command.api.PluginId;
-import cn.xialugui.toolmanagement.command.api.PluginPublishedEvent;
-import cn.xialugui.toolmanagement.command.api.PublishPluginCommand;
-import cn.xialugui.toolmanagement.util.PluginUtil;
+import cn.xialugui.toolmanagement.command.api.ToolId;
+import cn.xialugui.toolmanagement.command.api.ToolPublishedEvent;
+import cn.xialugui.toolmanagement.command.api.PublishToolCommand;
+import cn.xialugui.toolmanagement.util.ToolUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,32 +23,32 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter(value = AccessLevel.PRIVATE)
-public class Plugin {
+public class Tool {
     @AggregateIdentifier
-    private PluginId id;
+    private ToolId id;
 
 
     @CommandHandler
-    public Plugin(PublishPluginCommand command) {
-        unpack(command.getFilename(), command.getPluginId());
-        apply(new PluginPublishedEvent(
-                command.getPluginId(),
+    public Tool(PublishToolCommand command) {
+        unpack(command.getFilename(), command.getToolId());
+        apply(new ToolPublishedEvent(
+                command.getToolId(),
                 command.getName(),
                 command.getDescription(),
                 command.getIcon()
         ));
     }
 
-    protected void unpack(String filename, PluginId pluginId) {
-        PluginUtil.unpack(filename, getDestination(pluginId));
+    protected void unpack(String filename, ToolId toolId) {
+        ToolUtil.unpack(filename, getDestination(toolId));
     }
 
-    private String getDestination(PluginId pluginId) {
-        return pluginId.toString();
+    private String getDestination(ToolId toolId) {
+        return toolId.toString();
     }
 
     @EventSourcingHandler
-    public void on(PluginPublishedEvent event) {
-        setId(event.getPluginId());
+    public void on(ToolPublishedEvent event) {
+        setId(event.getToolId());
     }
 }

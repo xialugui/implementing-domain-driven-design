@@ -10,7 +10,7 @@ import spock.lang.Subject
 import spock.lang.Title
 
 @Title("插件说明")
-@Subject(Plugin)
+@Subject(Tool)
 class PluginSpec extends StubAggregateLifecycleSpecification {
     def pluginId = new PluginId()
     def name = "计算器"
@@ -25,14 +25,14 @@ class PluginSpec extends StubAggregateLifecycleSpecification {
 
         PluginPublishedEvent event = new PluginPublishedEvent(pluginId, name, description, icon)
         when: "发布"
-        def plugin = new Plugin(command)
+        def plugin = new Tool(command)
         then: "已发布"
         expectEvent(event)
         and: "处理事件"
         plugin.on(event)
         then: "修改状态"
         with(plugin) {
-            pluginId == event.pluginId
+            pluginId == event.toolId
         }
         cleanup: "清除已安装的插件"
         PluginUtil.remove(pluginId.identifier)

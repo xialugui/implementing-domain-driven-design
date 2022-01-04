@@ -7,9 +7,9 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
  * @author 夏露桂
  * @since 2021/12/29 14:59
  */
-data class PublishPluginCommand(
+data class PublishToolCommand(
         @TargetAggregateIdentifier
-        val pluginId: PluginId = PluginId(),
+        val toolId: ToolId = ToolId(),
         val name: String,
         val description: String,
         val icon: String,

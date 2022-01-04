@@ -12,17 +12,17 @@ import java.io.IOException;
  * @since 2021/12/30 15:23
  */
 @Slf4j
-public class PluginUtil {
+public class ToolUtil {
     private final static String PATH = Environment.path() + File.separator;
 
     public static void unpack(String filename, String destination) {
         try {
             ZipUtil.unpack(new File(filename), new File(destinationPath(destination)));
         } catch (Exception e) {
-            log.error("插件解压失败！位置：{}，信息：{}", destinationPath(destination), e.toString());
-            throw new PluginCantUnpackException(e.toString());
+            log.error("工具解压失败！位置：{}，信息：{}", destinationPath(destination), e.toString());
+            throw new ToolCantUnpackException(e.toString());
         }
-        log.info("插件解压成功！位置：{}", destinationPath(destination));
+        log.info("工具解压成功！位置：{}", destinationPath(destination));
     }
 
     private static String destinationPath(String destination) {
@@ -37,12 +37,12 @@ public class PluginUtil {
         try {
             FileUtils.forceDeleteOnExit(new File(destinationPath(pluginId)));
         } catch (IOException e) {
-            log.error("插件删除失败！位置：{}，信息：{}",
+            log.error("工具删除失败！位置：{}，信息：{}",
                     destinationPath(pluginId),
                     e.toString()
             );
-            throw new PluginCantRemoveException(e.toString());
+            throw new ToolCantRemoveException(e.toString());
         }
-        log.info("插件删除成功！位置：{}", destinationPath(pluginId));
+        log.info("工具删除成功！位置：{}", destinationPath(pluginId));
     }
 }

@@ -1,7 +1,7 @@
 package cn.xialugui.toolmanagement.query;
 
-import cn.xialugui.toolmanagement.command.api.PluginPublishedEvent;
-import cn.xialugui.toolmanagement.query.api.FindPlugins;
+import cn.xialugui.toolmanagement.command.api.ToolPublishedEvent;
+import cn.xialugui.toolmanagement.query.api.FindTools;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
@@ -12,19 +12,19 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class PluginHandler {
-    private final PluginEntityRepository repository;
+public class ToolHandler {
+    private final ToolEntityRepository repository;
 
     @EventHandler
-    void on(PluginPublishedEvent event) {
-        PluginEntity entity = new PluginEntity(event.getPluginId().getIdentifier(),
+    void on(ToolPublishedEvent event) {
+        ToolEntity entity = new ToolEntity(event.getToolId().getIdentifier(),
                 event.getName(), event.getDescription(), event.getIcon()
         );
         repository.save(entity);
     }
 
     @QueryHandler
-    Page handle(FindPlugins query) {
+    Page handle(FindTools query) {
         return repository.findAllByNameContains(query.getName(), query.getPageable());
     }
 }
