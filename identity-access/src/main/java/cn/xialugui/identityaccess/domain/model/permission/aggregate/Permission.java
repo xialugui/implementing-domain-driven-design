@@ -16,7 +16,7 @@ import javax.validation.constraints.Pattern;
  */
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
 public final class Permission extends HibernateAggregateRoot<Permission, PermissionId> {

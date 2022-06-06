@@ -21,20 +21,22 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
+import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationContext;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.servlet.*;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -70,14 +72,31 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                                 .authenticated()
                                 .antMatchers(EXCLUDE_URLS).permitAll()
                                 .antMatchers(HttpMethod.POST, "/users").permitAll()
+//                                .antMatchers("/login").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                /*.formLogin(httpSecurityFormLoginConfigurer -> {
+                    httpSecurityFormLoginConfigurer.loginPage("/loginPage");
+                    httpSecurityFormLoginConfigurer.loginProcessingUrl()
+                }).*/
                 .formLogin()
+//                .loginPage("/login")
                 .and()
                 .apply(authorizationServerConfigurer)
+                .oidc(oidcConfigurer -> {
+                    oidcConfigurer.userInfoEndpoint(oidcUserInfoEndpointConfigurer -> {
+                        oidcUserInfoEndpointConfigurer.userInfoMapper(new XyOidcUserInfoMapper(new OidcUserInfoMapperExtendImpl()));
+                    });
+                })
         ;
+       /* http.addFilterBefore(new Filter() {
+            @Override
+            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+                //成功，直接return，参考UsernamePasswordAuthenticationFilter
+            }
+        }, UsernamePasswordAuthenticationFilter.class);*/
     }
 
     @Bean
@@ -92,11 +111,12 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("https://oauth.pstmn.io/v1/callback")
+//                .redirectUri("https://oauth.pstmn.io/v1/callback")
+                .redirectUri("https://www.baidu.com")
                 .clientSettings(
                         ClientSettings
                                 .builder()
-                                .requireAuthorizationConsent(false)
+                                .requireAuthorizationConsent(true)
                                 .build()
                 ).tokenSettings(
                         TokenSettings.builder()
@@ -107,6 +127,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .scope("ddd.read")
                 .scope("ddd.write")
                 .scope("ddd.c")
+                .scope("address")
                 .build();
         RegisteredClient registeredClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("file-collaboration")
@@ -168,6 +189,13 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
+    }
+
+    @Bean
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
+        return context -> {
+            context.getClaims().claim("address", context.getAuthorization().getPrincipalName());
+        };
     }
 
     @Bean
