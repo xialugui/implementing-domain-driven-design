@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="icon" href="./imgs/logo.png" type="image/x-icon">
+    <script src="./public/react.js"></script>
+    <script src="./public/react-dom.js"></script>
+    <script src="./public/browser.js"></script>
+    <script src="./public/moment.js"></script>
+    <script src="./public/antd.js"></script>
+    <link rel="stylesheet" href="./public/antd.css"/>
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+<div id="root"></div>
+<script type="text/javascript">
+  var htmlSize;
+
+  //动态为根元素设置字体大小
+  function init() {
+    var width = document.documentElement.clientWidth;
+    document.documentElement.style.fontSize = (width / 1920) + 'px';
+    htmlSize = document.documentElement.style.fontSize;
+  }
+
+  init();
+  window.addEventListener('orientationchange', init);
+  window.addEventListener('resize', init);
+
+</script>
+<script type="text/babel">
+  var antd = window.antd;
+  const { Tabs, message, Popconfirm, Row, Col, Layout, Modal, Button, Form, Input } = antd;
+  if(window.location.href.indexOf('error')!==-1){
+    message.error('用户名或者密码错误!');
+  }
+  const Login = () => {
+    return (
+      <div>
+        <Layout className="mainLayout">
+          <Layout.Content className="mainContent">
+            <Row
+              align="middle"
+              justify="center"
+              className="mainContentRow"
+            >
+              <Col xs={24} md={10} lg={12}>
+                <Row justify="center">
+                  <img src='./imgs/login_left.png' className="loginLeftImg" alt=""/>
+                </Row>
+              </Col>
+              <Col xs={24} md={12} lg={12}>
+                <Row justify="center" align="middle">
+
+                  <div className="numLogin">
+
+                    <div className="loginTab">
+                      <div>
+                        <form
+                          className="formUserLogin"
+                          name="myForm"
+                          action="/login"
+                          method="post"
+                          enctype='application/json'
+                        >
+                          <label>
+                            <Input type="text" name="username" placeholder="请输入用户名/邮箱" className='username' required="required"/>
+                          </label>
+                          <label>
+                            <Input type="password" name="password"  placeholder="请输入密码" className='password' required="required"/>
+                          </label>
+                          <Input type="submit" value="登 录" className="login-form-button"/>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                </Row>
+              </Col>
+            </Row>
+          </Layout.Content>
+        </Layout>
+      </div>
+    );
+  };
+
+  ReactDOM.render(
+    <Login/>,
+    document.getElementById('root')
+  );
+
+</script>
+</body>
+</html>

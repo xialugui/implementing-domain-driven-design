@@ -54,6 +54,10 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/index.html",
+            "/login.html",
+            "/login.css",
+            "/imgs/**",
+            "/public/**",
     };
 
     @Override
@@ -72,17 +76,13 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                                 .authenticated()
                                 .antMatchers(EXCLUDE_URLS).permitAll()
                                 .antMatchers(HttpMethod.POST, "/users").permitAll()
-//                                .antMatchers("/login").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                /*.formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/loginPage");
-                    httpSecurityFormLoginConfigurer.loginProcessingUrl()
-                }).*/
                 .formLogin()
-//                .loginPage("/login")
+                .loginPage("/login.html")
+                .loginProcessingUrl("/login")
                 .and()
                 .apply(authorizationServerConfigurer)
                 .oidc(oidcConfigurer -> {
@@ -91,12 +91,6 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                     });
                 })
         ;
-       /* http.addFilterBefore(new Filter() {
-            @Override
-            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-                //成功，直接return，参考UsernamePasswordAuthenticationFilter
-            }
-        }, UsernamePasswordAuthenticationFilter.class);*/
     }
 
     @Bean
@@ -111,8 +105,8 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-//                .redirectUri("https://oauth.pstmn.io/v1/callback")
-                .redirectUri("https://www.baidu.com")
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
+//                .redirectUri("https://www.baidu.com")
                 .clientSettings(
                         ClientSettings
                                 .builder()
